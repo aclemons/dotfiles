@@ -1,0 +1,35 @@
+# filename matching and completion in a case-insensitive fashion
+set completion-ignore-case on
+
+# use a visible bell if one is available
+set bell-style visible
+
+# completed names which are symbolic links to directories have a slash appended
+set mark-symlinked-directories on
+
+# words which have more than one possible completion cause the matches to be listed immediately instead of ringing the bell
+set show-all-if-ambiguous on
+
+# alters the default completion behavior when inserting a single match into the line
+set skip-completed-text on
+
+# undo all changes to history lines before returning when accept-line is executed
+set revert-all-at-newline on
+
+# causes Readline to not match files whose names begin with a ‘.’ (hidden files) when performing filename completion
+set match-hidden-files off
+
+"\e[3~": delete-char
+
+# this is actually equivalent to "\C-?": delete-char
+# VT
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# kvt
+"\e[H":beginning-of-line
+"\e[F":end-of-line
+
+# rxvt and konsole (i.e. the KDE-app...)
+"\e[7~":beginning-of-line
+"\e[8~":end-of-line
