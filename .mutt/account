@@ -1,0 +1,15 @@
+# vim:syn=muttrc
+
+source ~/.mutt/crypto
+
+# Message-ID
+set hostname = domain.com # adjust
+
+set from = "user@domain.com" # adjust
+set query_command="lbdbq '%s'"
+
+set postponed="~/Maildir/drafts"
+set signature=~/.signature
+
+alternates "user1@domain.com|user2@domain.com" # adjust
+

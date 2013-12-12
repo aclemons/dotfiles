@@ -1,0 +1,41 @@
+# vim:syn=muttrc
+
+color attachment yellow default
+color hdrdefault cyan default
+color indicator black cyan
+color markers brightred default
+color normal default default
+color signature cyan default
+color status white blue
+color tilde blue default
+color tree  red default
+
+# t-prot
+color body    brightmagenta       default   "^\\[---.*"
+color body    green           default   "^#v[-+]"
+
+color quoted    magenta         default
+color quoted1   blue            default
+color quoted2   red             default
+color quoted3   yellow          default
+color quoted4   cyan            default
+color quoted5   blue            default
+color quoted6   magenta         default
+color quoted7   red             default
+color quoted8   yellow          default
+color quoted9   cyan            default
+
+# Various smilies and the like  
+color body brightyellow default "<[Gg]>"                            # <g>
+color body brightyellow default "<[Bb][Gg]>"                        # <bg>
+color body brightyellow default "[;:]-*[})>{(<|]D"                  # :-) etc...
+color body brightdefault default "(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$)" # *Bold* text.
+color body brightdefault default "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"     # _Underlined_ text.
+color body brightdefault default "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
+
+# headers
+color   header          brightred     default "^(user-agent:|X-Mailer|Mailer|Importance|X-Priority)"
+
+# color of indicator bar
+color indicator white blue
+

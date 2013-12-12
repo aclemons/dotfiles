@@ -1,6 +1,9 @@
 " Security
 set modelines=0
 
+" help tags
+helptags ~/.vim/doc
+
 " Enable vim enhancements
 set nocompatible
 
@@ -72,6 +75,8 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
 filetype on " detect filetypes and run filetype plugins - needed for taglist
+
+let g:tex_flavor='latex'
 
 "### split windows #############################################################
 
@@ -317,6 +322,9 @@ function MyRedo()
     :redo
     call winrestview(_view)
 endfunction
+
+" TeX
+autocmd Filetype tex setlocal nofoldenable
 
 "###############################################################################
 

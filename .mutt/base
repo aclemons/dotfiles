@@ -1,0 +1,123 @@
+# vim:syn=muttrc
+set realname = "User Name" # adjust
+
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/.mutt/certificates
+
+set sort = 'threads'
+set strict_threads
+set sort_aux = 'last-date'
+set move = no
+set copy = yes
+
+set date_format="%Y-%m-%d %H:%M:%S %z"
+
+set index_format = "%Z | %[%F %T] | %-40.40L | %s"
+
+set quote_regexp = "^([ \t]*[|>])+"
+
+set menu_scroll=yes             # don't page menus
+
+# Message-ID
+set use_domain = no
+
+set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^> $" %s'
+
+set pager_context=3             # page to page line context
+
+set ispell="aspell -l en_GB-ise-w_accents -e -c"
+
+my_hdr X-Operating-System: `cat /etc/slackware-version` `uname -srmo`
+#my_hdr X-message-flag: Please use plain text when replying--not HTML.
+my_hdr X-Sender: `whoami`@`hostname`
+my_hdr X-Composed-With: vim
+
+# Header stuff
+ignore *
+unignore Date: From: Resent-From: User-Agent: Mailer: X-Mailer: X-User-Agent: X-Operating-System: X-OS: To: \
+         Cc: Bcc: Reply-To: Subject: Mail-Followup-To: Message-ID: In-Reply-To: Importance: X-Priority: \
+         X-message-flag: X-Sender: X-GPG-Key:
+
+hdr_order Date: From: Resent-From: User-Agent: Mailer: X-Mailer: X-User-Agent: X-Operating-System: X-OS: \
+        Message-ID: To: Cc: Bcc: Reply-To: Subject: Mail-Followup-To: In-Reply-To: Importance: X-Priority: \
+        X-message-flag: X-Sender: X-GPG-Key:
+
+# For better looks
+set markers = no # don't put '+' at the beginning of wrapped lines
+set pager_index_lines= 10 # how large is the index window?
+
+set status_format="%r %v [%?M?%M/?%m] %?n?%n new, ?%?p?%p postponed, ?%?t?%t +tagged, ?%?d?%d deleted, ?(%h:%f) %?b?%b more to go.?%> %r"
+
+macro index,pager s "<save-message>?"
+
+# Mutt will scan for new mail in all of your mailboxes every mail_check seconds
+set mail_check = 60
+
+set beep_new = yes
+
+set delete = yes
+
+alternative_order text/plain text/enriched text/html
+auto_view text/html text/calendar application/ics application/xml
+
+set mime_forward=ask-yes
+set mime_forward_rest=yes
+
+set use_8bitmime=yes
+
+mime_lookup application/octet-stream
+
+set bounce_delivered=no
+
+set collapse_unread = yes
+
+set use_from=yes
+
+set reply_regexp="^((re(\\^[0-9])? ?:|fwd:|fw:|a(nt)?w(ort)?:|wg:|\\(fwd\\))[ \t]+)*"
+
+unset reply_self
+
+## skip prompts when replying
+set fast_reply
+set include
+set edit_headers
+
+set recall = ask-no
+
+set alias_file=~/.mutt/alias
+source ~/.mutt/alias
+
+set use_envelope_from = yes
+
+message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
+
+set attribution="On %d, %a wrote:"
+
+macro index s "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+macro pager s "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
+
+# Turn Outlook-style replies on (,O) and off (,o).
+macro index ,O  ':set   sig_on_top;set indent_string="";set header;set attribution="\n-----Original Message-----"<Return>' "set Outlook-style replies"
+macro pager ,O  ':set   sig_on_top;set indent_string="";set header;set attribution="\n-----Original Message-----"<Return>' "set Outlook-style replies"
+macro index ,o  ':unset sig_on_top;set indent_string="> ";unset header;set attribution="On %d, %a wrote:"<Return>' "set Internet-style replies"
+macro pager ,o  ':unset sig_on_top;set indent_string="> ";unset header;set attribution="On %d, %a wrote:"<Return>' "set Internet-style replies"
+
+# switch aspell between english and german
+macro index ,i ':set ispell="aspell -l en_GB-ise-w_accents -e -c<enter>' "set aspell to english"
+macro pager ,i ':set ispell="aspell -l en_GB-ise-w_accents -e -c<enter>' "set aspell to english"
+macro index ,I ':set ispell="aspell -l de_DE -e -c<enter>' "set aspell to german"
+macro pager ,I ':set ispell="aspell -l de_DE -e -c<enter>' "set aspell to german"
+
+# TPROT configs
+set my_tprot='t-prot -aelmtS -c --bigq -Mmutt --spass'
+set display_filter=$my_tprot
+
+# toggle TOFU protection with ESC-0 and ESC-1
+macro generic \e0 ":unset display_filter\n" "Turn TOFU protection off"
+macro generic \e1 ":set display_filter='$my_tprot'\n" "Turn TOFU protection on"
+
+# same in pager mode
+macro pager \e0 ":unset display_filter; exec exit\n:exec display-message\n" "Turn TOFU protection off"
+macro pager \e1 ":set display_filter='$my_tprot'; exec exit\n:exec display-message\n" "Turn TOFU protection on"
+

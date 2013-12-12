@@ -93,7 +93,7 @@ function _add_to_history() {
 	  xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
 		echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"
 		;;
-	  screen)
+	  screen|screen-256color)
 		echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"
 		;;
     esac
@@ -152,7 +152,14 @@ PROMPT_COMMAND=_simple_prompt_command
 ##############
 
 # give maven more memory
-export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=384m"
+export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled"
+
+export PARINIT="rTbgqR B=.?_A_a Q=_s>|"
+
+############
+# Perforce #
+############
+export P4CONFIG=.p4settings
 
 #########
 # Paths #
@@ -160,6 +167,7 @@ export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=384m"
 
 export PATH=~/bin:$PATH
 export SQLPATH=~/.sqlplus
+export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 
 #############
 # Init Vars #
@@ -167,6 +175,10 @@ export SQLPATH=~/.sqlplus
 
 # bool to track first invocation for history
 _first_invoke=1
+
+export TZ=Pacific/Auckland
+
+export VISUAL=vim
 
 ###########
 # Aliases #
@@ -176,22 +188,92 @@ _first_invoke=1
 alias cp="cp -i"
 alias mv="mv -i"
 
+# never download stupid snapshots
+alias mvn="mvn -nsu -o"
+
 # case insensitive search in less
 alias less="less -i"
 
-alias sshnoauth="ssh -o PreferredAuthentications=keyboard-interactive"
-alias scpnoauth="scp -o PreferredAuthentications=keyboard-interactive"
+alias tidyxml="tidy -xml -i -w 1000 -q"
+
+# start x in a screen session so i don't have to leave a tty logged in
+alias startx="screen -d -m startx -- -nolisten tcp ; exit"
+
+alias sshnokeys="ssh -o PreferredAuthentications=keyboard-interactive"
+alias scpnokeys="scp -o PreferredAuthentications=keyboard-interactive"
+
+alias gogo="rlwrap -c telnet localhost 5356"
+
+alias rubclean="rubber --clean"
+
+alias pidgin="export NSS_SSL_CBC_RANDOM_IV=0 ; pidgin"
+alias finch="export NSS_SSL_CBC_RANDOM_IV=0 ; finch"
+
+alias disper_work="disper --displays=DisplayPort-0,VGA1 -e"
 
 ##################
 # Misc Functions #
 ##################
 
+function rubpdf() {
+  if [ $# -ne 1 ] ; then
+    echo "Usage: rubpdf [tex file]"
+    return 1
+  fi
+
+  local tex="$1"
+  echo "Rubbing $tex"
+  for i in {1..3}; do
+    rubber --inplace --maxerr -1 --short --force --warn all --pdf "$tex"
+  done
+
+  xdg-open "${tex%tex}pdf"
+}
+
+function rubhtml() {
+  if [ $# -ne 1 ] ; then
+    echo "Usage: rubhtml [tex file]"
+    return 1
+  fi
+
+  local tex="$1"
+  echo "Rubbing $tex"
+  for i in {1..3}; do
+    rubber --inplace --maxerr -1 --short --force --warn all --html "$tex"
+  done
+
+  xdg-open "${tex%tex}html"
+}
+
 function manifest() {
+  if [ $# -ne 1 ] ; then
+    echo "Usage: manifest [jar file]"
+    return 1
+  fi
+
   local arg=$1
 
-  unzip -c "$arg" META-INF/MANIFEST.MF | perl -0pe 's/\r?\n //sg' | perl -pi -e 's/\r\n/\n/g'
+  if [ ! -e "$arg" ] ; then
+    echo "$arg does not exist!"
+    return 2
+  fi
+
+  unzip -q -c "$arg" META-INF/MANIFEST.MF | perl -0pe 's/\r?\n //sg' | perl -pe 's/\r\n/\n/g'
 }
-export -f manifest
+
+function timeis() {
+  if [ $# -ne 1 ] ; then
+    echo "Usage: timeis [place]"
+    return 1
+  fi
+
+  local city="$1"
+  local search="$1"
+
+  search=${search/ /_}
+
+  w3m -dump http://time.is/$search | grep -i -P "\d\d:\d\d:\d\d|^$city"
+}
 
 # translate a word
 function tl() {
