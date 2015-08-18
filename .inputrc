@@ -1,7 +1,7 @@
 # filename matching and completion in a case-insensitive fashion
 set completion-ignore-case on
 
-# use a visible bell if one is available
+# do not use any bell
 set bell-style none
 
 # completed names which are symbolic links to directories have a slash appended
@@ -16,7 +16,7 @@ set skip-completed-text on
 # undo all changes to history lines before returning when accept-line is executed
 set revert-all-at-newline on
 
-# causes Readline to not match files whose names begin with a ‘.’ (hidden files) when performing filename completion
+# causes Readline to not match files whose names begin with a '.' (hidden files) when performing filename completion
 set match-hidden-files off
 
 # tmux in konsole
@@ -28,4 +28,3 @@ set match-hidden-files off
 
 # delete in konsole
 "\e[3~": delete-char
-

@@ -78,6 +78,8 @@ filetype on " detect filetypes and run filetype plugins - needed for taglist
 
 let g:tex_flavor='latex'
 
+au BufRead,BufNewFile *.dart set filetype=dart
+
 "### split windows #############################################################
 
 " move between windows
@@ -345,3 +347,8 @@ if has('gui_running')
 endif
 
 set nobackup
+set noundofile
+
+syntax enable
+set background=dark
+colorscheme solarized

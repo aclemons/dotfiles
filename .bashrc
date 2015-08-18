@@ -85,10 +85,10 @@ fi
 unset HISTFILESIZE
 
 HISTCONTROL=ignorespace:ignoredups
-HISTIGNORE="truecrypt*":?:?? 
+HISTIGNORE="truecrypt*":?:??
 
 function _add_to_history() {
-# Change the window title of X terminals 
+# Change the window title of X terminals
     case ${TERM} in
 	  xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
 		echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"
@@ -152,7 +152,7 @@ PROMPT_COMMAND=_simple_prompt_command
 ##############
 
 # give maven more memory
-export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled"
+export MAVEN_OPTS="-server -Xmx2048m -XX:MaxPermSize=512m -XX:+UseNUMA"
 
 export PARINIT="rTbgqR B=.?_A_a Q=_s>|"
 
@@ -176,9 +176,9 @@ export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 # bool to track first invocation for history
 _first_invoke=1
 
-export TZ=Pacific/Auckland
+#export TZ=Pacific/Auckland
 
-export VISUAL=vim
+#export VISUAL=vim
 
 ###########
 # Aliases #
@@ -210,6 +210,9 @@ alias pidgin="export NSS_SSL_CBC_RANDOM_IV=0 ; pidgin"
 alias finch="export NSS_SSL_CBC_RANDOM_IV=0 ; finch"
 
 alias disper_work="disper --displays=DisplayPort-0,VGA1 -e"
+
+alias touchpadon="synclient TouchpadOff=0"
+alias touchpadoff="synclient TouchpadOff=1"
 
 ##################
 # Misc Functions #
@@ -245,13 +248,37 @@ function rubhtml() {
   xdg-open "${tex%tex}html"
 }
 
+function bundledate() {
+  if [ $# -ne 1 ] ; then
+    echo "Usage: bundledate [jar file]"
+    return 1
+  fi
+
+  local arg="$1"
+
+  if [ ! -e "$arg" ] ; then
+    echo "$arg does not exist!"
+    return 2
+  fi
+
+  bnddate="$(unzip -q -c "$arg"  META-INF/MANIFEST.MF | perl -0pe 's/\r?\n //sg' | perl -pe 's/\r\n/\n/g' | grep Bnd-LastModified)"
+
+  if [ ! $? = 0 ] ; then
+    echo "$arg does not have a Bnd-LastModified manifest entry"
+    return 3
+  fi
+
+  date -d @$(( $(echo "$bnddate" | cut -d' ' -f2) / 1000 ))
+
+}
+
 function manifest() {
   if [ $# -ne 1 ] ; then
     echo "Usage: manifest [jar file]"
     return 1
   fi
 
-  local arg=$1
+  local arg="$1"
 
   if [ ! -e "$arg" ] ; then
     echo "$arg does not exist!"
@@ -282,3 +309,27 @@ function tl() {
         | tac;
 }
 
+# find mvn project by groupId/artefact id under the current dir
+# Exit codes
+#  0 - found
+#  1 - no matching project found
+function find_mvn_project() {
+  if [ $# -ne 1 -a $# -ne 2 ] ; then
+    echo "Usage: find_mvn_project [artefactId] | [groupId] [artefactId]"
+    return 1
+  fi
+
+  if [ $# -eq 1 ] ; then
+    find . -name pom.xml -print0 | xargs -I xx -0 sh -c "(xmllint --xpath \"/*[local-name()='project' and *[local-name()='artifactId' and text()='$1']]\" xx > /dev/null 2>&1 && echo xx) || true" | grep .
+  else
+    find . -name pom.xml -print0 | xargs -I xx -0 sh -c "(xmllint --xpath \"/*[local-name()='project' and *[local-name()='artifactId' and text()='$2'] and ((*[local-name()='parent']/*[local-name()='groupId' and text()='$1'] and not(*[local-name()='groupId' and text()='$1'])) or (*[local-name()='groupId' and text()='$1']))]\" xx > /dev/null 2>&1 && echo xx) || true" | grep .
+  fi
+}
+
+function goto_mvn_project() {
+  local pom="$(find_mvn_project $*)"
+
+  [ ! -z "$pom" ] || (>&2 echo "Project not found" && return 1)
+
+  cd "$(dirname "$pom")"
+}
