@@ -54,7 +54,6 @@ fi
 # Try to keep environment pollution down, EPA loves us.
 unset use_color safe_term match_lhs
 
-
 ################
 # Bash Options #
 ################
@@ -152,7 +151,7 @@ PROMPT_COMMAND=_simple_prompt_command
 ##############
 
 # give maven more memory
-export MAVEN_OPTS="-server -Xmx2048m -XX:MaxPermSize=512m -XX:+UseNUMA"
+export MAVEN_OPTS="-server -Xmx3G -XX:MaxPermSize=512m"
 
 export PARINIT="rTbgqR B=.?_A_a Q=_s>|"
 
@@ -176,9 +175,9 @@ export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 # bool to track first invocation for history
 _first_invoke=1
 
-#export TZ=Pacific/Auckland
+export TZ=Pacific/Auckland
 
-#export VISUAL=vim
+export VISUAL=vim
 
 ###########
 # Aliases #
@@ -205,9 +204,6 @@ alias scpnokeys="scp -o PreferredAuthentications=keyboard-interactive"
 alias gogo="rlwrap -c telnet localhost 5356"
 
 alias rubclean="rubber --clean"
-
-alias pidgin="export NSS_SSL_CBC_RANDOM_IV=0 ; pidgin"
-alias finch="export NSS_SSL_CBC_RANDOM_IV=0 ; finch"
 
 alias disper_work="disper --displays=DisplayPort-0,VGA1 -e"
 
@@ -299,7 +295,7 @@ function timeis() {
 
   search=${search/ /_}
 
-  w3m -dump http://time.is/$search | grep -i -P "\d\d:\d\d:\d\d|^$city"
+  w3m -dump http://time.is/$search | grep --colour=never -i -P "\d\d:\d\d:\d\d|^Time in | week "
 }
 
 # translate a word
@@ -332,4 +328,17 @@ function goto_mvn_project() {
   [ ! -z "$pom" ] || (>&2 echo "Project not found" && return 1)
 
   cd "$(dirname "$pom")"
+}
+
+function countdown {
+  while true; do echo -ne "$(date)\r"; done
+}
+
+function diff_multimodule {
+  if [ $# -ne 2 ] ; then
+    echo "Usage: diff_multimodule treeish1 treeish2"
+    return 1
+  fi
+
+  git submodule foreach -q 'sh -c "git diff '"$1..$2"' -- . | filterdiff --clean --addprefix '\'' $path/'\'' -x '\''*/*Test.java'\'' -x '\''*/pom.xml'\'' -x '\''*/category.xml'\'' -x '\''*/feature.xml'\'' -x '\''*/MANIFEST.MF'\'' -x '\''*/*.product'\'' -x '\''*/readme.txt'\'' -x '\''*/src/test/*'\''"'
 }

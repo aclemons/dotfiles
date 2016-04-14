@@ -1,9 +1,6 @@
 " Security
 set modelines=0
 
-" help tags
-helptags ~/.vim/doc
-
 " Enable vim enhancements
 set nocompatible
 
@@ -36,8 +33,8 @@ set autoread " Set to auto read when a file is changed from the outside
 set nostartofline " leave my cursor where it was - even on page jump
 
 set expandtab " Insert spaces when the tab key is hit
-set tabstop=4 " Tab spacing of 4
-set sw=4 " shift width (moved sideways for the shift command)
+set tabstop=2 " Tab spacing of 2
+set sw=2 " shift width (moved sideways for the shift command)
 set smarttab
 
 set backspace=indent,eol,start " make backspace more flexible
@@ -75,10 +72,8 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
 filetype on " detect filetypes and run filetype plugins - needed for taglist
-
-let g:tex_flavor='latex'
-
-au BufRead,BufNewFile *.dart set filetype=dart
+filetype indent on
+filetype plugin on
 
 "### split windows #############################################################
 
@@ -224,45 +219,13 @@ map <silent> W :call XMLTidy()<CR>
 
 function XMLTidy()
     let _view=winsaveview()
-    %!tidy -q -i -xml --tab-size 4
+    %!tidy -q -i -xml --tab-size 2
     " --indent-attributes 1
     " %!xmllint --format --recover -
     call winrestview(_view)
 endfunction
 
 " XmlStuff() end
-endfunction
-
-"### CSS #######################################################################
-
-au FileType css silent call CssStuff()
-function! CssStuff()
-
-map <silent> W :call CSSTidy()<CR>
-
-function CSSTidy()
-    let _view=winsaveview()
-    %!csstidy - --silent=true --template=low --sort_properties=true --sort_selectors=true --preserve_css=true
-    call winrestview(_view)
-endfunction
-
-" CssStuff() end
-endfunction
-
-"### javascript ################################################################
-
-au FileType javascript silent call JavaScriptStuff()
-function! JavaScriptStuff()
-
-map <silent> W :call JSTidy()<CR>
-
-function JSTidy()
-    let _view=winsaveview()
-    %!jstidy
-    call winrestview(_view)
-endfunction
-
-" JavaScriptStuff() end
 endfunction
 
 "### colorscheme ###############################################################
@@ -349,6 +312,6 @@ endif
 set nobackup
 set noundofile
 
-syntax enable
+syntax on
 set background=dark
 colorscheme solarized
