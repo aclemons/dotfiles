@@ -1,6 +1,10 @@
 " reformat paragraph with no arguments:
 map gq {!}par}
 
+" like vim's set scrolloff=999
+map j jz.
+map k kz.
+
 map gg 1G
 
 try {
