@@ -151,7 +151,7 @@ PROMPT_COMMAND=_simple_prompt_command
 ##############
 
 # give maven more memory
-export MAVEN_OPTS="-server -Xmx3G -XX:MaxPermSize=512m"
+export MAVEN_OPTS="-server -Xmx3G"
 
 export PARINIT="rTbgqR B=.?_A_a Q=_s>|"
 
@@ -204,8 +204,6 @@ alias scpnokeys="scp -o PreferredAuthentications=keyboard-interactive"
 alias gogo="rlwrap -c telnet localhost 5356"
 
 alias rubclean="rubber --clean"
-
-alias disper_work="disper --displays=DisplayPort-0,VGA1 -e"
 
 alias touchpadon="synclient TouchpadOff=0"
 alias touchpadoff="synclient TouchpadOff=1"
@@ -341,4 +339,43 @@ function diff_multimodule {
   fi
 
   git submodule foreach -q 'sh -c "git diff '"$1..$2"' -- . | filterdiff --clean --addprefix '\'' $path/'\'' -x '\''*/*Test.java'\'' -x '\''*/pom.xml'\'' -x '\''*/category.xml'\'' -x '\''*/feature.xml'\'' -x '\''*/MANIFEST.MF'\'' -x '\''*/*.product'\'' -x '\''*/readme.txt'\'' -x '\''*/src/test/*'\''"'
+}
+
+# create functions for vi / elvis which support reading from stdin
+# like 'blah | vim -' does
+#
+# call vi/elvis with TERM=xterm so it works inside tmux
+function vi {
+  local BINARY_NAME="vi"
+  if [ "x${FUNCNAME[1]}" = "xelvis" ] ; then
+    local BINARY_NAME="elvis"
+  fi
+
+  local BINARY="/usr/bin/$BINARY_NAME"
+  local LAST=""
+
+  if [ $# -gt 0 ] ; then
+    LAST="${*: -1}"
+  fi
+
+  if [ "x$LAST" = "x-" ] ; then
+    local TMPFILE
+    TMPFILE="$(mktemp)"
+
+    local ARGS=()
+    if [ $# -gt 1 ] ; then
+      local LENGTH=$(($#-1))
+      ARGS="${*:1:$LENGTH}"
+    fi
+
+    ARGS+=("$TMPFILE")
+
+    cat > "$TMPFILE" && </dev/tty TERM=xterm "$BINARY" "${ARGS[@]}" ; rm "$TMPFILE"
+  else
+    TERM=xterm "$BINARY" "$@"
+  fi
+}
+
+function elvis {
+  vi "$@"
 }
