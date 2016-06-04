@@ -10,6 +10,8 @@ set strict_threads
 set sort_aux = 'last-date'
 set move = no
 set copy = yes
+set imap_keepalive = 900
+set imap_check_subscribed = yes
 
 set date_format="%Y-%m-%d %H:%M:%S %z"
 
@@ -23,24 +25,29 @@ set menu_scroll=yes             # don't page menus
 set use_domain = no
 
 set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^> $" %s'
+#set editor='$HOME/bin/killsig %s; vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^> $" %s'
+set editor='TERM=xterm elvis -cMail -c "set textwidth=72" -c "set wrap" -c "?^> $" %s'
 
 set pager_context=3             # page to page line context
 
 set ispell="aspell -l en_GB-ise-w_accents -e -c"
+#set ispell="aspell -l de_DE -e -c"
 
 my_hdr X-Operating-System: `cat /etc/slackware-version` `uname -srmo`
-#my_hdr X-message-flag: Please use plain text when replying--not HTML.
+#my_hdr X-message-flag: Please use plain text when replying--not HTML
 my_hdr X-Sender: `whoami`@`hostname`
-my_hdr X-Composed-With: vim
+#my_hdr X-Composed-With: vim
+my_hdr X-Composed-With: elvis
 
 # Header stuff
 ignore *
+
 unignore Date: From: Resent-From: User-Agent: Mailer: X-Mailer: X-User-Agent: X-Operating-System: X-OS: To: \
-         Cc: Bcc: Reply-To: Subject: Mail-Followup-To: Message-ID: In-Reply-To: Importance: X-Priority: \
+         Cc: Bcc: Reply-To: Subject: Mail-Followup-To: Message-ID: In-Reply-To: Importance: X-Priority: Sensitivity: \
          X-message-flag: X-Sender: X-GPG-Key:
 
 hdr_order Date: From: Resent-From: User-Agent: Mailer: X-Mailer: X-User-Agent: X-Operating-System: X-OS: \
-        Message-ID: To: Cc: Bcc: Reply-To: Subject: Mail-Followup-To: In-Reply-To: Importance: X-Priority: \
+        Message-ID: To: Cc: Bcc: Reply-To: Subject: Mail-Followup-To: In-Reply-To: Importance: X-Priority: Sensitivity: \
         X-message-flag: X-Sender: X-GPG-Key:
 
 # For better looks
@@ -74,7 +81,30 @@ set collapse_unread = yes
 
 set use_from=yes
 
-set reply_regexp="^((re(\\^[0-9])? ?:|fwd:|fw:|a(nt)?w(ort)?:|wg:|\\(fwd\\))[ \t]+)*"
+#set config_charset=utf-8
+#set reply_regexp="^((\
+#[Rr][Eeé]?[  ]?:[ \t ]*|\
+#Re\\[[0-9]+\\]:|\
+#Re\\([0-9]+\\):|\
+#Re\\^[0-9]+:|\
+#AW:|\
+#SV:|\
+#答复:|\
+#Ad:|\
+#Odp:|\
+#Obj\\.? ?:|\
+#Re&nbsp;:|\
+#Antw(ort)?:|\
+#R[eé]f\\. :|\
+#Rép\\. :|\
+#R[eé]p\\.?:|\
+#F[Ww][Dd]? ?:|\
+#T[Rr] ?:|\
+#Trans\\. :\
+#)[ \t ]*)+"
+#unset config_charset
+#set reply_regexp="^((re(\\^[0-9])? ?:|fwd:|fw:|a(nt)?w(ort)?:|wg:|SV:|\x{7B54}\x{590D}:|\\(fwd\\))[ \t]+)*"
+set reply_regexp="^((re(\\^[0-9])? ?:|转发:|fwd:|fw:|a(nt)?w(ort)?:|wg:|\\(fwd\\))[ \t]+)*"
 
 unset reply_self
 
@@ -93,6 +123,7 @@ set use_envelope_from = yes
 message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
 
 set attribution="On %d, %a wrote:"
+#set attribution="Am %d, %a schrieb:"
 
 macro index s "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
 macro pager s "<save-message>?<toggle-mailboxes>" "move a message to a mailbox"
@@ -109,7 +140,6 @@ macro pager ,i ':set ispell="aspell -l en_GB-ise-w_accents -e -c<enter>' "set as
 macro index ,I ':set ispell="aspell -l de_DE -e -c<enter>' "set aspell to german"
 macro pager ,I ':set ispell="aspell -l de_DE -e -c<enter>' "set aspell to german"
 
-# TPROT configs
 set my_tprot='t-prot -aelmtS -c --bigq -Mmutt --spass'
 set display_filter=$my_tprot
 
@@ -117,7 +147,6 @@ set display_filter=$my_tprot
 macro generic \e0 ":unset display_filter\n" "Turn TOFU protection off"
 macro generic \e1 ":set display_filter='$my_tprot'\n" "Turn TOFU protection on"
 
-# same in pager mode
+# same in pager mode - ugly but what the hell...
 macro pager \e0 ":unset display_filter; exec exit\n:exec display-message\n" "Turn TOFU protection off"
 macro pager \e1 ":set display_filter='$my_tprot'; exec exit\n:exec display-message\n" "Turn TOFU protection on"
-

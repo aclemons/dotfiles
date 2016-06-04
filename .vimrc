@@ -1,5 +1,9 @@
+execute pathogen#infect()
+
 " Security
 set modelines=0
+
+set hidden
 
 " Enable vim enhancements
 set nocompatible
@@ -312,6 +316,8 @@ endif
 set nobackup
 set noundofile
 
-syntax on
-set background=dark
+set background=light
 colorscheme solarized
+
+
+map <C-n> :NERDTreeToggle<CR>
