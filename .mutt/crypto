@@ -116,7 +116,7 @@ set pgp_autosign=yes
 
 unset smime_is_default
 
-my_hdr X-GPG-Key: RSA/FACBDA2B
+my_hdr X-GPG-Key: RSA/C667FD657750F025
 #OpenPGP: id=FACBDA2B; url="http://pgp.mit.edu:11371/pks/lookup?op=get&search=0xC667FD657750F025"
 
 # vim:syn=muttrc
