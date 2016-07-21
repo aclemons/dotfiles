@@ -23,8 +23,8 @@ set match-hidden-files off
 "\e[4~": end-of-line
 
 # (u)rxvt and konsole (i.e. the KDE-app...)
-#"\e[7~": beginning-of-line
 "\e[8~": end-of-line
 
 # delete in konsole
 "\e[3~": delete-char
+

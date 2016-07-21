@@ -63,21 +63,11 @@ Xft.hintstyle: hintfull
 Xft.rgba:      rgb
 
 URxvt.intensityStyles: false
+URxvt.scrollBar: false
 
-!URxvt.font:        xft:Droid Sans Mono:pixelsize=22:antialias=true:hinting=true
-!URxvt.boldFont:    xft:Droid Sans Mono:pixelsize=22:bold:antialias=true:hinting=true
-!URxvt.letterSpace: -1
-!URxvt.lineSpace:   -1
+URxvt.font: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+URxvt.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
 
-!URxvt.font: xft:DejaVuSansMono:size=8
-URxvt.font: -xos4-terminus-bold-*-*-*-24-*-*-*-*-*-*-u
-URxvt.boldFont: -xos4-terminus-bold-*-*-*-24-*-*-*-*-*-*-u
-
-URxvt.perl-ext-common: default,matcher,selection-to-clipboard,resize-font
+URxvt.perl-ext-common: default,matcher,selection-to-clipboard
 URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
-
-URxvt.resize-font.smaller: C-minus
-URxvt.resize-font.bigger: C-plus
-URxvt.resize-font.reset: C-equal
-URxvt.resize-font.show: C-question
