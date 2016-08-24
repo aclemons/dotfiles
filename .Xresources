@@ -57,16 +57,18 @@
 
 
 !Xft.dpi: 160
-Xft.antialias: 0
+Xft.antialias: 1
 Xft.hinting:   1
 Xft.hintstyle: hintfull
 Xft.rgba:      rgb
+Xft.lcdfilter: lcddefault
+Xft.autohint:  0
 
 URxvt.intensityStyles: false
 URxvt.scrollBar: false
-
-URxvt.font: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
-URxvt.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+!URxvt.font: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+!URxvt.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+!URxvt.letterSpace: 1
 
 URxvt.perl-ext-common: default,matcher,selection-to-clipboard
 URxvt.url-launcher: /usr/bin/firefox
