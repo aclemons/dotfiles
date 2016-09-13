@@ -25,19 +25,17 @@ set menu_scroll=yes             # don't page menus
 set use_domain = no
 
 set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^> $" %s'
-#set editor='$HOME/bin/killsig %s; vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^> $" %s'
-set editor='TERM=xterm elvis -cMail -c "set textwidth=72" -c "set wrap" -c "?^> $" %s'
+#set editor='TERM=xterm elvis -cMail -c "set textwidth=72" -c "set wrap" -c "?^> $" %s'
 
 set pager_context=3             # page to page line context
 
 set ispell="aspell -l en_GB-ise-w_accents -e -c"
-#set ispell="aspell -l de_DE -e -c"
 
 my_hdr X-Operating-System: `cat /etc/slackware-version` `uname -srmo`
 #my_hdr X-message-flag: Please use plain text when replying--not HTML
 my_hdr X-Sender: `whoami`@`hostname`
 #my_hdr X-Composed-With: vim
-my_hdr X-Composed-With: elvis
+#my_hdr X-Composed-With: elvis
 
 # Header stuff
 ignore *

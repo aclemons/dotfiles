@@ -30,6 +30,11 @@ set ruler
 set remap
 set report=1
 set nonascii=all
+set incsearch
+set hlsearch
+set background=dark
+set ignorecase
+set smartcase
 
 source /usr/share/elvis-2.2_0/scripts/sfb.ex
 

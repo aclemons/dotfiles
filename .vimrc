@@ -12,6 +12,12 @@ set hidden
 " Enable vim enhancements
 set nocompatible
 
+" avoid 'hit enter prompt'
+set shortmess=astTI
+
+" increase ruler height
+set cmdheight=2
+
 set expandtab " Insert spaces when the tab key is hit
 set tabstop=2 " Tab spacing of 2
 set sw=2 " shift width (moved sideways for the shift command)
@@ -73,10 +79,26 @@ endif
 set nobackup
 set noundofile
 
-set background=light
-colorscheme solarized
+set background=dark
+"colorscheme solarized
+colorscheme monokai
 
 map <C-n> :NERDTreeTabsToggle<CR>
+let g:nerdtree_tabs_autofind=1
 
 set laststatus=2
+
+nmap <leader>pl v2ge:!pl<CR>
+vmap <leader>pl :!pl<CR>
+
+"let g:airline_theme='solarized'
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
