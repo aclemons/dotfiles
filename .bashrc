@@ -164,7 +164,7 @@ export P4CONFIG=.p4settings
 # Paths #
 #########
 
-export PATH=~/bin:$PATH
+export PATH=~/bin:~/.cabal/bin:~/.local/bin:$PATH
 export SQLPATH=~/.sqlplus
 export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 
@@ -178,6 +178,8 @@ _first_invoke=1
 export TZ=Pacific/Auckland
 
 export VISUAL=vim
+
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
 
 ###########
 # Aliases #
@@ -208,8 +210,18 @@ alias rubclean="rubber --clean"
 alias touchpadon="synclient TouchpadOff=0"
 alias touchpadoff="synclient TouchpadOff=1"
 
+alias vim="gvim -v"
+alias emacs="emacs -nw"
+alias emacsclient="emacsclient -nw"
+
 # ruby / rails
 alias be='bundle exec'
+alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
+
+export RUBY_GC_HEAP_INIT_SLOTS=500000
+export RUBY_HEAP_SLOTS_INCREMENT=500000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1.0
+export RUBY_GC_MALLOC_LIMIT=50000000
 
 ##################
 # Misc Functions #

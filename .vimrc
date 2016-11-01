@@ -79,9 +79,15 @@ endif
 set nobackup
 set noundofile
 
+"set t_8f=[38;2;%lu;%lu;%lum
+"set t_8b=[48;2;%lu;%lu;%lum
+
+let g:gruvbox_italic=1
+
 set background=dark
 "colorscheme solarized
 colorscheme monokai
+"colorscheme gruvbox
 
 map <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_autofind=1
@@ -101,4 +107,3 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-

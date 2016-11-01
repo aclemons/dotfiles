@@ -1,5 +1,23 @@
+set undolevels=1000
+set inputtab=spaces noautotab
+set shiftwidth=2
+set autoindent
+set showmode
+set showmatch
+set ruler
+set nu
+set remap
+set report=1
+set nonascii=all
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+map  :sfb
+
 " reformat paragraph with no arguments:
-map gq {!}par}
+map gq {!}par
 
 " like vim's set scrolloff=999
 map j jz.
@@ -20,21 +38,19 @@ try {
  }
 }
 
-set undolevels=1000
-set inputtab=spaces noautotab
-set shiftwidth=2
-set autoindent
-set showmode
-set showmatch
-set ruler
-set remap
-set report=1
-set nonascii=all
-set incsearch
-set hlsearch
-set background=dark
-set ignorecase
-set smartcase
+load since
+load sfb
 
-source /usr/share/elvis-2.2_0/scripts/sfb.ex
+au BufReadPost *spec.rb {
+  set mp="bundle exec rspec ($1?($2;char(58);$1;):$2) 2>&1"
+}
+
+au BufReadPost *.feature {
+  set mp="bundle exec cucumber ($1?($2;char(58);$1;):$2) 2>&1"
+}
+
+au BufReadPost * {
+  if knownsyntax(filename) == "ksh"
+  then set mp="shellcheck $2 \| shellerr"
+}
 
