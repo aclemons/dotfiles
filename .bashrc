@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ $- != *i* ]] ; then
     # non-interactive
     return
@@ -210,9 +212,11 @@ alias rubclean="rubber --clean"
 alias touchpadon="synclient TouchpadOff=0"
 alias touchpadoff="synclient TouchpadOff=1"
 
-alias vim="gvim -v"
+[[ ! -z "$DISPLAY" ]] && alias vim="gvim -v"
 alias emacs="emacs -nw"
 alias emacsclient="emacsclient -nw"
+
+alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \$_ while <>;'"
 
 # ruby / rails
 alias be='bundle exec'
