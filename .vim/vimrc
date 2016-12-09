@@ -1,3 +1,5 @@
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+
 execute pathogen#infect()
 
 syntax on
@@ -8,9 +10,6 @@ set omnifunc=syntaxcomplete#Complete
 set modelines=0
 
 set hidden
-
-" Enable vim enhancements
-set nocompatible
 
 " avoid 'hit enter prompt'
 set shortmess=astTI
@@ -69,7 +68,6 @@ set t_Co=256
 " These are files we are not likely to want to edit or read.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
-
 if has('gui_running')
   " Make shift-insert work like in Xterm
   map <S-Insert> <MiddleMouse>
@@ -79,15 +77,10 @@ endif
 set nobackup
 set noundofile
 
-"set t_8f=[38;2;%lu;%lu;%lum
-"set t_8b=[48;2;%lu;%lu;%lum
-
-let g:gruvbox_italic=1
-
 set background=dark
-"colorscheme solarized
 colorscheme monokai
-"colorscheme gruvbox
+let g:monokai_term_italic = 1
+let g:monokai_gui_italic = 1
 
 map <C-n> :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_autofind=1
@@ -105,5 +98,5 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
