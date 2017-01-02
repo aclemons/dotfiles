@@ -221,6 +221,13 @@ alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \
 # ruby / rails
 alias be='bundle exec'
 alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
+alias rtdb='bundle exec rake db:drop db:create db:test:prepare RAILS_ENV=test'
+
+# powershop
+alias au='PS_MARKET=au'
+alias nz='PS_MARKET=nz'
+alias uk='PS_MARKET=uk'
+alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
