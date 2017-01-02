@@ -3,7 +3,7 @@
 set -e
 
 #for prog in aspell bash bin elvis mutt readline tmux vim x ; do
-for prog in aspell bash bin elvis readline tmux vim x ; do
+for prog in aspell bash bin elvis i3 readline tmux vim x ; do
     printf 'Configuring %s\n' "$prog"
 
     xstow "$prog"
