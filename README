@@ -1,4 +1,5 @@
 collection of dotfiles
 
-thanks to https://github.com/evenless where a lot of this originated
+This uses xstow to easily install.
 
+bin/xstow-all
