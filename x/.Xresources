@@ -60,11 +60,11 @@
 Xcursor.size: 48
 Xcursor.theme: Oxygen_White
 Xft.antialias: 1
+Xft.autohint:  0
 Xft.hinting:   1
 Xft.hintstyle: hintfull
-Xft.rgba:      rgb
 Xft.lcdfilter: lcddefault
-Xft.autohint:  0
+Xft.rgba:      rgb
 
 URxvt.intensityStyles: false
 URxvt.scrollBar: false
