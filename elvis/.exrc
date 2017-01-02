@@ -42,11 +42,13 @@ load since
 load sfb
 
 au BufReadPost *spec.rb {
-  set mp="bundle exec rspec ($1?($2;char(58);$1;):$2) 2>&1"
+  set ww=uk
+  set mp="PS_MARKET=(ww) bundle exec rspec ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost *.feature {
-  set mp="bundle exec cucumber ($1?($2;char(58);$1;):$2) 2>&1"
+  set ww=uk
+  set mp="PS_MARKET=(ww) bundle exec cucumber ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost * {
