@@ -214,7 +214,7 @@ alias touchpadoff="synclient TouchpadOff=1"
 
 [[ ! -z "$DISPLAY" ]] && alias vim="gvim -v"
 alias emacs="emacs -nw"
-alias emacsclient="emacsclient -nw"
+alias emacsclient="emacsclient -nw -a '' -c"
 
 alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \$_ while <>;'"
 
