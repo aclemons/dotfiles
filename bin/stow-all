@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -e
+
+for cmd in stow xstow ; do
+  if command -v "$cmd" > /dev/null 2>&1 ; then
+    prog="$cmd"
+    break
+  fi
+done
+
+if [ "x$prog" = "x" ] ; then
+  printf "stow/xstow required!\n"
+  exit 1
+fi
+
+# mutt
+for package in aspell bash bin elvis emacs i3 readline tmux vim x ; do
+    printf 'Configuring %s\n' "$package"
+
+    "$prog" "$package"
+done
+
+printf 'Finished!\n'
