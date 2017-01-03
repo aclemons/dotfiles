@@ -1,5 +1,0 @@
-collection of dotfiles
-
-This uses xstow to easily install.
-
-bin/xstow-all
