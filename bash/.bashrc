@@ -405,3 +405,66 @@ function vi {
 function elvis {
   vi "$@"
 }
+
+function ks_env {
+  if [ $# -gt 2 ] || [ $# -lt 1 ] ; then
+    printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+    return 1
+  fi
+
+  partial=false
+  if [ "x--partial" = "x$1" ] ; then
+    partial=true
+    shift
+  fi
+
+  if [ "$1" = "au" ] || [ "$1" = "nz" ] || [ "$1" = "uk" ] ; then
+    if [ "x$2" = "x--partial" ] ; then
+      partial=true
+    elif [ "x$2" = "x" ] ; then :
+    else
+      printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+      return 1
+    fi
+  else
+    printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+    return 1
+  fi
+
+  if $partial && [ ! -f script/partial_ks.rb ] ; then
+    printf "script/partial_ks.rb must exist in the current directory\n"
+    return 2
+  fi
+
+  printf "Syncing structure...\n\n"
+
+  if [ "x$1" = "xnz" ] ; then
+    host="$1-wip-host-akl1"
+  else
+    host="$1-wip-host-wlg1"
+  fi
+
+  ks --structure-only --workers=4 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+
+  printf "\n"
+
+  printf "Enabling compression for all tables...\n"
+
+  mysql -B -h localhost -u root -e 'show tables' "powershop_development_$1" | sed -e '1d' | while read -r table ; do
+    if ! mysql -B -h localhost -u root -e "show create table $table" "powershop_development_$1"  | grep "ROW_FORMAT=COMPRESSED" > /dev/null 2>&1 ; then
+      printf "alter table %s ROW_FORMAT=COMPRESSED;\n" "$table"
+    fi
+  done | mysql -B -h localhost -u root "powershop_development_$1" || return "$?"
+
+  printf "\n"
+
+  printf "Syncing data...\n\n"
+
+  if $partial ; then
+    PS_MARKET="$1" ruby script/partial_ks.rb || return "$?"
+  else
+    ks --verbose --workers=4 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+  fi
+
+  printf "\n"
+}
