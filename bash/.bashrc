@@ -177,8 +177,6 @@ export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 # bool to track first invocation for history
 _first_invoke=1
 
-export TZ=Pacific/Auckland
-
 export VISUAL=vim
 
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
