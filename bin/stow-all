@@ -16,9 +16,21 @@ fi
 
 # mutt
 for package in aspell bash bin elvis emacs i3 readline tmux vim x ; do
+  if [ "$package" = "i3" ] || [ "$package" = "x" ] ; then
+    if command -v X > /dev/null 2>&1 ; then
+      printf 'Configuring %s\n' "$package"
+
+      "$prog" "$package"
+    else
+      printf 'Unconfiguring %s\n' "$package"
+
+      "$prog" -D "$package"
+    fi
+  else
     printf 'Configuring %s\n' "$package"
 
     "$prog" "$package"
+  fi
 done
 
 printf 'Finished!\n'
