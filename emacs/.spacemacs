@@ -334,6 +334,8 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setenv "PS_MARKET" "uk")
   (add-hook 'ruby-mode-hook 'rspec-mode)
+  (setq sh-basic-offset 2
+        sh-indentation 2)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
