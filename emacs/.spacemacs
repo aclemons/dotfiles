@@ -323,6 +323,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/user-config ()
   (global-centered-cursor-mode 1)
   (setq-default flycheck-disabled-checkers '(ruby-rubylint))
+  (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
         eclim-executable "/opt/eclipse-java/eclim")
   (global-linum-mode)
