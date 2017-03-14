@@ -55,9 +55,6 @@
 *color7:                S_base2
 *color15:               S_base3
 
-
-!Xft.dpi: 160
-Xcursor.size: 48
 Xcursor.theme: Oxygen_White
 Xft.antialias: 1
 Xft.autohint:  0
@@ -66,18 +63,24 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 Xft.rgba:      rgb
 
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 URxvt.intensityStyles: false
 URxvt.scrollBar: false
-!URxvt*font: xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=13:antialias=true:hinting=true
-!URxvt*font: xft:Terminus:pixelsize=12,xft:Inconsolata\ for\ Powerline:pixelsize=12
-!URxvt.font: xft:Source Code Pro:pixelsize=14
-!URxvt.boldFont: xft:Source Code Pro:pixelsize=14
-URxvt.letterSpace: -2
+
+#ifdef SRVR_andrew_winky
+!Xft.dpi: 160
+Xcursor.size: 48
+URxvt.letterSpace: -1
 URxvt.font: xft:mononoki:size=10
 URxvt.boldFont: xft:mononoki:bold:size=10
-!URxvt.font: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
-!URxvt.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
-!URxvt.letterSpace: 1
+URxvt.italicFont: xft:mononoki:italic:size=10
+URxvt.boldItalicFont: xft:mononoki:bold:italic:size=10
+#else
+URxvt.font: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+URxvt.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+#endif
+
 
 URxvt.perl-ext-common: default,matcher,selection-to-clipboard
 URxvt.url-launcher: /usr/bin/firefox
@@ -85,6 +88,5 @@ URxvt.matcher.button: 1
 
 xterm*termName: xterm-256color
 xterm*locale: true
-!xterm*faceName: DejaVu Sans Mono:style=Book:antialias=false
 xterm*faceSize: 8
 
