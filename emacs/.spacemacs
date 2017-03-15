@@ -317,6 +317,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
       (use-package rspec-mode)
 
     )
+(xterm-mouse-mode -1)
 (setq exec-path-from-shell-check-startup-files nil)
 
 (setq auto-mode-alist
