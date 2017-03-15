@@ -67,15 +67,18 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 URxvt.intensityStyles: false
 URxvt.scrollBar: false
+URxvt.mouseWheelScrollPage: false
+URxvt.cursorBlink: true
 
 #ifdef SRVR_andrew_winky
 !Xft.dpi: 160
 Xcursor.size: 48
+URxvt.depth: 32
 URxvt.letterSpace: -1
-URxvt.font: xft:mononoki:size=10
-URxvt.boldFont: xft:mononoki:bold:size=10
-URxvt.italicFont: xft:mononoki:italic:size=10
-URxvt.boldItalicFont: xft:mononoki:bold:italic:size=10
+URxvt.font: xft:mononoki:size=10,xft:unifont:antialias=false
+URxvt.boldFont: xft:mononoki:bold:size=10,xft:unifont:antialias=false
+URxvt.italicFont: xft:mononoki:italic:size=10,xft:unifont:antialias=false
+URxvt.boldItalicFont: xft:mononoki:bold:italic:size=10,xft:unifont:antialias=false
 #else
 URxvt.font: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
 URxvt.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u

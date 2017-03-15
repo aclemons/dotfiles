@@ -34,6 +34,7 @@ values."
      clojure
      javascript
      go
+     github
      vimscript
      html
      ;; ----------------------------------------------------------------
@@ -61,6 +62,8 @@ values."
      python
      java
      scala
+     version-control
+     shaders
      rust
      lua
      (c-c++ :variables c-c++-enable-clang-support t)
@@ -75,7 +78,7 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(smartparens)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -144,15 +147,15 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         monokai
                          spacemacs-dark
+                         monokai
                          spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("mononoki"
+                               :size 20
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -260,7 +263,7 @@ values."
    ;; If non nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols nil
+   dotspacemacs-mode-line-unicode-symbols t
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
@@ -312,7 +315,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
     (defun ruby-rspec/init-rspec-mode ()
       (use-package rspec-mode)
+
     )
+(setq exec-path-from-shell-check-startup-files nil)
 
 (setq auto-mode-alist
            (append  '(("\\.st\\'" . smalltalk-mode))
@@ -321,22 +326,38 @@ before packages are loaded. If you are unsure, you should try in setting them in
   )
 
 (defun dotspacemacs/user-config ()
-  (global-centered-cursor-mode 1)
-  (setq-default flycheck-disabled-checkers '(ruby-rubylint))
-  (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  (setq eclim-eclipse-dirs "/opt/eclipse-java"
-        eclim-executable "/opt/eclipse-java/eclim")
-  (global-linum-mode)
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq powerline-default-separator nil)
+  (setq neo-theme 'nerd)
+  (global-centered-cursor-mode 1)
+  (setq-default flycheck-disabled-checkers '(ruby-rubylint))
+  (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (setq eclim-eclipse-dirs "/opt/eclipse-java"
+        eclim-executable "/opt/eclipse-java/eclim")
+  (global-linum-mode)
+
   (setenv "PS_MARKET" "uk")
   (add-hook 'ruby-mode-hook 'rspec-mode)
   (setq sh-basic-offset 2
         sh-indentation 2)
+  (unless window-system
+    (when (getenv "DISPLAY")
+      (defun xclip-cut-function (text &optional push)
+        (with-temp-buffer
+          (insert text)
+          (call-process-region (point-min) (point-max) "xclip" nil 0 nil "-i" "-selection" "clipboard")))
+      (defun xclip-paste-function()
+        (let ((xclip-output (shell-command-to-string "xclip -o -selection clipboard")))
+          (unless (string= (car kill-ring) xclip-output)
+            xclip-output )))
+      (setq interprogram-cut-function 'xclip-cut-function)
+      (setq interprogram-paste-function 'xclip-paste-function)
+      ))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
