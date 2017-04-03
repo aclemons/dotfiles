@@ -343,7 +343,6 @@ you should place your code here."
   (global-linum-mode)
 
   (setenv "PS_MARKET" "uk")
-  (setenv "PERFORMANCE_CI" "0")
   (add-hook 'ruby-mode-hook 'rspec-mode)
   (setq sh-basic-offset 2
         sh-indentation 2)
