@@ -122,7 +122,7 @@ programs:								      \
 -				loop -root				    \n\
 				penetrate -root				    \n\
 				petri -root				    \n\
-				phosphor -root -scale 4 -fg white	    \n\
+				phosphor -root -scale 2 -fg white	    \n\
   GL: 				pulsar -root				    \n\
 				ripples -root				    \n\
 				shadebobs -root				    \n\
