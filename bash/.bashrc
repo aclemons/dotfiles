@@ -394,9 +394,9 @@ function vi {
 
     ARGS+=("$TMPFILE")
 
-    cat > "$TMPFILE" && </dev/tty TERM=xterm "$BINARY" "${ARGS[@]}" ; rm "$TMPFILE"
+    cat > "$TMPFILE" && </dev/tty LANG=de_DE@euro TERM=xterm "$BINARY" "${ARGS[@]}" ; rm "$TMPFILE"
   else
-    TERM=xterm "$BINARY" "$@"
+    LANG=de_DE@euro TERM=xterm "$BINARY" "$@"
   fi
 }
 
