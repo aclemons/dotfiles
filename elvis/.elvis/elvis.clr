@@ -1,43 +1,12 @@
 switch gui
-case windows
-case x11 {
-  color normal black on gray90
-  color argument like keyword green or dark green
-  color bottom like normal
-  color comment italic dark green or light green
-  color cursor blue on navyblue
-  color fixed gray35 or gray80
-  color function Red4 or pink
-  color guide white
-  color hexheading gray70
-  color hlsearch boxed
-  color keyword bold
-  color libt like keyword italic
-  color linenumber gray
-  color link like formatted underlined blue or light blue
-  color number Blue4 or light blue
-  color other like keyword
-  color prep bold Blue4 or light blue
-  color prepquote like string
-  color scroll like tool
-  color scrollbar like toolbar
-  color selection on tan
-  color spell on pink
-  color status like tool
-  color statusbar like toolbar
-  color string tan4 or tan1
-  color tool black on gray75
-  color toolbar white on gray40
-  color variable Gray15 or palegoldenrod
-}
 case vio
 case termcap {
   set background=dark
-  color normal yellow
+  color normal yellow on black
   color bold bright red
   color italic white
   color emphasized bright cyan
-  color fixed bright white 
+  color fixed bright white
   color underlined green
   color standout bright white on blue
   color string cyan
@@ -54,6 +23,7 @@ case termcap {
   color spell red or light magenta
   color prepquote like string
   color linenumber gray
+  color other like keyword
   color libt like keyword
   color showmode green boxed
   color hexheading white
