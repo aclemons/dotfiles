@@ -39,7 +39,6 @@ try {
 }
 
 load align
-load since
 load sfb
 
 au BufReadPost *spec.rb {
