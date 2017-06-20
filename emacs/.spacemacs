@@ -343,7 +343,7 @@ you should place your code here."
   (setq powerline-default-separator nil)
   (setq neo-theme 'nerd)
   (global-centered-cursor-mode 1)
-  (setq-default flycheck-disabled-checkers '(ruby-rubylint))
+  (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (setq ruby-insert-encoding-magic-comment nil)
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
