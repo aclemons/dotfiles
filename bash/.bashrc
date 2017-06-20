@@ -91,12 +91,12 @@ HISTIGNORE="truecrypt*":?:??
 function _add_to_history() {
 # Change the window title of X terminals
     case ${TERM} in
-	  xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
-		echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"
-		;;
-	  screen|screen-256color)
-		echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"
-		;;
+    xterm*|rxvt*|Eterm|aterm|kterm|gnome*|interix)
+      echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"
+    ;;
+    screen|screen-256color)
+      echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"
+    ;;
     esac
 
     # prevent historizing last command of last session on new shells
