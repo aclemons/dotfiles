@@ -346,9 +346,10 @@ you should place your code here."
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (setq ruby-insert-encoding-magic-comment nil)
+  (setq rspec-use-spring-when-possible nil)
+  (setq rspec-spec-command "spring rspec")
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
         eclim-executable "/opt/eclipse-java/eclim")
-
   (setq sh-basic-offset 2
         sh-indentation 2)
   (unless window-system
