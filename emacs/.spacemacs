@@ -344,6 +344,7 @@ you should place your code here."
   (setq neo-theme 'nerd)
   (global-centered-cursor-mode 1)
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (setq ruby-insert-encoding-magic-comment nil)
   (setq rspec-use-spring-when-possible nil)
