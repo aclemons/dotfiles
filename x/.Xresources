@@ -79,9 +79,15 @@ URxvt.font: xft:mononoki:size=10,xft:unifont:antialias=false
 URxvt.boldFont: xft:mononoki:bold:size=10,xft:unifont:antialias=false
 URxvt.italicFont: xft:mononoki:italic:size=10,xft:unifont:antialias=false
 URxvt.boldItalicFont: xft:mononoki:bold:italic:size=10,xft:unifont:antialias=false
+
+XTerm.vt100.faceName: xft:mononoki:size=10,xft:unifont:antialias=false
+XTerm.vt100.boldFont: xft:mononoki:bold:size=10,xft:unifont:antialias=false
 #else
 URxvt.font: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
 URxvt.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+
+XTerm.vt100.faceName: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
+XTerm.vt100.boldFont: -xos4-terminus-bold-*-*-*-12-*-*-*-*-*-*-u
 #endif
 
 
@@ -91,5 +97,5 @@ URxvt.matcher.button: 1
 
 xterm*termName: xterm-256color
 xterm*locale: true
-xterm*faceSize: 8
+xterm*faceSize: 10
 
