@@ -219,7 +219,7 @@ alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \
 # ruby / rails
 alias be='bundle exec'
 alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
-alias rtdb='bundle exec rake db:drop db:create db:environment:set db:test:prepare RAILS_ENV=test'
+alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepare db:environment:set RAILS_ENV=test'
 
 # powershop
 alias au='PS_MARKET=au'
