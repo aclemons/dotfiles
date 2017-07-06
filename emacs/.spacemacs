@@ -346,6 +346,10 @@ you should place your code here."
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'ruby-mode-hook (lambda ()
+                             (setq default-directory
+                                   (or (locate-dominating-file default-directory "Gemfile")
+                                       default-directory))))
   (setq ruby-insert-encoding-magic-comment nil)
   (setq rspec-use-spring-when-possible nil)
   (setq rspec-spec-command "spring rspec")
