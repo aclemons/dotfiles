@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
 execute pathogen#infect()
@@ -12,6 +15,7 @@ let g:netrw_liststyle=3
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
+set nu
 set modelines=0
 
 set path+=**
