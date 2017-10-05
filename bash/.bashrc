@@ -442,7 +442,18 @@ function ks_env {
     host="$1-wip-host-wlg1"
   fi
 
-  ks --structure-only --workers=4 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+  macosx=false
+  case "$(uname)" in
+    Darwin) macosx=true;;
+  esac
+
+  if $macosx ; then
+    nprocs="$(ruby -e 'require "concurrent"; puts Concurrent.processor_count')"
+  else
+    nprocs="$(nproc)"
+  fi
+
+  ks --structure-only --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
 
   printf "\n"
 
@@ -461,8 +472,12 @@ function ks_env {
   if $partial ; then
     PS_MARKET="$1" ruby script/partial_ks.rb || return "$?"
   else
-    ks --verbose --workers=4 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+    ks --workers=4 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
   fi
 
   printf "\n"
+}
+
+function diff_local_migrations {
+  vimdiff <(printf "%s\nexit\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | PS_MARKET="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
 }
