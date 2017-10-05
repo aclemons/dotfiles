@@ -43,6 +43,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      ivy
      yaml
+     emoji
      (auto-completion :variables auto-completion-enable-snippets-in-popup t)
      ;; better-defaults
      emacs-lisp
@@ -386,8 +387,6 @@ before packages are loaded."
                                    (or (locate-dominating-file default-directory "Gemfile")
                                        default-directory))))
   (setq ruby-insert-encoding-magic-comment nil)
-  (setq rspec-use-spring-when-possible nil)
-  (setq rspec-spec-command "spring rspec")
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
         eclim-executable "/opt/eclipse-java/eclim")
   (setq sh-basic-offset 2
