@@ -472,7 +472,7 @@ function ks_env {
   if $partial ; then
     PS_MARKET="$1" ruby script/partial_ks.rb || return "$?"
   else
-    ks --workers=4 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+    ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
   fi
 
   printf "\n"
