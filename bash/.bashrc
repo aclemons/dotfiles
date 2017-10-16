@@ -166,7 +166,7 @@ export P4CONFIG=.p4settings
 # Paths #
 #########
 
-export PATH=~/bin:~/.local/bin:$PATH
+export PATH=~/bin:~/.local/bin:~/node_modules/.bin:$PATH
 export SQLPATH=~/.sqlplus
 export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 
@@ -226,6 +226,7 @@ alias au='PS_MARKET=au'
 alias nz='PS_MARKET=nz'
 alias uk='PS_MARKET=uk'
 alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
+alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*'"
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
@@ -322,9 +323,11 @@ function timeis() {
 
 # translate a word
 function tl() {
-   w3m -dump "http://dict.leo.org/ende?lang=de&search=$@" \
-        | perl -ne 'print "$1\n" if /^\s*\│(.+)\│\s*$/' \
-        | tac;
+  w3m -dump "https://dict.leo.org/englisch-deutsch/$@" \
+    | sed '1,/Aktivieren Sie JavaScript für mehr Features/d' \
+    | sed '1d' \
+    | sed '/Weitere Aktionen/Q' \
+    | sed '$d'
 }
 
 # find mvn project by groupId/artefact id under the current dir
