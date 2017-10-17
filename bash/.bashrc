@@ -181,6 +181,9 @@ export VISUAL=vim
 
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 
+RUST_SRC_PATH="/usr/lib$(case "$(uname -m)" in x86_64) echo "64" ;; *) echo "" ;; esac; )/rustlib/src/rust/src"
+export RUST_SRC_PATH
+
 ###########
 # Aliases #
 ###########
