@@ -31,12 +31,14 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(
      treemacs
+     dash
      clojure
      javascript
      go
      github
      vimscript
      html
+     latex
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -62,6 +64,7 @@ This function should only modify configuration layer settings."
      (java :variables java-backend 'eclim)
      scala
      rust
+     perl5
      lua
      (c-c++ :variables c-c++-enable-clang-support t)
      elixir
