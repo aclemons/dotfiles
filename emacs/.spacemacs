@@ -386,6 +386,7 @@ before packages are loaded."
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'ruby-mode-hook (lambda ()
                              (setq default-directory
                                    (or (locate-dominating-file default-directory "Gemfile")
