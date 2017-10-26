@@ -213,6 +213,8 @@ alias rubclean="rubber --clean"
 alias touchpadon="synclient TouchpadOff=0"
 alias touchpadoff="synclient TouchpadOff=1"
 
+[[ $(id -u) == "0" ]] && alias sr='slackroll'
+
 [[ ! -z "$DISPLAY" ]] && alias vim="gvim -v"
 [[ ! -z "$DISPLAY" ]] && alias emacs="emacs -nw" && alias emacsclient="emacsclient -nw -a '' -c"
 [[ -z "$DISPLAY" ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
