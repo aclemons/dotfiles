@@ -3,6 +3,14 @@ scriptencoding utf-8
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 
+let g:pathogen_disabled = []
+
+if v:version < '800'
+  call add(g:pathogen_disabled, 'ale')
+else
+  call add(g:pathogen_disabled, 'syntastic')
+endif
+
 execute pathogen#infect()
 
 syntax on
@@ -21,7 +29,7 @@ set modelines=0
 set path+=**
 
 set background=dark
-colorscheme monokai
+colorscheme luinnar
 let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
 
