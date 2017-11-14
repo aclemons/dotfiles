@@ -61,8 +61,6 @@ set foldlevelstart=2
 
 set iskeyword+=-
 
-let NERDTreeIgnore=['\~$', '.o$', 'bower_components', 'node_modules', '__pycache__']
-
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
