@@ -76,3 +76,6 @@
 [submodule "vim/.vim/bundle/rust.vim"]
 	path = vim/.vim/bundle/rust.vim
 	url = https://github.com/rust-lang/rust.vim
+[submodule "vim/.vim/bundle/vim-unimpaired"]
+	path = vim/.vim/bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
