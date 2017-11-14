@@ -29,7 +29,7 @@ set modelines=0
 set path+=**
 
 set background=dark
-colorscheme luinnar
+colorscheme monokai
 let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
 
