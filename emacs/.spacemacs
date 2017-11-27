@@ -29,7 +29,8 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(react
+   '(csv
+     react
      treemacs
      dash
      clojure
@@ -226,7 +227,7 @@ It should only modify the values of Spacemacs settings."
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
-   dotspacemacs-large-file-size 6
+   dotspacemacs-large-file-size 12
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
@@ -393,9 +394,12 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
+  (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
   (setq powerline-default-separator nil)
   (setq neo-theme 'nerd)
   (global-centered-cursor-mode 1)
+  (setq magit-revision-show-gravatars nil)
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
