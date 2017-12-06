@@ -55,9 +55,6 @@
 [submodule ".vim/bundle/vim-haml"]
 	path = vim/.vim/bundle/vim-haml
 	url = https://github.com/tpope/vim-haml
-[submodule ".vim/bundle/vim-coffee-script"]
-	path = vim/.vim/bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script
 [submodule "emacs/.emacs.d"]
 	path = emacs/.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
@@ -76,3 +73,6 @@
 [submodule "vim/.vim/bundle/vim-localvimrc"]
 	path = vim/.vim/bundle/vim-localvimrc
 	url = https://github.com/embear/vim-localvimrc
+[submodule "vim/.vim/bundle/vim-coffee-script"]
+	path = vim/.vim/bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script
