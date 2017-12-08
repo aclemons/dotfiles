@@ -184,6 +184,8 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 RUST_SRC_PATH="/usr/lib$(case "$(uname -m)" in x86_64) echo "64" ;; *) echo "" ;; esac; )/rustlib/src/rust/src"
 export RUST_SRC_PATH
 
+export GTAGSLABEL=pygments
+
 ###########
 # Aliases #
 ###########
@@ -213,11 +215,37 @@ alias rubclean="rubber --clean"
 alias touchpadon="synclient TouchpadOff=0"
 alias touchpadoff="synclient TouchpadOff=1"
 
-[[ $(id -u) == "0" ]] && alias sr='slackroll'
+if [[ $(id -u) == "0" ]] ; then
+  function sr() {
+    if [[ $1 = install ]] ; then
+      shift
+
+      local package
+      for package in "$@" ; do
+        local url
+        url="$(slackroll urls "$package" | sed -n '$p' | sed 's/\.t.z$//').dep"
+
+        if curl -f -s "$url" -o /dev/null ; then
+          local deps
+          deps="$(curl -f -s "$url" | paste -s -d' ')"
+
+          # shellcheck disable=SC2086
+          slackroll install $deps "$package"
+        else
+          slackroll install "$package"
+        fi
+      done
+    else
+      slackroll "$@"
+    fi
+  }
+fi
 
 [[ ! -z "$DISPLAY" ]] && alias vim="gvim -v"
 [[ ! -z "$DISPLAY" ]] && alias emacs="emacs -nw" && alias emacsclient="emacsclient -nw -a '' -c"
 [[ -z "$DISPLAY" ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
+
+[[ ! -z "$DISPLAY" ]] && alias remacs="remacs -nw" && alias remacsclient="remacsclient -nw -a '' -c"
 
 alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \$_ while <>;'"
 
@@ -318,12 +346,11 @@ function timeis() {
     return 1
   fi
 
-  local city="$1"
   local search="$1"
 
   search=${search/ /_}
 
-  w3m -dump http://time.is/$search | grep --colour=never -i -P "\d\d:\d\d:\d\d|^Time in | week "
+  w3m -dump "http://time.is/$search" | grep --colour=never -i -P "\d\d:\d\d:\d\d|^Time in | week "
 }
 
 # translate a word
@@ -447,7 +474,7 @@ function ks_env {
   if [ "x$1" = "xnz" ] ; then
     host="$1-wip-host-akl1"
   else
-    host="$1-wip-host-wlg1"
+    host="$1-wippy-wlg1-2"
   fi
 
   macosx=false
@@ -461,7 +488,7 @@ function ks_env {
     nprocs="$(nproc)"
   fi
 
-  ks --structure-only --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+  ks --verbose --structure-only --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
 
   printf "\n"
 
