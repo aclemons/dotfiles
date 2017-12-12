@@ -128,13 +128,7 @@ function _add_to_history() {
 }
 
 function h() {
-
-    if [ "$*" = "" ] ; then
-        tail -100 $_bashrc_eternal_history_file
-        return
-    fi
-
-    grep -i "$*" $_bashrc_eternal_history_file | tail -100
+  < $_bashrc_eternal_history_file fzf --tac | cut -d' ' -f6-
 }
 
 
