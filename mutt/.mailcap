@@ -1,0 +1,18 @@
+application/x-bzpdf; okular '%s'; test=test -n "$DISPLAY"; nametemplate=%s.pdf.bz2
+application/x-tar-gz; ark '%s'; test=test -n "$DISPLAY"
+application/x-gunzip; ark '%s'; test=test -n "$DISPLAY"
+application/x-zip-compressed; ark '%s'; test=test -n "$DISPLAY"
+application/x-gzip; ark '%s'; test=test -n "$DISPLAY"
+application/x-gzpdf; okular '%s'; test=test -n "$DISPLAY"; nametemplate=%s.pdf.gz
+application/x-pdf; okular '%s'; test=test -n "$DISPLAY"; nametemplate=%s.pdf
+application/pdf; okular '%s'; test=test -n "$DISPLAY"; nametemplate=%s.pdf
+image/gif; display 'gif:'%s''; test=test -n "$DISPLAY"
+image/bmp; display 'bmp:'%s''; test=test -n "$DISPLAY"
+image/jpeg; gwenview '%s'; test=test -n "$DISPLAY"
+image/jpg; gwenview '%s'; test=test -n "$DISPLAY"
+image/pdf; display 'pdf:'%s''; test=test -n "$DISPLAY"
+image/pjpeg; display 'jpeg:'%s''; test=test -n "$DISPLAY"
+image/png; gwenview '%s'; test=test -n "$DISPLAY"
+image/x-png; gwenview '%s'; test=test -n "$DISPLAY"
+text/html; firejail --net=none w3m -T text/html -I %{charset} -o frame=0 -o meta_refresh=0 -o auto_image=0 %s; copiousoutput; description=HTML Text; nametemplate=%s.html
+video/x-ms-wmv; vlc '%s'; description="MS Video (WMV)"; test=test -n "$DISPLAY"
