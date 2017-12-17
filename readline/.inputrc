@@ -20,13 +20,4 @@ set revert-all-at-newline on
 set match-hidden-files off
 
 # delete key in st
-#set enable-keypad on
-
-# tmux in konsole
-#"\e[4~": end-of-line
-
-# (u)rxvt and konsole (i.e. the KDE-app...)
-#"\e[8~": end-of-line
-
-# delete in konsole
-#"\e[3~": delete-char
+set enable-keypad on
