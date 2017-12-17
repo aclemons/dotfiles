@@ -128,7 +128,7 @@ function _add_to_history() {
 }
 
 function h() {
-  < $_bashrc_eternal_history_file fzf --tac | cut -d' ' -f6-
+  < $_bashrc_eternal_history_file fzf --tac --no-sort | cut -d' ' -f6-
 }
 
 
