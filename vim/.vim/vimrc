@@ -13,6 +13,12 @@ endif
 
 execute pathogen#infect()
 
+if !has('gui') && has('termguicolors') && has('nvim')
+  let &t_8f = "[38;2;%lu;%lu;%lum"
+  let &t_8b = "[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+
 syntax on
 filetype plugin indent on
 
@@ -34,7 +40,11 @@ let g:monokai_term_italic = 1
 let g:monokai_gui_italic = 1
 
 set ignorecase smartcase
-set grepprg=grep\ -IrsnH
+
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 set showcmd ruler laststatus=2
 
@@ -81,6 +91,7 @@ let g:ruby_heredoc_syntax_filetypes = {
 
 if v:version < '800'
   let g:syntastic_ruby_checkers = ['rubocop']
+  let g:syntastic_eruby_checkers = ['ruumba']
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
@@ -90,7 +101,8 @@ if v:version < '800'
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 else
-  let g:ale_linters = { 'ruby': ['rubocop'] }
+  let g:ale_linters = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
+  let g:ale_eruby_ruumba_executable = 'bundle'
 endif
 
 let g:localvimrc_persistent = 1
