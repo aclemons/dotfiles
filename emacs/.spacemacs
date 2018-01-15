@@ -31,7 +31,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-configuration-layers
    '(csv
      react
-     treemacs
+     neotree
      dash
      clojure
      javascript
@@ -67,7 +67,7 @@ This function should only modify configuration layer settings."
      shell-scripts
      (ruby :variables ruby-test-runner 'rspec)
      python
-     java
+     (java :variables java-backend 'eclim)
      groovy
      scala
      rust
@@ -169,6 +169,12 @@ It should only modify the values of Spacemacs settings."
                          spacemacs-dark
                          spacemacs-light
                         )
+   ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
+   ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
+   ;; are spaceline themes. `vanilla' is default Emacs mode-line. `custom' is a
+   ;; user defined themes, refer to the DOCUMENTATION.org for more info on how
+   ;; to create your own spaceline theme.. (default 'spacemacs)
+   dotspacemacs-mode-line-theme 'spacemacs
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
    dotspacemacs-colorize-cursor-according-to-state t
@@ -396,12 +402,16 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
-  (setq powerline-default-separator nil)
-  (setq neo-theme 'nerd)
   (global-centered-cursor-mode 1)
+  (setq ivy-rich-switch-buffer-name-max-length 80)
+  (setq ivy-rich-switch-buffer-project-max-length 20)
+  (setq ivy-virtual-abbreviate 'full)
+  (setq ivy-rich-switch-buffer-align-virtual-buffer t)
   (setq magit-revision-show-gravatars nil)
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  (setq-default tab-width 8)
+  (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'ruby-mode-hook (lambda ()
@@ -426,6 +436,10 @@ before packages are loaded."
       (setq interprogram-cut-function 'xclip-cut-function)
       (setq interprogram-paste-function 'xclip-paste-function)
       ))
+  (spaceline-define-segment buffer-id
+    (if (buffer-file-name)
+        (abbreviate-file-name (buffer-file-name))
+        (powerline-buffer-id)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
