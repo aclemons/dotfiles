@@ -417,10 +417,6 @@ before packages are loaded."
   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  (add-hook 'ruby-mode-hook (lambda ()
-                             (setq default-directory
-                                   (or (locate-dominating-file default-directory "Gemfile")
-                                       default-directory))))
   (setq ruby-insert-encoding-magic-comment nil)
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
         eclim-executable "/opt/eclipse-java/eclim")
