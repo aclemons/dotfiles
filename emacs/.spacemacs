@@ -34,7 +34,9 @@ This function should only modify configuration layer settings."
      neotree
      dash
      clojure
-     javascript
+     (javascript :variables
+                 js2-basic-offset 2
+                 js-indent-level 2)
      go
      github
      vimscript
@@ -408,7 +410,8 @@ before packages are loaded."
   (setq ivy-virtual-abbreviate 'full)
   (setq ivy-rich-switch-buffer-align-virtual-buffer t)
   (setq magit-revision-show-gravatars nil)
-  (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek))
+  (setq web-mode-markup-indent-offset 2)
+  (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (setq-default tab-width 8)
   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
@@ -440,6 +443,7 @@ before packages are loaded."
     (if (buffer-file-name)
         (abbreviate-file-name (buffer-file-name))
         (powerline-buffer-id)))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
