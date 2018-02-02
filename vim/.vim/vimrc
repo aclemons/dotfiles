@@ -13,7 +13,7 @@ endif
 
 execute pathogen#infect()
 
-if !has('gui') && has('termguicolors') && has('nvim')
+if !has('gui') && has('termguicolors')
   let &t_8f = "[38;2;%lu;%lu;%lum"
   let &t_8b = "[48;2;%lu;%lu;%lum"
   set termguicolors
@@ -103,6 +103,8 @@ if v:version < '800'
 else
   let g:ale_linters = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
   let g:ale_eruby_ruumba_executable = 'bundle'
+  let g:EclimJavaValidate = 0
+  autocmd FileType java let g:ale_java_javac_classpath=eclim#Execute('-command java_classpath -p ' . eclim#project#util#GetCurrentProjectName())
 endif
 
 let g:localvimrc_persistent = 1

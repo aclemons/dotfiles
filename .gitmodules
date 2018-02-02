@@ -76,3 +76,6 @@
 [submodule "vim/.vim/bundle/vim-monokai"]
 	path = vim/.vim/bundle/vim-monokai
 	url = https://github.com/crusoexia/vim-monokai
+[submodule "vim/.vim/bundle/vim-coffee-script"]
+	path = vim/.vim/bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script
