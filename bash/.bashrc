@@ -211,7 +211,7 @@ alias touchpadoff="synclient TouchpadOff=1"
 
 if [[ $(id -u) == "0" ]] ; then
   function sr() {
-    if [[ $1 = install ]] ; then
+    if [[ $1 == install ]] || ([[ $1 == batch ]] && [[ $2 == install ]]); then
       shift
 
       local package
@@ -221,7 +221,7 @@ if [[ $(id -u) == "0" ]] ; then
 
         if curl -f -s "$url" -o /dev/null ; then
           local deps
-          deps="$(curl -f -s "$url" | paste -s -d' ')"
+          deps="$(curl -f -s "$url" | sort | paste -s -d' ')"
 
           # shellcheck disable=SC2086
           slackroll install $deps "$package"
@@ -253,7 +253,7 @@ alias au='PS_MARKET=au'
 alias nz='PS_MARKET=nz'
 alias uk='PS_MARKET=uk'
 alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
-alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*'"
+alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop_todo.yml' -x '*/.ruumba_todo.yml' -x '*/.rubocop.yml' -x '*/.ruumba.yml'"
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
@@ -466,9 +466,14 @@ function ks_env {
   printf "Syncing structure...\n\n"
 
   if [ "x$1" = "xnz" ] ; then
-    host="$1-wip-host-akl1"
-  else
+    host="$1-wippy-akl1-2"
+  elif [ "x$1" = "xau" ] ; then
     host="$1-wippy-wlg1-2"
+  elif [ "x$1" = "xuk" ] ; then
+    host="$1-wippy-syd5-1"
+  else
+    printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+    return 1
   fi
 
   macosx=false
@@ -499,8 +504,9 @@ function ks_env {
   printf "Syncing data...\n\n"
 
   if $partial ; then
-    PS_MARKET="$1" ruby script/partial_ks.rb || return "$?"
+    PS_MARKET="$1" bundle exec ruby script/partial_ks.rb || return "$?"
   else
+#    ks --only=schema_migrations --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
     ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
   fi
 
