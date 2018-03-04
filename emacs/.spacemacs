@@ -295,7 +295,7 @@ It should only modify the values of Spacemacs settings."
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
-   dotspacemacs-large-file-size 25
+   dotspacemacs-large-file-size 50
 
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
@@ -504,6 +504,7 @@ before packages are loaded."
   (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'web-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (setq ruby-insert-encoding-magic-comment nil)
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
         eclim-executable "/opt/eclipse-java/eclim")
