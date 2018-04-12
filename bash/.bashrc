@@ -173,7 +173,22 @@ _first_invoke=1
 
 export VISUAL=vim
 
-export FZF_DEFAULT_COMMAND='ag -l -g ""'
+
+export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
+export FZF_DEFAULT_OPTS="--ansi"
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
 
 RUST_SRC_PATH="/usr/lib$(case "$(uname -m)" in x86_64) echo "64" ;; *) echo "" ;; esac; )/rustlib/src/rust/src"
 export RUST_SRC_PATH
@@ -253,7 +268,7 @@ alias au='PS_MARKET=au'
 alias nz='PS_MARKET=nz'
 alias uk='PS_MARKET=uk'
 alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
-alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop_todo.yml' -x '*/.ruumba_todo.yml' -x '*/.rubocop.yml' -x '*/.ruumba.yml'"
+alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop_todo.yml' -x '*/.ruumba_todo.yml' -x '*/.rubocop.yml' -x '*/.ruumba.yml' -x '*/.rubocop/*' -x '*/.ruumba/*'"
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
