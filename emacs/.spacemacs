@@ -77,8 +77,12 @@ This function should only modify configuration layer settings."
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      shell-scripts
-     (ruby :variables ruby-test-runner 'rspec)
-     python
+     (ruby :variables
+           ruby-test-runner 'rspec
+           ruby-enable-enh-ruby-mode t
+           ruby-version-manager 'rbenv
+           )
+     (python :variables python-backend 'lsp)
      (java :variables java-backend 'eclim)
      groovy
      scala
@@ -92,6 +96,7 @@ This function should only modify configuration layer settings."
      syntax-checking
      version-control
      colors
+     lsp
      )
 
    ;; List of additional packages that will be installed without being
@@ -101,7 +106,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(centered-cursor-mode dart-mode bats-mode meson-mode jira-markup-mode rhtml-mode)
+   dotspacemacs-additional-packages '(centered-cursor-mode dart-mode bats-mode meson-mode jira-markup-mode lsp-rust lsp-java)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -295,7 +300,7 @@ It should only modify the values of Spacemacs settings."
    ;; Size (in MB) above which spacemacs will prompt to open the large file
    ;; literally to avoid performance issues. Opening a file literally means that
    ;; no major mode or minor modes are active. (default is 1)
-   dotspacemacs-large-file-size 50
+   dotspacemacs-large-file-size 1
 
    ;; Location where to auto-save files. Possible values are `original' to
    ;; auto-save the file in-place, `cache' to auto-save the file to another
@@ -420,6 +425,9 @@ It should only modify the values of Spacemacs settings."
    ;; emphasis the current one). (default 'all)
    dotspacemacs-highlight-delimiters 'all
 
+   ;; If non-nil, start an Emacs server if one is not already running.
+   dotspacemacs-enable-server t
+
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
    dotspacemacs-persistent-server nil
@@ -492,19 +500,28 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
   (global-centered-cursor-mode 1)
+  (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
+  (setq tags-add-tables nil)
   (setq ivy-rich-switch-buffer-name-max-length 80)
   (setq ivy-rich-switch-buffer-project-max-length 20)
   (setq ivy-virtual-abbreviate 'full)
   (setq ivy-rich-switch-buffer-align-virtual-buffer t)
   (setq magit-revision-show-gravatars nil)
   (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-comment-style 2)
+  (setq web-mode-enable-current-element-highlight t)
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (setq-default tab-width 8)
-  (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  (add-hook 'ruby-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  (add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  (add-hook 'web-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (setq counsel-rg-base-command "rg -M 120 -S --no-heading --line-number --color never %s .")
+  (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'rust-mode-hook #'lsp-rust-enable)
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-rust-rls-command '("rustup" "run" "nightly" "rls"))
+    (require 'lsp-rust))
+  (setq ruby-use-smie nil)
+  (setq ruby-deep-indent-paren nil)
   (setq ruby-insert-encoding-magic-comment nil)
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
         eclim-executable "/opt/eclipse-java/eclim")
