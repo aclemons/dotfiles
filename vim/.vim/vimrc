@@ -108,6 +108,16 @@ else
 endif
 
 let g:localvimrc_persistent = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_theme='base16_monokai'
+
+autocmd BufEnter,BufNew *.info call CheckSlackBuildInfo()
+function CheckSlackBuildInfo()
+  if filereadable(expand('%:p:r'). '.SlackBuild')
+    setlocal filetype=sh
+  endif
+endfunction
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
