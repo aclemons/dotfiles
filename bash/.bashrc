@@ -174,8 +174,8 @@ _first_invoke=1
 export VISUAL=vim
 
 
-export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
 export FZF_DEFAULT_OPTS="--ansi"
+export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -252,7 +252,7 @@ fi
 
 [[ ! -z "$DISPLAY" ]] && alias vim="gvim -v"
 [[ ! -z "$DISPLAY" ]] && alias emacs="emacs -nw" && alias emacsclient="emacsclient -nw -a '' -c"
-[[ -z "$DISPLAY" ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
+[[ -z "$DISPLAY" ]] && [[ -e /usr/bin ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
 
 [[ ! -z "$DISPLAY" ]] && alias remacs="remacs -nw" && alias remacsclient="remacsclient -nw -a '' -c"
 
@@ -268,7 +268,7 @@ alias au='PS_MARKET=au'
 alias nz='PS_MARKET=nz'
 alias uk='PS_MARKET=uk'
 alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
-alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop_todo.yml' -x '*/.ruumba_todo.yml' -x '*/.rubocop.yml' -x '*/.ruumba.yml' -x '*/.rubocop/*' -x '*/.ruumba/*'"
+alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop*' -x '*/.ruumba*'"
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
@@ -397,7 +397,7 @@ function goto_mvn_project() {
 }
 
 function countdown {
-  while true; do echo -ne "$(date)\r"; done
+  while true; do echo -ne "$(date)\\r"; done
 }
 
 function diff_multimodule {
@@ -407,6 +407,10 @@ function diff_multimodule {
   fi
 
   git submodule foreach -q 'sh -c "git diff '"$1..$2"' -- . | filterdiff --clean --addprefix '\'' $path/'\'' -x '\''*/*Test.java'\'' -x '\''*/pom.xml'\'' -x '\''*/category.xml'\'' -x '\''*/feature.xml'\'' -x '\''*/MANIFEST.MF'\'' -x '\''*/*.product'\'' -x '\''*/readme.txt'\'' -x '\''*/src/test/*'\''"'
+}
+
+function update_vim_plugins() {
+  find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git pull --rebase
 }
 
 # create functions for vi / elvis which support reading from stdin
@@ -450,7 +454,7 @@ function elvis {
 
 function ks_env {
   if [ $# -gt 2 ] || [ $# -lt 1 ] ; then
-    printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+    printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
     return 1
   fi
 
@@ -465,20 +469,20 @@ function ks_env {
       partial=true
     elif [ "x$2" = "x" ] ; then :
     else
-      printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+      printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
       return 1
     fi
   else
-    printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+    printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
     return 1
   fi
 
   if $partial && [ ! -f script/partial_ks.rb ] ; then
-    printf "script/partial_ks.rb must exist in the current directory\n"
+    printf "script/partial_ks.rb must exist in the current directory\\n"
     return 2
   fi
 
-  printf "Syncing structure...\n\n"
+  printf "Syncing structure...\\n\\n"
 
   if [ "x$1" = "xnz" ] ; then
     host="$1-wippy-akl1-2"
@@ -487,7 +491,7 @@ function ks_env {
   elif [ "x$1" = "xuk" ] ; then
     host="$1-wippy-syd5-1"
   else
-    printf "Usage: ks_env [nz|au|uk] [--partial]\n"
+    printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
     return 1
   fi
 
@@ -504,28 +508,29 @@ function ks_env {
 
   ks --verbose --structure-only --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
 
-  printf "\n"
+  printf "\\n"
 
-  printf "Enabling compression for all tables...\n"
+  printf "Enabling compression for all tables...\\n"
 
   mysql -B -h localhost -u root -e 'show tables' "powershop_development_$1" | sed -e '1d' | while read -r table ; do
     if ! mysql -B -h localhost -u root -e "show create table $table" "powershop_development_$1"  | grep "ROW_FORMAT=COMPRESSED" > /dev/null 2>&1 ; then
-      printf "alter table %s ROW_FORMAT=COMPRESSED;\n" "$table"
+      printf "alter table %s ROW_FORMAT=COMPRESSED;\\n" "$table"
     fi
   done | mysql -B -h localhost -u root "powershop_development_$1" || return "$?"
 
-  printf "\n"
+  printf "\\n"
 
-  printf "Syncing data...\n\n"
+  printf "Syncing data...\\n\\n"
+
+  ks --only=schema_migrations --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
 
   if $partial ; then
     PS_MARKET="$1" bundle exec ruby script/partial_ks.rb || return "$?"
   else
-#    ks --only=schema_migrations --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
     ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
   fi
 
-  printf "\n"
+  printf "\\n"
 }
 
 function diff_local_migrations {
