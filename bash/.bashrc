@@ -477,8 +477,8 @@ function ks_env {
     return 1
   fi
 
-  if $partial && [ ! -f script/partial_ks.rb ] ; then
-    printf "script/partial_ks.rb must exist in the current directory\\n"
+  if $partial && [ ! -f lib/db_refresh.rb ] ; then
+    printf "lib/db_refresh.rb  must exist in the current directory\\n"
     return 2
   fi
 
@@ -525,7 +525,7 @@ function ks_env {
   ks --only=schema_migrations --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
 
   if $partial ; then
-    PS_MARKET="$1" bundle exec ruby script/partial_ks.rb || return "$?"
+    PS_MARKET="$1" bundle exec ruby lib/db_refresh.rb || return "$?"
   else
     ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
   fi
