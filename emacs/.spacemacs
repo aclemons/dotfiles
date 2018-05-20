@@ -82,7 +82,7 @@ This function should only modify configuration layer settings."
            ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rbenv
            )
-     (python :variables python-backend 'lsp)
+     (python :variables python-backend 'anaconda)
      (java :variables java-backend 'eclim)
      groovy
      scala
@@ -131,6 +131,25 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
+   ;; If non-nil then enable support for the portable dumper. You'll need
+   ;; to compile Emacs 27 from source following the instructions in file
+   ;; EXPERIMENTAL.org at to root of the git repository.
+   ;; (default nil)
+   dotspacemacs-enable-emacs-pdumper nil
+
+   ;; File path pointing to emacs 27.1 executable compiled with support
+   ;; for the portable dumper (this is currently the branch pdumper).
+   ;; (default "emacs")
+   dotspacemacs-emacs-pdumper-executable-file "emacs"
+
+   ;; Name of the Spacemacs dump file. This is the file will be created by the
+   ;; portable dumper in the cache directory under dumps sub-directory.
+   ;; To load it when starting Emacs add the parameter `--dump-file'
+   ;; when invoking Emacs 27.1 executable on the command line, for instance:
+   ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
+   ;; (default spacemacs.pdmp)
+   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
    ;; environment, otherwise it is strongly recommended to let it set to t.
@@ -426,7 +445,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-highlight-delimiters 'all
 
    ;; If non-nil, start an Emacs server if one is not already running.
-   dotspacemacs-enable-server t
+   ;; (default nil)
+   dotspacemacs-enable-server nil
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
@@ -518,11 +538,12 @@ before packages are loaded."
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
   (add-hook 'rust-mode-hook #'lsp-rust-enable)
   (with-eval-after-load 'lsp-mode
-    (setq lsp-rust-rls-command '("rustup" "run" "nightly" "rls"))
+    (setq lsp-rust-rls-command '("rls"))
     (require 'lsp-rust))
-  (setq ruby-use-smie nil)
-  (setq ruby-deep-indent-paren nil)
+  (setq enh-ruby-deep-indent-construct nil)
   (setq ruby-insert-encoding-magic-comment nil)
+  (setq enh-ruby-add-encoding-comment-on-save nil)
+  (setq enh-ruby-check-syntax nil)
   (setq eclim-eclipse-dirs "/opt/eclipse-java"
         eclim-executable "/opt/eclipse-java/eclim")
   (setq sh-basic-offset 2
@@ -545,7 +566,23 @@ before packages are loaded."
         (abbreviate-file-name (buffer-file-name))
         (powerline-buffer-id)))
   (flycheck-add-mode 'javascript-eslint 'web-mode)
-  )
+
+  ;; enable syntax highlighting for SlackBuild .info files
+  (add-to-list 'auto-mode-alist '("\\.info\\'" . check-for-slackbuild))
+  (defun check-for-slackbuild ()
+    "Check for a SlackBuild in the default directory of the current buffer, and set the major mode accordingly."
+    (if (directory-files default-directory nil "\\.SlackBuild\\'")
+        ;; set unix config mode if there is also a *.SlackBuild file
+        (conf-unix-mode)
+      ;; otherwise just text mode
+      (text-mode)))
+  ;; also update magic-mode-alist to test for *.info files by regexp
+  (add-to-list
+   'magic-mode-alist
+   '("PRGNAM=\".*\"" . conf-unix-mode))
+    )
+
+;; (rspec-spec-command . "spring rspec")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
