@@ -14,5 +14,5 @@ image/pdf; display 'pdf:'%s''; test=test -n "$DISPLAY"
 image/pjpeg; display 'jpeg:'%s''; test=test -n "$DISPLAY"
 image/png; gwenview '%s'; test=test -n "$DISPLAY"
 image/x-png; gwenview '%s'; test=test -n "$DISPLAY"
-text/html; firejail --net=none w3m -T text/html -I %{charset} -o frame=0 -o meta_refresh=0 -o auto_image=0 %s; copiousoutput; description=HTML Text; nametemplate=%s.html
+text/html; firejail --net=none --whitelist=/tmp/mutt.html w3m -T text/html -I %{charset} -o frame=0 -o meta_refresh=0 -o auto_image=0 %s; copiousoutput; description=HTML Text; nametemplate=%s.html
 video/x-ms-wmv; vlc '%s'; description="MS Video (WMV)"; test=test -n "$DISPLAY"
