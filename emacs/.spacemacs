@@ -39,64 +39,33 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     csv
-     react
-     neotree
-     dash
-     clojure
-     (javascript :variables
-                 js2-basic-offset 2
-                 js-indent-level 2)
-     go
-     github
-     vimscript
-     html
-     latex
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
-     ;; `M-m f e R' (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     ivy
-     yaml
-     (auto-completion :variables
-                      auto-completion-tab-key-behavior nil
-                      auto-completion-return-key-behavior 'complete
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-help-tooltip 'manual
-                      auto-completion-enable-snippets-in-popup t
-                      )
+     ;; helm
+     ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     ruby-on-rails
      git
      markdown
+     neotree
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     shell-scripts
+     ;; syntax-checking
+     version-control
+     ivy
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rbenv
            )
-     (python :variables python-backend 'anaconda)
-     (java :variables java-backend 'eclim)
-     groovy
-     scala
-     rust
-     perl5
-     lua
-     (c-c++ :variables c-c++-enable-clang-support t)
-     elixir
-     sql
-     semantic
-     syntax-checking
-     version-control
-     colors
-     lsp
+     ruby-on-rails
+     yaml
+     (java :variables
+           java-backend 'eclim
+           eclim-eclipse-dirs "/opt/eclipse-java"
+           eclim-executable "/opt/eclipse-java/eclim"
+           )
      )
 
    ;; List of additional packages that will be installed without being
@@ -106,7 +75,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(centered-cursor-mode dart-mode bats-mode meson-mode jira-markup-mode lsp-rust lsp-java)
+   dotspacemacs-additional-packages '(centered-cursor-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -418,6 +387,13 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-enable-server nil
 
+   ;; Set the emacs server socket location.
+   ;; If nil, uses whatever the Emacs default is, otherwise a directory path
+   ;; like \"~/.emacs.d/server\". It has no effect if
+   ;; `dotspacemacs-enable-server' is nil.
+   ;; (default nil)
+   dotspacemacs-server-socket-dir nil
+
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
    dotspacemacs-persistent-server nil
@@ -466,19 +442,27 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-pretty-docs nil))
 
+(defun dotspacemacs/user-env ()
+  "Environment variables setup.
+This function defines the environment variables for your Emacs session. By
+default it calls `spacemacs/load-spacemacs-env' which loads the environment
+variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
+See the header of this file for more information."
+  (spacemacs/load-spacemacs-env))
+
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-(xterm-mouse-mode -1)
-(setq exec-path-from-shell-check-startup-files nil)
+  )
 
-(setq auto-mode-alist
-           (append  '(("\\.st\\'" . smalltalk-mode))
-                    auto-mode-alist))
-(autoload 'smalltalk-mode "/usr/share/emacs/site-lisp/smalltalk-mode.elc" "" t)
+(defun dotspacemacs/user-load ()
+  "Library to load while dumping.
+This function is called only while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included in the
+dump."
   )
 
 (defun dotspacemacs/user-config ()
@@ -489,36 +473,45 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
+
   (global-centered-cursor-mode 1)
+
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
+
   (setq tags-add-tables nil)
+  (setq-default tab-width 8)
+
   (setq ivy-rich-switch-buffer-name-max-length 80)
   (setq ivy-rich-switch-buffer-project-max-length 20)
   (setq ivy-virtual-abbreviate 'full)
   (setq ivy-rich-switch-buffer-align-virtual-buffer t)
+
   (setq magit-revision-show-gravatars nil)
+  (setq magit-log-arguments (quote ("-n256" "--graph" "--decorate" "--follow")))
+
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-comment-style 2)
   (setq web-mode-enable-current-element-highlight t)
-  (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  (setq-default tab-width 8)
-  (setq counsel-rg-base-command "rg -M 120 -S --no-heading --line-number --color never %s .")
-  (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-  (add-hook 'rust-mode-hook #'lsp-rust-enable)
-  (with-eval-after-load 'lsp-mode
-    (setq lsp-rust-rls-command '("rls"))
-    (require 'lsp-rust))
+
   (setq enh-ruby-deep-indent-construct nil)
   (setq ruby-insert-encoding-magic-comment nil)
   (setq enh-ruby-add-encoding-comment-on-save nil)
   (setq enh-ruby-check-syntax nil)
-  (setq eclim-eclipse-dirs "/opt/eclipse-java"
-        eclim-executable "/opt/eclipse-java/eclim")
+
+  (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+  
+  (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
+  (with-eval-after-load 'feature-mode
+    (define-key evil-normal-state-map (kbd "[ C-d") #'feature-goto-step-definition)
+    (define-key evil-normal-state-map (kbd "] C-d") #'feature-goto-step-definition))
+
   (setq sh-basic-offset 2
         sh-indentation 2)
-  (setq magit-log-arguments (quote ("-n256" "--graph" "--decorate" "--follow")))
+
   (unless window-system
     (when (getenv "DISPLAY")
       (defun xclip-cut-function (text &optional push)
@@ -532,11 +525,7 @@ before packages are loaded."
       (setq interprogram-cut-function 'xclip-cut-function)
       (setq interprogram-paste-function 'xclip-paste-function)
       ))
-  (spaceline-define-segment buffer-id
-    (if (buffer-file-name)
-        (abbreviate-file-name (buffer-file-name))
-        (powerline-buffer-id)))
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 
   ;; enable syntax highlighting for SlackBuild .info files
   (add-to-list 'auto-mode-alist '("\\.info\\'" . check-for-slackbuild))
@@ -554,6 +543,34 @@ before packages are loaded."
     )
 
 ;; (rspec-spec-command . "spring rspec")
+;; (feature-rake-command . "spring cucumber {options} \"{feature}\"")
+;; (feature-root-marker-file-name . "Gemfile")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (mvn meghanada flycheck maven-test-mode groovy-mode groovy-imports pcache gradle-mode ensime company sbt-mode scala-mode eclim yasnippet yaml-mode ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org symon string-inflection spaceline-all-the-icons smex smeargle rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe restart-emacs request rbenv rainbow-delimiters projectile-rails popwin persp-mode password-generator paradox overseer org-plus-contrib org-bullets open-junk-file neotree nameless move-text monokai-theme mmm-mode minitest markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum link-hint ivy-xref ivy-purpose ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md font-lock+ flx-ido fill-column-indicator feature-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-cleverparens evil-args evil-anzu eval-sexp-fu enh-ruby-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode diminish diff-hl define-word counsel-projectile column-enforce-mode clean-aindent-mode chruby centered-cursor-mode bundler browse-at-remote auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link)))
+ '(safe-local-variable-values
+   (quote
+    ((eval setenv "PS_MARKET" "uk")
+     (rspec-use-spring-when-possible)
+     (flycheck-rubocoprc . ".rubocop_local.yml")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
+;;  (setq counsel-rg-base-command "rg -M 120 -S --no-heading --line-number --color never %s .")

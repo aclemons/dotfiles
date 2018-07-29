@@ -89,6 +89,15 @@ let g:ruby_heredoc_syntax_filetypes = {
   \},
 \}
 
+" Yes, test for > 1, not > 0. There's no use in jumping to line 1,
+" if Vim would start at line 1 anyway.
+if has('nvim')
+  autocmd BufReadPost *
+    \  if line("'\"") > 1 && line("'\"") <= line("$")
+    \|   exe 'normal! g`"zvzz'
+    \| endif
+endif
+
 if v:version < '800'
   let g:syntastic_ruby_checkers = ['rubocop']
   let g:syntastic_eruby_checkers = ['ruumba']
@@ -101,9 +110,14 @@ if v:version < '800'
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 else
-  let g:ale_linters = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
+  let g:ale_linters = { 'ruby': ['rubocop'] }
+  let g:ale_linters = { 'eruby': ['ruumba'] }
   let g:ale_eruby_ruumba_executable = 'bundle'
+  let g:ale_lint_on_text_changed = 'normal'
+  let g:ale_lint_on_enter = 0
+
   let g:EclimJavaValidate = 0
+
   autocmd FileType java let g:ale_java_javac_classpath=eclim#Execute('-command java_classpath -p ' . eclim#project#util#GetCurrentProjectName())
 endif
 
@@ -154,9 +168,16 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
 " some mappings for fzf commands
 nnoremap <Space>pf :Files<ENTER>
 nnoremap <Space>srp :Rg<ENTER>
+nnoremap <Space>sap :Ag<ENTER>
 nnoremap <Space>bb :Buffers<ENTER>
 
 " Bubble single lines
@@ -175,3 +196,6 @@ nnoremap <Space>bd :bd<ENTER>
 nnoremap <Space>bn :bn<ENTER>
 nnoremap <Space>bp :bp<ENTER>
 nnoremap <Space>gb :Gblame<ENTER>
+
+nnoremap <Space>el :lopen<ENTER>
+nnoremap <Space>eL :lclose<ENTER>
