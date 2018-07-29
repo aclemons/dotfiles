@@ -18,6 +18,3 @@ set revert-all-at-newline on
 
 # causes Readline to not match files whose names begin with a '.' (hidden files) when performing filename completion
 set match-hidden-files off
-
-# delete key in st
-set enable-keypad on
