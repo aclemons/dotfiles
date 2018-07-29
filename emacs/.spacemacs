@@ -53,7 +53,10 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      ;; syntax-checking
      version-control
-     ivy
+     (ivy :variables
+          ivy-enable-advanced-buffer-information t
+          ivy-wrap t
+          )
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode t
@@ -66,6 +69,28 @@ This function should only modify configuration layer settings."
            eclim-eclipse-dirs "/opt/eclipse-java"
            eclim-executable "/opt/eclipse-java/eclim"
            )
+     groovy
+     shell-scripts
+     rust
+     (auto-completion :variables
+                      auto-completion-tab-key-behavior nil
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t
+                      )
+     syntax-checking
+     semantic
+     tern
+     (javascript :variables
+                 javascript-backend 'tern
+                 js2-basic-offset 2
+                 js-indent-level 2
+                 )
+     (python :variables
+             python-backend 'anaconda)
+     c-c++
+     sql
+     html
+     vimscript
      )
 
    ;; List of additional packages that will be installed without being
@@ -471,8 +496,14 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (setq gnutls-algorithm-priority
+          "SECURE192:+SECURE128:-VERS-ALL:+VERS-TLS1.2:%PROFILE_MEDIUM"
+          gnutls-min-prime-bits 2048
+          gnutl-verify-error t)
+
   (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
+  (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
   (global-centered-cursor-mode 1)
 
@@ -502,15 +533,14 @@ before packages are loaded."
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
-  
-  (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
-
   (with-eval-after-load 'feature-mode
     (define-key evil-normal-state-map (kbd "[ C-d") #'feature-goto-step-definition)
     (define-key evil-normal-state-map (kbd "] C-d") #'feature-goto-step-definition))
 
   (setq sh-basic-offset 2
         sh-indentation 2)
+
+  (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 
   (unless window-system
     (when (getenv "DISPLAY")
