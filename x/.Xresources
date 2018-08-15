@@ -71,7 +71,7 @@ URxvt.mouseWheelScrollPage: false
 URxvt.cursorBlink: true
 
 #ifdef SRVR_andrew_winky
-!Xft.dpi: 160
+!Xft.dpi: 192
 Xcursor.size: 48
 URxvt.depth: 32
 URxvt.letterSpace: -1
