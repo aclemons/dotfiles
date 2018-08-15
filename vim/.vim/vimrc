@@ -179,6 +179,7 @@ nnoremap <Space>pf :Files<ENTER>
 nnoremap <Space>srp :Rg<ENTER>
 nnoremap <Space>sap :Ag<ENTER>
 nnoremap <Space>bb :Buffers<ENTER>
+nnoremap <Space>* :Rg <C-R><C-W><ENTER>
 
 " Bubble single lines
 nmap <C-Up> [e
