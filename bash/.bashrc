@@ -264,11 +264,11 @@ alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
 alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepare db:environment:set RAILS_ENV=test'
 
 # powershop
-alias au='PS_MARKET=au'
-alias nz='PS_MARKET=nz'
-alias uk='PS_MARKET=uk'
+alias au='COUNTRY=au'
+alias nz='COUNTRY=nz'
+alias uk='COUNTRY=uk'
 alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
-alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop*' -x '*/.ruumba*'"
+alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop*' -x '*/.ruumba*' -x '*/*.yml' -x '*/*.svg' -x '*/test_structure.sql', -x '*/Jenkinsfile'"
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
@@ -454,7 +454,7 @@ function elvis {
 
 function ks_env {
   if [ $# -gt 2 ] || [ $# -lt 1 ] ; then
-    printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
+    printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
     return 1
   fi
 
@@ -464,16 +464,16 @@ function ks_env {
     shift
   fi
 
-  if [ "$1" = "au" ] || [ "$1" = "nz" ] || [ "$1" = "uk" ] ; then
+  if [ "$1" = "psau" ] || [ "$1" = "psnz" ] || [ "$1" = "psuk" ] ; then
     if [ "x$2" = "x--partial" ] ; then
       partial=true
     elif [ "x$2" = "x" ] ; then :
     else
-      printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
+      printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
       return 1
     fi
   else
-    printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
+    printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
     return 1
   fi
 
@@ -484,14 +484,14 @@ function ks_env {
 
   printf "Syncing structure...\\n\\n"
 
-  if [ "x$1" = "xnz" ] ; then
-    host="$1-wippy-akl1-2"
-  elif [ "x$1" = "xau" ] ; then
-    host="$1-wippy-wlg1-2"
-  elif [ "x$1" = "xuk" ] ; then
-    host="$1-wippy-syd5-1"
+  if [ "x$1" = "xpsnz" ] ; then
+    host="nz-wippy-akl1-2"
+  elif [ "x$1" = "xpsau" ] ; then
+    host="au-wippy-wlg1-2"
+  elif [ "x$1" = "xpsuk" ] ; then
+    host="uk-wippy-syd5-1"
   else
-    printf "Usage: ks_env [nz|au|uk] [--partial]\\n"
+    printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
     return 1
   fi
 
@@ -506,33 +506,49 @@ function ks_env {
     nprocs="$(nproc)"
   fi
 
-  ks --verbose --structure-only --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+  ks --verbose --structure-only --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
 
   printf "\\n"
 
   printf "Enabling compression for all tables...\\n"
 
-  mysql -B -h localhost -u root -e 'show tables' "powershop_development_$1" | sed -e '1d' | while read -r table ; do
-    if ! mysql -B -h localhost -u root -e "show create table $table" "powershop_development_$1"  | grep "ROW_FORMAT=COMPRESSED" > /dev/null 2>&1 ; then
+  mysql -B -h localhost -u root -e 'show tables' "core_development_$1" | sed -e '1d' | while read -r table ; do
+    if ! mysql -B -h localhost -u root -e "show create table $table" "core_development_$1"  | grep "ROW_FORMAT=COMPRESSED" > /dev/null 2>&1 ; then
       printf "alter table %s ROW_FORMAT=COMPRESSED;\\n" "$table"
     fi
-  done | mysql -B -h localhost -u root "powershop_development_$1" || return "$?"
+  done | mysql -B -h localhost -u root "core_development_$1" || return "$?"
 
   printf "\\n"
 
-  printf "Syncing data...\\n\\n"
+  printf "Syncing migrations...\\n\\n"
 
-  ks --only=schema_migrations --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+  ks --only=schema_migrations --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
+
+  printf "\\nSyncing data...\\n\\n"
 
   if $partial ; then
-    PS_MARKET="$1" bundle exec ruby lib/db_refresh.rb || return "$?"
+    COUNTRY="$(echo "$1" | sed 's/^ps//')" bundle exec ruby lib/db_refresh.rb || return "$?"
   else
-    ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/powershop_development_$1" || return "$?"
+    ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   fi
+
+  mysql -B -h localhost -u root -e 'insert into powershop_params(name, value, created_at, updated_at) select "PASSWORD_OF_THE_DAY", UUID(), current_timestamp, current_timestamp from dual where not exists (select 1 from powershop_params where name = "PASSWORD_OF_THE_DAY")' "core_development_$1"
 
   printf "\\n"
 }
 
 function diff_local_migrations {
-  vimdiff <(printf "%s\nexit\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | PS_MARKET="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
+  vimdiff <(printf "%s\nexit\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | COUNTRY="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
+}
+
+check_jobs() {
+  local market="$1"
+  local env="$2"
+
+  if [ $# -ne 2 ] || case $market in au|nz|uk) false;; *) true;; esac || case $env in prod|qa|stb|uat) false;; *) true;; esac ; then
+    printf "Usage: check_jobs [nz|au|uk] [qa|prod|stb|uat]\\n"
+    return 1
+  fi
+
+  bundle exec cap "$market-$env" invoke COMMAND="pgrep -u rails -fo '.*bin/jobs\$' | xargs --no-run-if-empty -I xx pgrep -P xx | xargs -r ps --no-header -o start,cmd" ROLES=daemons
 }
