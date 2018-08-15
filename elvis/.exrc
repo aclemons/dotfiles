@@ -1,23 +1,27 @@
+" more undo
 set undolevels=1000
-set inputtab=spaces noautotab
-set shiftwidth=2
+" auto indent the start of each line
 set autoindent
+" show current mode in bottom right corner
 set showmode
+" show matching ),],}
 set showmatch
+" show line and column numbers at bottom of screen
 set ruler
-set nu
-set remap
+" so line numbers at the beginning of the line
+set number
+" show all changes lines in a file
 set report=1
+" show all characters
 set nonascii=all
+" search while typing
 set incsearch
+" highlight matches
 set hlsearch
+" ignore case
 set ignorecase
+" respect case if search has uppercase letters
 set smartcase
-
-map  :sfb
-
-" reformat paragraph with no arguments:
-map gq {!}par
 
 " like vim's set scrolloff=999
 map j jz.
@@ -26,33 +30,21 @@ map  z.
 map  z.
 map G Gz.
 
+" go to first line
 map gg 1G
-
-try {
- alias Mail {
-  set bufdisplay="syntax email" equalprg="elvfmt -M"
-  display syntax email
-  if color("signature") == ""
-  then color signature italic red on gray
-  try $;?^-- *$?,$ region signature
- }
-}
-
-load align
-load sfb
 
 au BufReadPost *spec.rb {
   set ww=uk
-  set mp="PS_MARKET=(ww) bundle exec rspec ($1?($2;char(58);$1;):$2) 2>&1"
+  set makeprg="PS_MARKET=(ww) bundle exec rspec ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost *.feature {
   set ww=uk
-  set mp="PS_MARKET=(ww) bundle exec cucumber ($1?($2;char(58);$1;):$2) 2>&1"
+  set makeprg="PS_MARKET=(ww) bundle exec cucumber ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost * {
   if knownsyntax(filename) == "ksh"
-  then set mp="shellcheck $2 \| shellerr"
+  then set makeprg="shellcheck $2 \| shellerr"
 }
 
