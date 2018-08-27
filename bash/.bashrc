@@ -236,7 +236,7 @@ if [[ $(id -u) == "0" ]] ; then
 
         if curl -f -s "$url" -o /dev/null ; then
           local deps
-          deps="$(curl -f -s "$url" | sort | paste -s -d' ')"
+          deps="$(curl -f -s "$url" | tr -cd '[[:alnum:]]._-' | sort | paste -s -d' ')"
 
           # shellcheck disable=SC2086
           slackroll install $deps "$package"
@@ -268,7 +268,7 @@ alias au='COUNTRY=au'
 alias nz='COUNTRY=nz'
 alias uk='COUNTRY=uk'
 alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
-alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop*' -x '*/.ruumba*' -x '*/*.yml' -x '*/*.svg' -x '*/test_structure.sql', -x '*/Jenkinsfile'"
+alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop*' -x '*/.ruumba*' -x '*/*.yml' -x '*/*.svg' -x '*/test_structure.sql', -x '*/Jenkinsfile' -x '*/*.xsd'"
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
@@ -538,7 +538,7 @@ function ks_env {
 }
 
 function diff_local_migrations {
-  vimdiff <(printf "%s\nexit\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | COUNTRY="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
+  vimdiff <(printf "%s\\nexit\\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | COUNTRY="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
 }
 
 check_jobs() {
