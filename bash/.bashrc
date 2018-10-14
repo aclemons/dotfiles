@@ -267,8 +267,12 @@ alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepar
 alias au='COUNTRY=au'
 alias nz='COUNTRY=nz'
 alias uk='COUNTRY=uk'
+alias psau='RETAILER=psau COUNTRY=au'
+alias psnz='RETAILER=psnz COUNTRY=nz'
+alias psuk='RETAILER=psuk COUNTRY=uk'
+alias merx='RETAILER=merx COUNTRY=nz'
 alias wipssh='RLWRAP_HOME="$HOME/.rlwrap" rlwrap -a ssh'
-alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop*' -x '*/.ruumba*' -x '*/*.yml' -x '*/*.svg' -x '*/test_structure.sql', -x '*/Jenkinsfile' -x '*/*.xsd'"
+alias review_filter="filterdiff -x '*/spec/*' -x '*/features/*' -x '*/.rubocop*' -x '*/.ruumba*' -x '*/*.yml' -x '*/*.svg' -x '*/test_structure.sql', -x '*/Jenkinsfile' -x '*/*.xsd' -x '*/sidecar/*'"
 
 export RUBY_GC_HEAP_INIT_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=500000
@@ -454,7 +458,7 @@ function elvis {
 
 function ks_env {
   if [ $# -gt 2 ] || [ $# -lt 1 ] ; then
-    printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
+    printf "Usage: ks_env [psnz|psau|psuk|merx] [--partial]\\n"
     return 1
   fi
 
@@ -464,16 +468,16 @@ function ks_env {
     shift
   fi
 
-  if [ "$1" = "psau" ] || [ "$1" = "psnz" ] || [ "$1" = "psuk" ] ; then
+  if [ "$1" = "psau" ] || [ "$1" = "psnz" ] || [ "$1" = "psuk" ] || [ "$1" = "merx" ] ; then
     if [ "x$2" = "x--partial" ] ; then
       partial=true
     elif [ "x$2" = "x" ] ; then :
     else
-      printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
+      printf "Usage: ks_env [psnz|psau|psuk|merx] [--partial]\\n"
       return 1
     fi
   else
-    printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
+    printf "Usage: ks_env [psnz|psau|psuk|merx] [--partial]\\n"
     return 1
   fi
 
@@ -490,8 +494,10 @@ function ks_env {
     host="au-wippy-wlg1-2"
   elif [ "x$1" = "xpsuk" ] ; then
     host="uk-wippy-syd5-1"
+  elif [ "x$1" = "xmerx" ] ; then
+    host="merx-wippy-syd6-1"
   else
-    printf "Usage: ks_env [psnz|psau|psuk] [--partial]\\n"
+    printf "Usage: ks_env [psnz|psau|psuk|merx] [--partial]\\n"
     return 1
   fi
 
@@ -527,9 +533,9 @@ function ks_env {
   printf "\\nSyncing data...\\n\\n"
 
   if $partial ; then
-    COUNTRY="$(echo "$1" | sed 's/^ps//')" bundle exec ruby lib/db_refresh.rb || return "$?"
+    RETAILER="$1" COUNTRY="$(echo "$1" | sed 's/^ps//;s/^merx/nz/')" bundle exec ruby lib/db_refresh.rb || return "$?"
   else
-    ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
+    ks --ignore state_events --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   fi
 
   mysql -B -h localhost -u root -e 'insert into powershop_params(name, value, created_at, updated_at) select "PASSWORD_OF_THE_DAY", UUID(), current_timestamp, current_timestamp from dual where not exists (select 1 from powershop_params where name = "PASSWORD_OF_THE_DAY")' "core_development_$1"
@@ -545,8 +551,8 @@ check_jobs() {
   local market="$1"
   local env="$2"
 
-  if [ $# -ne 2 ] || case $market in au|nz|uk) false;; *) true;; esac || case $env in prod|qa|stb|uat) false;; *) true;; esac ; then
-    printf "Usage: check_jobs [nz|au|uk] [qa|prod|stb|uat]\\n"
+  if [ $# -ne 2 ] || case $market in au|merx|nz|uk) false;; *) true;; esac || case $env in prod|qa|stb|uat) false;; *) true;; esac ; then
+    printf "Usage: check_jobs [au|merx|nz|uk] [qa|prod|stb|uat]\\n"
     return 1
   fi
 
