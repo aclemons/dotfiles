@@ -110,9 +110,7 @@ if v:version < '800'
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 else
-  let g:ale_linters = { 'ruby': ['rubocop'] }
-  let g:ale_linters = { 'eruby': ['ruumba'] }
-  let g:ale_eruby_ruumba_executable = 'bundle'
+  let g:ale_linters = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_enter = 0
 
@@ -125,6 +123,10 @@ let g:localvimrc_persistent = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_theme='base16_monokai'
+
+set spelllang=en_gb,de
+autocmd FileType mail set spell
+autocmd FileType gitcommit set spell
 
 autocmd BufEnter,BufNew *.info call CheckSlackBuildInfo()
 function CheckSlackBuildInfo()
