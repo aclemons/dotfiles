@@ -45,11 +45,12 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      markdown
+     multiple-cursors
      neotree
      ;; org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
      version-control
@@ -64,19 +65,19 @@ This function should only modify configuration layer settings."
            )
      ruby-on-rails
      yaml
-     (java :variables
-           java-backend 'eclim
-           eclim-eclipse-dirs "/opt/eclipse-java"
-           eclim-executable "/opt/eclipse-java/eclim"
-           )
+     ;; (java :variables
+     ;;       java-backend 'eclim
+     ;;       eclim-eclipse-dirs "/opt/eclipse-java"
+     ;;       eclim-executable "/opt/eclipse-java/eclim"
+     ;;       )
      groovy
      shell-scripts
-     rust
-     (auto-completion :variables
-                      auto-completion-tab-key-behavior nil
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t
-                      )
+     ;; rust
+     ;; (auto-completion :variables
+     ;;                auto-completion-tab-key-behavior nil
+     ;;                auto-completion-enable-help-tooltip t
+     ;;                auto-completion-enable-sort-by-usage t
+     ;;                )
      syntax-checking
      semantic
      tern
@@ -100,7 +101,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(centered-cursor-mode)
+   dotspacemacs-additional-packages '(centered-cursor-mode beacon)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -500,6 +501,7 @@ before packages are loaded."
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
+  (beacon-mode 1)
   (global-centered-cursor-mode 1)
 
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
@@ -550,7 +552,6 @@ before packages are loaded."
       (setq interprogram-cut-function 'xclip-cut-function)
       (setq interprogram-paste-function 'xclip-paste-function)
       ))
-  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
 
   ;; enable syntax highlighting for SlackBuild .info files
   (add-to-list 'auto-mode-alist '("\\.info\\'" . check-for-slackbuild))
@@ -565,6 +566,7 @@ before packages are loaded."
   (add-to-list
    'magic-mode-alist
    '("PRGNAM=\".*\"" . conf-unix-mode))
+
     )
 
 ;; (rspec-spec-command . "spring rspec")
