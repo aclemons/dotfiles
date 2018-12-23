@@ -101,7 +101,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(centered-cursor-mode beacon)
+   dotspacemacs-additional-packages '(writeroom-mode beacon)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -529,6 +529,21 @@ before packages are loaded."
 
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+  (with-eval-after-load 'flycheck-mode
+    (flycheck-add-mode 'eruby-ruumba 'web-mode))
+
+  (defun my/configure-web-mode-flycheck-checkers ()
+    ;; in order to have flycheck enabled in web-mode, add an entry to this
+    ;; cond that matches the web-mode engine/content-type/etc and returns the
+    ;; appropriate checker.
+    (-when-let (checker (cond
+                         ((string= web-mode-content-type "erb")
+                          'eruby-ruumba)))
+      (flycheck-mode)
+      (flycheck-select-checker checker)))
+
+  (add-hook 'web-mode-hook #'my/configure-web-mode-flycheck-checkers)
 
   (with-eval-after-load 'feature-mode
     (define-key evil-normal-state-map (kbd "[ C-d") #'feature-goto-step-definition)
