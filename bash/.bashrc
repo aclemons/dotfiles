@@ -493,7 +493,7 @@ function ks_env {
   elif [ "x$1" = "xpsau" ] ; then
     host="au-wippy-wlg1-2"
   elif [ "x$1" = "xpsuk" ] ; then
-    host="uk-wippy-syd5-1"
+    host="uk-wippy-syd5-3"
   elif [ "x$1" = "xmerx" ] ; then
     host="merx-wippy-syd6-1"
   else
@@ -535,7 +535,7 @@ function ks_env {
   if $partial ; then
     RETAILER="$1" COUNTRY="$(echo "$1" | sed 's/^ps//;s/^merx/nz/')" bundle exec ruby lib/db_refresh.rb || return "$?"
   else
-    ks --ignore state_events --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
+    ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   fi
 
   mysql -B -h localhost -u root -e 'insert into powershop_params(name, value, created_at, updated_at) select "PASSWORD_OF_THE_DAY", UUID(), current_timestamp, current_timestamp from dual where not exists (select 1 from powershop_params where name = "PASSWORD_OF_THE_DAY")' "core_development_$1"
