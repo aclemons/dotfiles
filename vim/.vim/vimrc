@@ -35,8 +35,11 @@ set modelines=0
 set path+=**
 
 set background=dark
+
 let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty
+
+let g:airline_theme='monokai_tasty'
 
 set ignorecase smartcase
 
@@ -113,6 +116,8 @@ else
   let g:ale_lint_on_text_changed = 'normal'
   let g:ale_lint_on_enter = 0
 
+  let g:airline#extensions#ale#enabled = 1
+
   let g:EclimJavaValidate = 0
 
   autocmd FileType java let g:ale_java_javac_classpath=eclim#Execute('-command java_classpath -p ' . eclim#project#util#GetCurrentProjectName())
@@ -121,7 +126,6 @@ endif
 let g:localvimrc_persistent = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_theme = 'monokai_tasty'
 
 set spelllang=en_gb,de
 autocmd FileType mail set spell
