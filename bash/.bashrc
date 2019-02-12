@@ -512,7 +512,7 @@ function ks_env {
     nprocs="$(nproc)"
   fi
 
-  ks --verbose --structure-only --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
+  ks --verbose --structure-only --hash=XXH64 --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
 
   printf "\\n"
 
@@ -528,14 +528,14 @@ function ks_env {
 
   printf "Syncing migrations...\\n\\n"
 
-  ks --only=schema_migrations --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
+  ks --only=schema_migrations --hash=XXH64 --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
 
   printf "\\nSyncing data...\\n\\n"
 
   if $partial ; then
-    RETAILER="$1" COUNTRY="$(echo "$1" | sed 's/^ps//;s/^merx/nz/')" bundle exec ruby lib/db_refresh.rb || return "$?"
+    RETAILER="$1" COUNTRY="$(echo "$1" | sed 's/^ps//;s/^merx/nz/')" bundle exec ruby lib/db_refresh.rb ks --hash=XXH64 || return "$?"
   else
-    ks --workers="$nprocs" --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
+    ks --workers="$nprocs" --hash=XXH64 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   fi
 
   mysql -B -h localhost -u root -e 'insert into powershop_params(name, value, created_at, updated_at) select "PASSWORD_OF_THE_DAY", UUID(), current_timestamp, current_timestamp from dual where not exists (select 1 from powershop_params where name = "PASSWORD_OF_THE_DAY")' "core_development_$1"
