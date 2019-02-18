@@ -544,7 +544,7 @@ function ks_env {
 }
 
 function diff_local_migrations {
-  vimdiff <(printf "%s\\nexit\\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | COUNTRY="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
+  vimdiff <(printf "%s\\nexit\\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | RETAILER=psau COUNTRY="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
 }
 
 check_jobs() {
