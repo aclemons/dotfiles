@@ -33,7 +33,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(systemd
+   '(
+     systemd
      csv
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -507,7 +508,6 @@ before packages are loaded."
 
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
 
-  (setq tags-add-tables nil)
   (setq-default tab-width 8)
 
   (setq ivy-rich-switch-buffer-name-max-length 80)
@@ -527,6 +527,8 @@ before packages are loaded."
   (setq ruby-insert-encoding-magic-comment nil)
   (setq enh-ruby-add-encoding-comment-on-save nil)
   (setq enh-ruby-check-syntax nil)
+
+  (setq large-file-warning-threshold nil)
 
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
