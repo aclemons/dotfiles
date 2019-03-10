@@ -548,13 +548,13 @@ function diff_local_migrations {
 }
 
 check_jobs() {
-  local market="$1"
+  local retailer="$1"
   local env="$2"
 
-  if [ $# -ne 2 ] || case $market in au|merx|nz|uk) false;; *) true;; esac || case $env in prod|qa|stb|uat) false;; *) true;; esac ; then
+  if [ $# -ne 2 ] || case $retailer in au|merx|nz|uk) false;; *) true;; esac || case $env in prod|qa|stb|uat) false;; *) true;; esac ; then
     printf "Usage: check_jobs [au|merx|nz|uk] [qa|prod|stb|uat]\\n"
     return 1
   fi
 
-  bundle exec cap "$market-$env" invoke COMMAND="pgrep -u rails -fo '.*bin/jobs\$' | xargs --no-run-if-empty -I xx pgrep -P xx | xargs -r ps --no-header -o start,cmd" ROLES=daemons
+  bundle exec cap "$retailer-$env" invoke COMMAND="pgrep -u rails -fo '.*bin/jobs\$' | xargs --no-run-if-empty -I xx pgrep -P xx | xargs -r ps --no-header -o start,cmd" ROLES=daemons
 }
