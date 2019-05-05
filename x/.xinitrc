@@ -13,6 +13,11 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 eval $(gpg-agent --daemon)
 
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XIM_PROGRAM="/usr/bin/fcitx -d"
+
 # Start i3
 if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
     exec ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
