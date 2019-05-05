@@ -29,7 +29,7 @@ let g:netrw_liststyle=3
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-set nu
+set number " display line numbers
 set modelines=0
 
 set path+=**
@@ -113,8 +113,7 @@ if v:version < '800'
   let g:syntastic_check_on_wq = 0
 else
   let g:ale_linters = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
-  let g:ale_lint_on_text_changed = 'normal'
-  let g:ale_lint_on_enter = 0
+  let g:ale_fixers = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
 
   let g:airline#extensions#ale#enabled = 1
 
@@ -205,3 +204,5 @@ nnoremap <Space>gb :Gblame<ENTER>
 
 nnoremap <Space>el :lopen<ENTER>
 nnoremap <Space>eL :lclose<ENTER>
+
+autocmd QuickFixCmdPost *grep* cwindow
