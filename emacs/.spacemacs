@@ -42,19 +42,19 @@ This function should only modify configuration layer settings."
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; helm
-     ;; auto-completion
+     auto-completion
      ;; better-defaults
      emacs-lisp
      git
      markdown
      multiple-cursors
-     treemacs
      ;; org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      ;; spell-checking
      ;; syntax-checking
+     treemacs
      version-control
      (ivy :variables
           ivy-enable-advanced-buffer-information t
@@ -67,14 +67,14 @@ This function should only modify configuration layer settings."
            )
      ruby-on-rails
      yaml
-     ;; (java :variables
-     ;;       java-backend 'eclim
-     ;;       eclim-eclipse-dirs "/opt/eclipse-java"
-     ;;       eclim-executable "/opt/eclipse-java/eclim"
-     ;;       )
+     (java :variables
+           java-backend 'eclim
+           eclim-eclipse-dirs "/opt/eclipse-java"
+           eclim-executable "/opt/eclipse-java/eclim")
      groovy
      shell-scripts
-     ;; rust
+     (rust :variables
+           rust-backend 'racer)
      ;; (auto-completion :variables
      ;;                auto-completion-tab-key-behavior nil
      ;;                auto-completion-enable-help-tooltip t
