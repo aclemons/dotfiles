@@ -10,7 +10,7 @@ set showmatch
 set ruler
 " so line numbers at the beginning of the line
 set number
-" show all changes lines in a file
+" show all changed lines in a file
 set report=1
 " show all characters
 set nonascii=all
@@ -35,16 +35,18 @@ map gg 1G
 
 au BufReadPost *spec.rb {
   set ww=uk
-  set makeprg="PS_MARKET=(ww) bundle exec rspec ($1?($2;char(58);$1;):$2) 2>&1"
+  set makeprg="COUNTRY=(ww) bundle exec spring rspec ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost *.feature {
   set ww=uk
-  set makeprg="PS_MARKET=(ww) bundle exec cucumber ($1?($2;char(58);$1;):$2) 2>&1"
+  set makeprg="COUNTRY=(ww) bundle exec spring cucumber ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost * {
   if knownsyntax(filename) == "ksh"
-  then set makeprg="shellcheck $2 \| shellerr"
+  then set makeprg="shellcheck $2 \| shellerror"
 }
 
+load fzf
+map <SPACE>pf :fzf<ENTER>
