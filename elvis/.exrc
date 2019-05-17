@@ -33,20 +33,38 @@ map G Gz.
 " go to first line
 map gg 1G
 
-au BufReadPost *spec.rb {
+au BufReadPost *.rb {
+  set makeprg="bundle exec rubocop --format emacs ($1?($2;char(58);$1;):$2)"
+}
+
+au BufReadPost *.info {
+  set bufdisplay="syntax ksh"
+}
+
+au BufReadPost *_spec.rb {
   set ww=uk
-  set makeprg="COUNTRY=(ww) bundle exec spring rspec ($1?($2;char(58);$1;):$2) 2>&1"
+  set ccprg="COUNTRY=(ww) bundle exec spring rspec ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost *.feature {
   set ww=uk
-  set makeprg="COUNTRY=(ww) bundle exec spring cucumber ($1?($2;char(58);$1;):$2) 2>&1"
+  set ccprg="COUNTRY=(ww) bundle exec spring cucumber ($1?($2;char(58);$1;):$2) 2>&1"
 }
 
 au BufReadPost * {
   if knownsyntax(filename) == "ksh"
-  then set makeprg="shellcheck $2 \| shellerror"
+  then set makeprg="shellcheck -f gcc $2"
 }
 
 load fzf
+load copy
+
+" some more mappings
 map <SPACE>pf :fzf<ENTER>
+map <SPACE>bo :only<ENTER>
+map <SPACE>wn w
+map <SPACE>fyY :grabfile<ENTER>
+map <SPACE>en :errlist<ENTER>
+
+" elvis doesn't support CTRL-0 to paste in ex mode, so make a made which sort of does the same thing
+map 0 :("1)s/.*/! &/x
