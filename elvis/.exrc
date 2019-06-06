@@ -52,7 +52,12 @@ au BufReadPost *.feature {
 }
 
 au BufReadPost * {
-  if knownsyntax(filename) == "ksh"
+  if !knownsyntax(filename) && buflines >= 1
+  then {
+    try 1s/\V^#! *\/usr\/bin\/env \([^ ]\+\).*/set! bufdisplay="syntax \1"/x
+  }
+
+  if knownsyntax(filename) == "ksh" || bufdisplay=="syntax bash"
   then set makeprg="shellcheck -f gcc $2"
 }
 
@@ -66,5 +71,5 @@ map <SPACE>wn w
 map <SPACE>fyY :grabfile<ENTER>
 map <SPACE>en :errlist<ENTER>
 
-" elvis doesn't support CTRL-0 to paste in ex mode, so make a made which sort of does the same thing
+" elvis doesn't support CTRL-0 to paste in ex mode, so make a map which sort of does the same thing
 map 0 :("1)s/.*/! &/x
