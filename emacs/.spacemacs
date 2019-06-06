@@ -34,6 +34,8 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     lsp
+     react
      systemd
      csv
      ;; ----------------------------------------------------------------
@@ -64,6 +66,7 @@ This function should only modify configuration layer settings."
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rbenv
+           ruby-backend 'robe
            )
      ruby-on-rails
      yaml
@@ -103,7 +106,7 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(writeroom-mode beacon)
+   dotspacemacs-additional-packages '(writeroom-mode beacon bats-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -346,6 +349,11 @@ It should only modify the values of Spacemacs settings."
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
    dotspacemacs-maximized-at-startup nil
+
+   ;; If non-nil the frame is undecorated when Emacs starts up. Combine this
+   ;; variable with `dotspacemacs-maximized-at-startup' in OSX to obtain
+   ;; borderless fullscreen. (default nil)
+   dotspacemacs-undecorated-at-startup nil
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
