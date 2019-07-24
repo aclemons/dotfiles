@@ -194,7 +194,13 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-RUST_SRC_PATH="/usr/lib$(case "$(uname -m)" in x86_64) echo "64" ;; *) echo "" ;; esac; )/rustlib/src/rust/src"
+
+if uname -s  | grep Darwin > /dev/null ; then
+  RUST_SRC_PATH=/usr/local/share/rust/rust_src
+else
+  RUST_SRC_PATH="/usr/lib$(case "$(uname -m)" in x86_64) echo "64" ;; *) echo "" ;; esac; )/rustlib/src/rust/src"
+fi
+
 export RUST_SRC_PATH
 
 export GTAGSLABEL=pygments

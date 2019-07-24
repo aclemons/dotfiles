@@ -13,6 +13,13 @@ endif
 
 execute pathogen#infect()
 
+if has("unix")
+  let s:uname = system("uname")
+  if s:uname == "Darwin\n"
+    set rtp+=/usr/local/opt/fzf
+  endif
+endif
+
 if !has('gui') && has('termguicolors')
   let &t_8f = "[38;2;%lu;%lu;%lum"
   let &t_8b = "[48;2;%lu;%lu;%lum"
