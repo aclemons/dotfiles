@@ -64,7 +64,6 @@ This function should only modify configuration layer settings."
           )
      (ruby :variables
            ruby-test-runner 'rspec
-           ruby-enable-enh-ruby-mode t
            ruby-version-manager 'rbenv
            ruby-backend 'robe
            )
@@ -139,10 +138,10 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil)
    dotspacemacs-enable-emacs-pdumper nil
 
-   ;; File path pointing to emacs 27.1 executable compiled with support
-   ;; for the portable dumper (this is currently the branch pdumper).
-   ;; (default "emacs-27.0.50")
-   dotspacemacs-emacs-pdumper-executable-file "emacs-27.0.50"
+   ;; Name of executable file pointing to emacs 27+. This executable must be
+   ;; in your PATH.
+   ;; (default "emacs")
+   dotspacemacs-emacs-pdumper-executable-file "emacs"
 
    ;; Name of the Spacemacs dump file. This is the file will be created by the
    ;; portable dumper in the cache directory under dumps sub-directory.
@@ -197,9 +196,6 @@ It should only modify the values of Spacemacs settings."
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
    dotspacemacs-editing-style 'vim
-
-   ;; If non-nil output loading progress in `*Messages*' buffer. (default nil)
-   dotspacemacs-verbose-loading nil
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
@@ -416,7 +412,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-smartparens-strict-mode nil
 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
-   ;; over any automatically added closing parenthesis, bracket, quote, etc…
+   ;; over any automatically added closing parenthesis, bracket, quote, etc...
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
    dotspacemacs-smart-closing-parenthesis nil
 
@@ -535,7 +531,6 @@ before packages are loaded."
   (setq ivy-rich-switch-buffer-align-virtual-buffer t)
 
   (setq magit-revision-show-gravatars nil)
-  (setq magit-log-arguments (quote ("-n256" "--graph" "--decorate" "--follow")))
 
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
@@ -551,6 +546,7 @@ before packages are loaded."
 
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  (setq transient-values-file "~/.spacemacs.d/magit_transient_values.el")
 
   (with-eval-after-load 'flycheck-mode
     (flycheck-add-mode 'eruby-ruumba 'web-mode))
