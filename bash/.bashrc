@@ -540,6 +540,7 @@ function ks_env {
 
   if $partial ; then
     RETAILER="$1" COUNTRY="$(echo "$1" | sed 's/^ps//;s/^merx/nz/')" bundle exec ruby lib/db_refresh.rb ks --hash=XXH64 || return "$?"
+    ks --workers="$nprocs" --hash=XXH64 --commit=often --alter --only job_runs --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   else
     ks --workers="$nprocs" --hash=XXH64 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   fi
