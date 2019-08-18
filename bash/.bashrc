@@ -106,7 +106,8 @@ function _add_to_history() {
     fi
 
     # remove history position (by splitting)
-    local history=$(history 1)
+    local history
+    history=$(history 1)
 
     [ "$_last_history" = "$history" ] && return;
 
@@ -127,10 +128,12 @@ function _add_to_history() {
     history -a
 }
 
-function h() {
-  < $_bashrc_eternal_history_file fzf --tac --no-sort | cut -d' ' -f6-
+function __fzf_eternal_history__() {
+  local line
+  shopt -u nocaseglob nocasematch
+  cat $_bashrc_eternal_history_file |
+      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac --sync -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m" $(__fzfcmd) | cut -d' ' -f6-
 }
-
 
 ##########
 # Prompt #
@@ -180,6 +183,11 @@ export VISUAL=vim
 
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
+
+if [[ -e /usr/share/fzf/key-bindings.bash ]] ; then
+  source /usr/share/fzf/key-bindings.bash
+  bind '"\eh": " \C-e\C-u\C-y\ey\C-u`__fzf_eternal_history__`\e\C-e\er\e^"'
+fi
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
