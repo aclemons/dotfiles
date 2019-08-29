@@ -63,7 +63,7 @@ unset use_color safe_term match_lhs
 # check the window size after each command and, if necessary, update the values of LINES and COLUMNS
 shopt -s checkwinsize
 
-# matche filenames in a case-insensitive fashion when performing filename expansion
+# match filenames in a case-insensitive fashion when performing filename expansion
 shopt -s nocaseglob
 
 # history list is appended to the history file when the shell exits
@@ -86,7 +86,6 @@ fi
 unset HISTFILESIZE
 
 HISTCONTROL=ignorespace:ignoredups
-HISTIGNORE="truecrypt*":?:??
 
 function _add_to_history() {
 # Change the window title of X terminals
@@ -168,7 +167,7 @@ export P4CONFIG=.p4settings
 # Paths #
 #########
 
-export PATH=~/bin:~/.local/bin:~/node_modules/.bin:$PATH
+export PATH=~/bin:~/.local/bin:~/node_modules/.bin:~/go/bin:$PATH
 export SQLPATH=~/.sqlplus
 export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 
