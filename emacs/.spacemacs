@@ -543,24 +543,13 @@ before packages are loaded."
 
   (setq large-file-warning-threshold nil)
 
-  (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint))
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (setq transient-values-file "~/.spacemacs.d/magit_transient_values.el")
 
-  (with-eval-after-load 'flycheck-mode
+  (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint eruby-erubis))
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+  (with-eval-after-load 'flycheck
     (flycheck-add-mode 'eruby-ruumba 'web-mode))
-
-  (defun my/configure-web-mode-flycheck-checkers ()
-    ;; in order to have flycheck enabled in web-mode, add an entry to this
-    ;; cond that matches the web-mode engine/content-type/etc and returns the
-    ;; appropriate checker.
-    (-when-let (checker (cond
-                         ((string= web-mode-content-type "erb")
-                          'eruby-ruumba)))
-      (flycheck-mode)
-      (flycheck-select-checker checker)))
-
-  (add-hook 'web-mode-hook #'my/configure-web-mode-flycheck-checkers)
 
   (with-eval-after-load 'feature-mode
     (define-key evil-normal-state-map (kbd "[ C-d") #'feature-goto-step-definition)
