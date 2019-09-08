@@ -501,9 +501,9 @@ function ks_env {
   printf "Syncing structure...\\n\\n"
 
   if [ "x$1" = "xpsnz" ] ; then
-    host="nz-wippy-akl1-2"
+    host="psnz-wippy-akl1-1"
   elif [ "x$1" = "xpsau" ] ; then
-    host="au-wippy-wlg1-2"
+    host="psau-wippy-wlg1-1"
   elif [ "x$1" = "xpsuk" ] ; then
     host="uk-wippy-syd5-3"
   elif [ "x$1" = "xmerx" ] ; then
@@ -556,16 +556,20 @@ function ks_env {
   printf "\\n"
 }
 
+function local_migrations {
+  bundle exec rails runner 'puts ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | tr ' ' '\n' | sort
+}
+
 function diff_local_migrations {
-  vimdiff <(printf "%s\\nexit\\n" 'ActiveRecord::Base.connection.execute("select version from schema_migrations order by version").to_a.join(" ")' | RETAILER=psau COUNTRY="au" bundle exec rails c | sed '/^=> "/!d' | sed 's/=> //;s/"//g' | tr ' ' '\n' | sort) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
+  vimdiff <(local_migrations) <(ls -A db/migrate/ | awk -F_ '{ print $1 }')
 }
 
 check_jobs() {
   local retailer="$1"
   local env="$2"
 
-  if [ $# -ne 2 ] || case $retailer in au|merx|nz|uk) false;; *) true;; esac || case $env in prod|qa|stb|uat) false;; *) true;; esac ; then
-    printf "Usage: check_jobs [au|merx|nz|uk] [qa|prod|stb|uat]\\n"
+  if [ $# -ne 2 ] || case $retailer in au|merx|nz|uk) false;; *) true;; esac || case $env in partner|prod|qa|stb|uat) false;; *) true;; esac ; then
+    printf "Usage: check_jobs [au|merx|nz|uk] [partner|prod|stb|stb]\\n"
     return 1
   fi
 
