@@ -69,10 +69,6 @@ This function should only modify configuration layer settings."
      yaml
      (java :variables
            java-backend 'lsp)
-     ;; (java :variables
-     ;;       java-backend 'eclim
-     ;;       eclim-eclipse-dirs "/opt/eclipse-java"
-     ;;       eclim-executable "/opt/eclipse-java/eclim")
      groovy
      shell-scripts
      (rust :variables
