@@ -148,8 +148,11 @@ PROMPT_COMMAND=_simple_prompt_command
 # GPG #
 #######
 alias gpg=gpg2
-export GPG_TTY=$(tty)
-echo UPDATESTARTUPTTY | gpg-connect-agent > /dev/null
+export GPG_TTY="$(tty)"
+
+if pgrep gpg-agent > /dev/null ; then
+  echo UPDATESTARTUPTTY | gpg-connect-agent > /dev/null
+fi
 
 ##############
 # Java Stuff #
@@ -231,7 +234,7 @@ alias less="less -i"
 alias tidyxml="tidy -xml -i -w 1000 -q"
 
 # start x in a screen session so i don't have to leave a tty logged in
-alias startx="screen -d -m gpg-agent --enable-ssh-support --daemon startx -- -nolisten tcp ; exit"
+alias startx="screen -d -m ssh-agent startx -- -nolisten tcp ; exit"
 
 alias sshnokeys="ssh -o PreferredAuthentications=keyboard-interactive"
 alias scpnokeys="scp -o PreferredAuthentications=keyboard-interactive"
