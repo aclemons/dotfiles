@@ -210,7 +210,7 @@ __fzf_history__() (
   local line
   shopt -u nocaseglob nocasematch
   line=$(
-    HISTTIMEFORMAT= history | sort -k 2  -k 1n | uniq -f 1 | sort -n |
+    HISTTIMEFORMAT= builtin history | sort -k 2  -k 1n | uniq -f 1 | sort -n |
     FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac --sync -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m" $(__fzfcmd) |
     command grep '^ *[0-9]') &&
     if [[ $- =~ H ]]; then
@@ -565,7 +565,6 @@ function ks_env {
 
   if $partial ; then
     RETAILER="$1" COUNTRY="$(echo "$1" | sed 's/^ps//;s/^merx/nz/')" bundle exec ruby lib/db_refresh.rb ks --hash=XXH64 || return "$?"
-    ks --workers="$nprocs" --hash=XXH64 --commit=often --alter --only job_runs --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   else
     ks --workers="$nprocs" --hash=XXH64 --commit=often --alter --via="$host" --from=mysql://wip@127.0.0.1:3306/powershop_production --to="mysql://root@localhost/core_development_$1" || return "$?"
   fi
