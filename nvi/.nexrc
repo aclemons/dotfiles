@@ -17,6 +17,17 @@ set iclower
 " default encoding
 set fileencoding=utf-8
 
+" char to edit the colon command-line history
+set cedit=\	
+" char to perform file path completion on the colon command line
+set filec=\	
+
+" do left right scrolling
+set leftright
+
+" error messages
+set verbose
+
 " like vim's set scrolloff=999
 map j jz.
 map k kz.
