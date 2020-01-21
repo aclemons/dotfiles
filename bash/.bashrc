@@ -448,11 +448,11 @@ function update_vim_plugins() {
   find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git pull --rebase
 }
 
-# create functions for vi / elvis which support reading from stdin
+# create functions for elvis which support reading from stdin
 # like 'blah | vim -' does
 #
-# call vi/elvis with TERM=xterm so it works inside tmux
-function vi {
+# call elvis with TERM=xterm so it works inside tmux
+function elvis {
   local BINARY_NAME="vi"
   if [ "x${FUNCNAME[1]}" = "xelvis" ] ; then
     local BINARY_NAME="elvis"
@@ -481,10 +481,6 @@ function vi {
   else
     LANG=de_DE@euro TERM=xterm "$BINARY" "$@"
   fi
-}
-
-function elvis {
-  vi "$@"
 }
 
 function ks_env {

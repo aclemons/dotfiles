@@ -1,0 +1,31 @@
+" auto indent the start of each line
+set autoindent
+" show current mode in bottom right corner
+set showmode
+" show matching ),],}
+set showmatch
+" show line and column numbers at bottom of screen
+set ruler
+" so line numbers at the beginning of the line
+set number
+" show all changed lines in a file
+set report=1
+" ignore case
+set ignorecase
+" respect case if search has uppercase letters
+set iclower
+" default encoding
+set fileencoding=utf-8
+
+" like vim's set scrolloff=999
+map j jz.
+map k kz.
+map  z.
+map  z.
+map G Gz.
+
+" go to first line
+map gg 1G
+
+" some more mappings
+map <SPACE>wn w
