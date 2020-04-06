@@ -438,11 +438,7 @@ function update_vim_plugins() {
 #
 # call elvis with TERM=xterm so it works inside tmux
 function elvis {
-  local BINARY_NAME="vi"
-  if [ "x${FUNCNAME[1]}" = "xelvis" ] ; then
-    local BINARY_NAME="elvis"
-  fi
-
+  local BINARY_NAME="elvis"
   local BINARY="/usr/bin/$BINARY_NAME"
   local LAST=""
 
