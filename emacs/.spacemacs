@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(go
+   '(nginx
+     go
      react
      systemd
      csv
@@ -41,11 +42,12 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; helm
      auto-completion
      ;; better-defaults
      emacs-lisp
      git
+     ;; helm
+     lsp
      markdown
      multiple-cursors
      ;; org
@@ -63,8 +65,7 @@ This function should only modify configuration layer settings."
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rbenv
-           ruby-backend 'robe
-           )
+           ruby-backend 'robe)
      ruby-on-rails
      yaml
      (java :variables
