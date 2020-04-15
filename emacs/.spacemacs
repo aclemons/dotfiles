@@ -32,11 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(nginx
-     go
-     react
-     systemd
-     csv
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -46,48 +42,33 @@ This function should only modify configuration layer settings."
      ;; better-defaults
      emacs-lisp
      git
+     go
+     groovy
+     html
      ;; helm
+     (ivy :variables
+          ivy-enable-advanced-buffer-information t
+          ivy-wrap t)
+     (java :variables
+           java-backend 'lsp)
      lsp
      markdown
      multiple-cursors
      ;; org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
-     version-control
-     treemacs
-     (ivy :variables
-          ivy-enable-advanced-buffer-information t
-          ivy-wrap t
-          )
      (ruby :variables
+           ruby-enable-enh-ruby-mode t
            ruby-test-runner 'rspec
            ruby-version-manager 'rbenv
            ruby-backend 'robe)
-     ruby-on-rails
-     yaml
-     (java :variables
-           java-backend 'lsp)
-     groovy
-     shell-scripts
-     (rust :variables
-           rust-backend 'lsp)
-     syntax-checking
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
      semantic
-     tern
-     (javascript :variables
-                 javascript-backend 'tern
-                 js2-basic-offset 2
-                 js-indent-level 2
-                 )
-     (python :variables
-             python-backend 'anaconda)
-     c-c++
-     sql
-     html
-     vimscript
+     ;; spell-checking
+     syntax-checking
+     treemacs
+     version-control
+     yaml
      )
 
    ;; List of additional packages that will be installed without being
@@ -578,21 +559,7 @@ before packages are loaded."
       (setq interprogram-paste-function 'xclip-paste-function)
       ))
 
-  ;; enable syntax highlighting for SlackBuild .info files
-  (add-to-list 'auto-mode-alist '("\\.info\\'" . check-for-slackbuild))
-  (defun check-for-slackbuild ()
-    "Check for a SlackBuild in the default directory of the current buffer, and set the major mode accordingly."
-    (if (directory-files default-directory nil "\\.SlackBuild\\'")
-        ;; set unix config mode if there is also a *.SlackBuild file
-        (conf-unix-mode)
-      ;; otherwise just text mode
-      (text-mode)))
-  ;; also update magic-mode-alist to test for *.info files by regexp
-  (add-to-list
-   'magic-mode-alist
-   '("PRGNAM=\".*\"" . conf-unix-mode))
-
-    )
+  )
 
 ;; (rspec-spec-command . "spring rspec")
 ;; (feature-rake-command . "spring cucumber {options} \"{feature}\"")
