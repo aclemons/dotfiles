@@ -172,7 +172,7 @@ export P4CONFIG=.p4settings
 # Paths #
 #########
 
-export PATH=~/bin:~/.local/bin:~/node_modules/.bin:~/go/bin:$PATH
+export PATH=~/bin:~/.local/bin:~/node_modules/bin:~/go/bin:$PATH
 export SQLPATH=~/.sqlplus
 export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 
