@@ -216,6 +216,8 @@ export RUST_SRC_PATH
 
 export GTAGSLABEL=pygments
 
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 ###########
 # Aliases #
 ###########
