@@ -275,7 +275,7 @@ if [[ $(id -u) == "0" ]] ; then
 fi
 
 [[ -n "$DISPLAY" ]] && alias vim="gvim -v"
-[[ -n "$DISPLAY" ]] && alias emacs="TERM=screen-24bits emacs -nw" && alias emacsclient="TERM=screen-24bits emacsclient -nw -a '' -c"
+[[ -n "$DISPLAY" ]] && alias emacs="TERM=xterm-24bits emacs -nw" && alias emacsclient="TERM=xterm-24bits emacsclient -nw -a '' -c"
 [[ -n "$DISPLAY" ]] && alias remacs="remacs -nw" && alias remacsclient="remacsclient -nw -a '' -c"
 [[ -z "$DISPLAY" ]] && [[ -e /usr/bin ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
 
