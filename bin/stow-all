@@ -14,9 +14,8 @@ if [ "x$prog" = "x" ] ; then
   exit 1
 fi
 
-# mutt
-for package in aspell bash elvis emacs i3 nvi readline tmux vim x ; do
-  if [ "$package" = "i3" ] || [ "$package" = "x" ] ; then
+for package in aspell bash elvis emacs i3 mutt nvi readline tmux vim x ; do
+  if [ "$package" = "i3" ] || [ "$package" = "x" ] || [ "$package" = "mutt" ] ; then
     if command -v X > /dev/null 2>&1 && [ "$(id -u)" -ne 0 ] ; then
       printf 'Configuring %s\n' "$package"
 

@@ -1,0 +1,21 @@
+set imap_user = "`pass andrew/email/runbox | sed -n /login:/p | awk -F' ' '{ print $2 }'`"
+set imap_pass = "`pass andrew/email/runbox | sed -n 1p`"
+set folder = "imaps://`pass andrew/email/runbox | sed -n /imap:/p | awk -F' ' '{ print $2 }'`:993/"
+set realname = "`pass andrew/email/runbox | sed -n 's/identity: //p'`"
+set from = "`pass andrew/email/runbox | sed -n 's/email: //p'`"
+
+set sendmail = "/usr/sbin/emailrelay-submit --spool-dir $HOME/.emailrelay/spools/runbox"
+
+# Message-ID
+set hostname = "`pass andrew/email/runbox | sed -n 's/email: //p' | sed 's/^.*@//'`"
+
+set spoolfile = "+Inbox"
+
+source ~/.mutt/base
+source ~/.mutt/crypto_home
+source ~/.mutt/colours
+
+set imap_keepalive = 900
+set imap_check_subscribed = yes
+
+folder-hook . 'set record="^"'
