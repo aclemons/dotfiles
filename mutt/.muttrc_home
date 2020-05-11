@@ -9,11 +9,13 @@ set sendmail = "/usr/sbin/emailrelay-submit --spool-dir $HOME/.emailrelay/spools
 # Message-ID
 set hostname = "`pass andrew/email/runbox | sed -n 's/email: //p' | sed 's/^.*@//'`"
 
+set pgp_default_key="0xFACBDA2B"
+
 set spoolfile = "+Inbox"
 
 source ~/.mutt/base
-source ~/.mutt/crypto_home
 source ~/.mutt/colours
+source ~/.mutt/crypto
 
 set imap_keepalive = 900
 set imap_check_subscribed = yes
