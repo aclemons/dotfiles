@@ -55,6 +55,7 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      ;; org
+     python
      (ruby :variables
            ruby-enable-enh-ruby-mode t
            ruby-test-runner 'rspec
@@ -68,6 +69,7 @@ This function should only modify configuration layer settings."
      syntax-checking
      treemacs
      version-control
+     vimscript
      yaml
      )
 
