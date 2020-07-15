@@ -260,7 +260,7 @@ if [[ $(id -u) == "0" ]] ; then
 
         if curl -f -s "$url" -o /dev/null ; then
           local deps
-          deps="$(curl -f -s "$url" | tr -cd '[[:alnum:]]._-' | sort | paste -s -d' ')"
+          deps="$(curl -f -s "$url" | sort | paste -s -d' ')"
 
           # shellcheck disable=SC2086
           slackroll install $deps "$package"
