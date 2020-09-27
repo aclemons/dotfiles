@@ -66,7 +66,7 @@ This function should only modify configuration layer settings."
             shell-default-height 30
             shell-default-position 'bottom)
      semantic
-     ;; spell-checking
+     spell-checking
      syntax-checking
      treemacs
      version-control
