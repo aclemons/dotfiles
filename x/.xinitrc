@@ -11,6 +11,8 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $userresources ] && /usr/bin/xrdb -merge $userresources
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 
+[ -x /usr/bin/vmware-user ] && /usr/bin/vmware-user
+
 export XMODIFIERS=@im=fcitx
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
