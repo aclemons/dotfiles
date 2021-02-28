@@ -240,7 +240,11 @@ alias less="less -i"
 alias tidyxml="tidy -xml -i -w 1000 -q"
 
 # start x in a screen session so i don't have to leave a tty logged in
-alias startx="screen -d -m ssh-agent startx -- -nolisten tcp ; exit"
+if [ -x /bin/loginctl ] ; then
+  alias startx="ssh-agent startx -- -nolisten tcp"
+else
+  alias startx="screen -d -m ssh-agent startx -- -nolisten tcp ; exit"
+fi
 
 alias sshnokeys="ssh -o PreferredAuthentications=keyboard-interactive"
 alias scpnokeys="scp -o PreferredAuthentications=keyboard-interactive"
