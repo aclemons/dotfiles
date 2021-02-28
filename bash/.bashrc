@@ -218,6 +218,11 @@ export GTAGSLABEL=pygments
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+if [ -e ~/.emacs.d/bin ] ; then
+  PATH="$HOME/.emacs.d/bin:$PATH"
+  export PATH
+fi
+
 ###########
 # Aliases #
 ###########
