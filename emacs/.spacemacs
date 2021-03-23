@@ -43,7 +43,9 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      go
-     groovy
+     (groovy :variables
+        groovy-backend 'lsp
+        groovy-lsp-jar-path "~/.emacs.d/.cache/lsp/groovy-language-server-all.jar")
      html
      ;; helm
      (ivy :variables
