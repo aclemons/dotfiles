@@ -150,7 +150,7 @@ PROMPT_COMMAND=_simple_prompt_command
 alias gpg=gpg2
 export GPG_TTY="$(tty)"
 
-if pgrep gpg-agent > /dev/null ; then
+if pgrep gpg-agent > /dev/null 2>&1 ; then
   echo UPDATESTARTUPTTY | gpg-connect-agent > /dev/null
 fi
 
