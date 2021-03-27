@@ -151,7 +151,7 @@ alias gpg=gpg2
 export GPG_TTY="$(tty)"
 
 if pgrep gpg-agent > /dev/null 2>&1 ; then
-  echo UPDATESTARTUPTTY | gpg-connect-agent > /dev/null
+  echo UPDATESTARTUPTTY | gpg-connect-agent > /dev/null 2>&1
 fi
 
 ##############
