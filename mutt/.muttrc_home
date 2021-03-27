@@ -1,13 +1,13 @@
-set imap_user = "`pass andrew/email/runbox | sed -n /login:/p | awk -F' ' '{ print $2 }'`"
-set imap_pass = "`pass andrew/email/runbox | sed -n 1p`"
-set folder = "imaps://`pass andrew/email/runbox | sed -n /imap:/p | awk -F' ' '{ print $2 }'`:993/"
-set realname = "`pass andrew/email/runbox | sed -n 's/identity: //p'`"
-set from = "`pass andrew/email/runbox | sed -n 's/email: //p'`"
+set imap_user = "`pass email/runbox | sed -n /login:/p | awk -F' ' '{ print $2 }'`"
+set imap_pass = "`pass email/runbox | sed -n 1p`"
+set folder = "imaps://`pass email/runbox | sed -n /imap:/p | awk -F' ' '{ print $2 }'`:993/"
+set realname = "`pass email/runbox | sed -n 's/identity: //p'`"
+set from = "`pass email/runbox | sed -n 's/email: //p'`"
 
 set sendmail = "/usr/sbin/emailrelay-submit --spool-dir $HOME/.emailrelay/spools/runbox"
 
 # Message-ID
-set hostname = "`pass andrew/email/runbox | sed -n 's/email: //p' | sed 's/^.*@//'`"
+set hostname = "`pass email/runbox | sed -n 's/email: //p' | sed 's/^.*@//'`"
 
 set pgp_default_key="0xFACBDA2B"
 
