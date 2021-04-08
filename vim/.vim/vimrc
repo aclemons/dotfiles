@@ -1,17 +1,12 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-
-let g:pathogen_disabled = []
-
 if v:version < '800'
+  runtime bundle/vim-pathogen/autoload/pathogen.vim
+  let g:pathogen_disabled = []
   call add(g:pathogen_disabled, 'ale')
-else
-  call add(g:pathogen_disabled, 'syntastic')
+  execute pathogen#infect()
 endif
-
-execute pathogen#infect()
 
 if has("unix")
   let s:uname = system("uname")

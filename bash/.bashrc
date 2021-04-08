@@ -432,6 +432,8 @@ function diff_multimodule {
 function update_vim_plugins() {
   find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git checkout master
   find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git pull --rebase
+  find "$HOME/.vim/pack/bundles/start" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git checkout master
+  find "$HOME/.vim/pack/bundles/start" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git pull --rebase
 }
 
 # create functions for elvis which support reading from stdin
