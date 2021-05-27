@@ -185,7 +185,7 @@ _first_invoke=1
 
 export VISUAL=vim
 
-export FZF_DEFAULT_OPTS="--ansi"
+export FZF_DEFAULT_OPTS="--ansi --exact"
 export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
 
 if [[ -e /usr/share/fzf/key-bindings.bash ]] ; then
