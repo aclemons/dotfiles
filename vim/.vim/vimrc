@@ -189,6 +189,7 @@ vmap <C-Down> ]egv
 
 augroup vimrc
   au BufNewFile,BufRead Jenkinsfile*         set filetype=groovy
+  au BufNewFile,BufRead jenkinsfile*         set filetype=groovy
 augroup END
 
 " some more mappings
