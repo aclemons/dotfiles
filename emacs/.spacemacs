@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(javascript
+   '(
      docker
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -54,6 +54,7 @@ This function should only modify configuration layer settings."
           ivy-wrap t)
      (java :variables
            java-backend 'lsp)
+     javascript
      lsp
      markdown
      multiple-cursors
@@ -71,6 +72,7 @@ This function should only modify configuration layer settings."
      shell-scripts
      semantic
      spell-checking
+     sql
      syntax-checking
      treemacs
      version-control
