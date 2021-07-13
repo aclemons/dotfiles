@@ -196,7 +196,8 @@ augroup END
 nnoremap <Space>bd :bd<ENTER>
 nnoremap <Space>bn :bn<ENTER>
 nnoremap <Space>bp :bp<ENTER>
-nnoremap <Space>gb :Gblame<ENTER>
+nnoremap <Space>gb :Git blame<ENTER>
+nnoremap <Space>gS :Git add<ENTER>
 
 nnoremap <Space>el :lopen<ENTER>
 nnoremap <Space>eL :lclose<ENTER>
