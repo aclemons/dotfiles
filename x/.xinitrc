@@ -21,14 +21,14 @@ export XIM_PROGRAM="/usr/bin/fcitx -d"
 # Start i3
 if [ "$(gpg2 --version | sed -n 1p | cut -d' ' -f3 | cut -d. -f2)" = "0" ] ; then
   if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-    exec gpg-agent --daemon ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
+    exec ssh-agent gpg-agent --daemon ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
   else
-    exec gpg-agent --daemon /usr/bin/i3
+    exec ssh-agent gpg-agent --daemon /usr/bin/i3
   fi
 else
   if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-    exec ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
+    exec ssh-agent ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
   else
-    exec /usr/bin/i3
+    exec ssh-agent /usr/bin/i3
   fi
 fi
