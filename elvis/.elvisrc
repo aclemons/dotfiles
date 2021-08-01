@@ -41,16 +41,6 @@ au BufReadPost *.info {
   set bufdisplay="syntax ksh"
 }
 
-au BufReadPost *_spec.rb {
-  set ww=uk
-  set ccprg="COUNTRY=(ww) bundle exec spring rspec ($1?($2;char(58);$1;):$2) 2>&1"
-}
-
-au BufReadPost *.feature {
-  set ww=uk
-  set ccprg="COUNTRY=(ww) bundle exec spring cucumber ($1?($2;char(58);$1;):$2) 2>&1"
-}
-
 au BufReadPost * {
   if !knownsyntax(filename) && buflines >= 1
   then {
