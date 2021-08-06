@@ -82,3 +82,6 @@
 [submodule "vim/.vim/bundle/vim-monokai-tasty"]
 	path = vim/.vim/pack/bundles/start/vim-monokai-tasty
 	url = https://github.com/patstockwell/vim-monokai-tasty
+[submodule "vim/.vim/pack/bundles/opt/firenvim"]
+	path = vim/.vim/pack/bundles/opt/firenvim
+	url = https://github.com/glacambre/firenvim.git

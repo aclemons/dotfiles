@@ -8,6 +8,10 @@ if v:version < '800'
   execute pathogen#infect()
 endif
 
+if has('nvim')
+  packadd firenvim
+end
+
 if has("unix")
   let s:uname = system("uname")
   if s:uname == "Darwin\n"
