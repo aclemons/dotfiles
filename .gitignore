@@ -1,5 +1,6 @@
 emacs/.spacemacs.d/.spacemacs.env
 mutt/.mutt/cache/
 vim/.config/nvim/.netrwhist
+vim/.local/share/nvim/site/spell/
 vim/.vim/.netrwhist
 vim/.vim/spell/
