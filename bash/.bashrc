@@ -147,7 +147,12 @@ PROMPT_COMMAND=_simple_prompt_command
 #######
 # GPG #
 #######
-alias gpg=gpg2
+if command -v gpg2 > /dev/null ; then
+  alias gpg=gpg2
+else
+  alias gpg2=gpg
+fi
+
 export GPG_TTY="$(tty)"
 
 if pgrep gpg-agent > /dev/null 2>&1 ; then
@@ -206,7 +211,7 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-if uname -s  | grep Darwin > /dev/null ; then
+if uname -s | grep Darwin > /dev/null ; then
   RUST_SRC_PATH=/usr/local/share/rust/rust_src
 else
   RUST_SRC_PATH="/usr/lib$(case "$(uname -m)" in x86_64) echo "64" ;; *) echo "" ;; esac; )/rustlib/src/rust/src"
@@ -372,7 +377,7 @@ function timeis() {
 
   search=${search/ /_}
 
-  w3m -dump "http://time.is/$search" | grep --colour=never -i -P "\d\d:\d\d:\d\d|^Time in | week "
+  w3m -dump "http://time.is/$search" | grep --colour never -i -P "\d\d:\d\d:\d\d|^Time in | week "
 }
 
 # translate a word
@@ -460,3 +465,17 @@ function elvis {
     LANG=de_DE@euro TERM=xterm "$BINARY" "$@"
   fi
 }
+
+if uname -s | grep Darwin > /dev/null ; then
+  export CLICOLOR=YES
+
+  export PATH="/usr/local/sbin:$PATH"
+
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+
+  export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+  eval "$(rbenv init -)"
+fi
