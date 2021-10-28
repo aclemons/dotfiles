@@ -479,3 +479,7 @@ if uname -s | grep Darwin > /dev/null ; then
 
   eval "$(rbenv init -)"
 fi
+
+if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+fi
