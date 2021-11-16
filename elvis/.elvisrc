@@ -52,10 +52,12 @@ au BufReadPost * {
 }
 
 load fzf
+load rg
 load copy
 
 " some more mappings
-map <SPACE>pf :fzf<ENTER>
+map <SPACE>pf :FZF<ENTER>
+map <SPACE>srp :Rg<ENTER>
 map <SPACE>bo :only<ENTER>
 map <SPACE>wn w
 map <SPACE>fyY :grabfile<ENTER>
