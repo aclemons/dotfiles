@@ -429,10 +429,14 @@ function diff_multimodule {
 }
 
 function update_vim_plugins() {
-  find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git checkout master
-  find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git pull --rebase
-  find "$HOME/.vim/pack/bundles/start" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git checkout master
-  find "$HOME/.vim/pack/bundles/start" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | xargs -I xx git --git-dir=xx/.git pull --rebase
+  find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | while read -r project ; do
+    git --git-dir="$project/.git" checkout -q master || return 1
+    git --git-dir="$project/.git" pull -q --rebase || return 1
+  done
+  find "$HOME/.vim/pack/bundles/start" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | while read -r project ; do
+    git --git-dir="$project/.git" checkout -q master || return 1
+    git --git-dir="$project/.git" pull -q --rebase || return 1
+  done
   echo "ignored" | vim -c "helptags ALL" -c 'q!' -
 }
 
