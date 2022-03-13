@@ -24,7 +24,7 @@ ethernet eth0 {
 }
 
 run_watch DHCP {
-        pidfile = "/run/dhcpcd/dhcpcd-*.pid"
+        pidfile = "/run/eth0-*.pid"
         format = "%title"
 }
 
