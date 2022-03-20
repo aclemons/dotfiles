@@ -1,0 +1,9 @@
+# lock screen
+bindsym Control+Mod1+l exec xscreensaver-command -l
+
+# suspend
+bindsym $mod+x exec xscreensaver-command -l && dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend
+
+exec akregator --hide-mainwindow &
+exec redshift-gtk &
+exec xscreensaver -no-splash &
