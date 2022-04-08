@@ -482,6 +482,10 @@ if uname -s | grep Darwin > /dev/null ; then
 
   export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
+  if [ -s "/opt/homebrew/bin/brew" ] ; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+
   eval "$(rbenv init -)"
 fi
 
