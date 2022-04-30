@@ -13,6 +13,10 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 [ -x /usr/bin/vmware-user ] && /usr/bin/vmware-user
 
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+
 cat "$HOME/.config/i3/config.base" > "$HOME/.config/i3/config"
 cat "$HOME/.config/i3/config.$(hostname)" >> "$HOME/.config/i3/config"
 
