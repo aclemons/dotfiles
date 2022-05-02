@@ -221,7 +221,9 @@ export RUST_SRC_PATH
 
 export GTAGSLABEL=pygments
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+if command -v bat > /dev/null ; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 
 if [ -e ~/.emacs.d/bin ] ; then
   PATH="$HOME/.emacs.d/bin:$PATH"
