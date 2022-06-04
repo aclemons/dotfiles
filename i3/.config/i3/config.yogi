@@ -1,0 +1,9 @@
+# lock screen
+bindsym Control+Mod1+l exec xscreensaver-command -l
+
+# suspend
+bindsym $mod+x exec xscreensaver-command -l && loginctl suspend
+
+exec akregator --hide-mainwindow &
+exec redshift-gtk &
+exec xscreensaver -no-splash &
