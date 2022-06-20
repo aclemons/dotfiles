@@ -59,7 +59,11 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      ;; org
-     python
+     (python :variables
+       python-backend 'lsp
+       python-lsp-server 'pyright
+       python-test-runner 'pytest
+     )
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rbenv
@@ -190,6 +194,12 @@ It should only modify the values of Spacemacs settings."
    ;; (default 'vim)
    dotspacemacs-editing-style 'vim
 
+   ;; If non-nil, show vim-like empty line indicators at the end of files.
+   ;; Takes effect only if `spacemacs-evil' layer is enabled.
+   ;; NOTICE: `spacemacs-evil' is included in `spacemacs' distribution.
+   ;; See `dotspacemacs-distribution'.
+   dotspacemacs-evil-show-empty-line-indicators t
+
    ;; If non-nil show the version string in the Spacemacs buffer. It will
    ;; appear as (spacemacs version)@(emacs version)
    ;; (default t)
@@ -202,6 +212,13 @@ It should only modify the values of Spacemacs settings."
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner nil
+
+   ;; Scale factor controls the scaling (size) of the startup banner. Default
+   ;; value is `auto' for scaling the logo automatically to fit all buffer
+   ;; contents, to a maximum of the full image height and a minimum of 3 line
+   ;; heights. If set to a number (int or float) it is used as a constant
+   ;; scaling factor for the default logo size.
+   dotspacemacs-startup-banner-scale 'auto
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -558,14 +575,16 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  )
+)
+
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-  )
+)
+
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
