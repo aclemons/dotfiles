@@ -476,19 +476,22 @@ function elvis {
 if uname -s | grep Darwin > /dev/null ; then
   export CLICOLOR=YES
 
-  export PATH="/usr/local/sbin:$PATH"
+  export PATH="${HOMEBREW_PREFIX}/opt/openssl/bin:$PATH"
+  export PATH="/opt/homebrew/sbin:$PATH"
 
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
-
-  export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-
-  if [ -s "/opt/homebrew/bin/brew" ] ; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+  if command -v rbenv > /dev/null ; then
+    eval "$(rbenv init -)"
   fi
 
-  eval "$(rbenv init -)"
+  if command -v direnv > /dev/null ; then
+    eval "$(direnv hook bash)"
+  fi
+
+  if command -v pyenv > /dev/null ; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+  fi
 fi
 
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
