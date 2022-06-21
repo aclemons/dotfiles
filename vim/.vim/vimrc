@@ -15,7 +15,7 @@ end
 if has("unix")
   let s:uname = system("uname")
   if s:uname == "Darwin\n"
-    set rtp+=/usr/local/opt/fzf
+    set rtp+=/opt/homebrew/opt/fzf
   endif
 endif
 
