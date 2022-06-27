@@ -63,7 +63,7 @@ This function should only modify configuration layer settings."
        python-backend 'lsp
        python-lsp-server 'pyright
        python-test-runner 'pytest
-     )
+       python-formatter 'black)
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rbenv
@@ -602,7 +602,7 @@ before packages are loaded."
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
   (beacon-mode 1)
-  (global-centered-cursor-mode 1)
+  ;; (global-centered-cursor-mode 1)
 
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
 
