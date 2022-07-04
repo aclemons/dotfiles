@@ -85,3 +85,6 @@
 [submodule "vim/.vim/pack/bundles/opt/firenvim"]
 	path = vim/.vim/pack/bundles/opt/firenvim
 	url = https://github.com/glacambre/firenvim.git
+[submodule "vim/.vim/pack/bundles/start/vim-terraform"]
+	path = vim/.vim/pack/bundles/start/vim-terraform
+	url = https://github.com/hashivim/vim-terraform.git
