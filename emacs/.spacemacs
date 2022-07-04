@@ -92,7 +92,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(writeroom-mode beacon bats-mode osm)
+   dotspacemacs-additional-packages '(bats-mode osm)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -602,9 +602,6 @@ before packages are loaded."
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
-  (beacon-mode 1)
-  ;; (global-centered-cursor-mode 1)
-
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
 
   (setq-default tab-width 8)
@@ -621,7 +618,7 @@ before packages are loaded."
   (setq web-mode-comment-style 2)
   (setq web-mode-enable-current-element-highlight t)
 
-  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+  (setq undo-tree-history-directory-alist '(("." . "~/.cache/emacs/undo")))
 
   (setq ruby-insert-encoding-magic-comment nil)
 
