@@ -510,5 +510,5 @@ if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
 fi
 
 if [ -e "$HOME/.bashrc_local" ] ; then
-  . "$HOME/.bashrc_local"
+  source "$HOME/.bashrc_local"
 fi
