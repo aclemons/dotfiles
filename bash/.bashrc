@@ -498,6 +498,11 @@ if uname -s | grep Darwin > /dev/null ; then
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
   fi
+else
+  export PATH=~/.pyenv/bin:$PATH
+  if command -v pyenv > /dev/null ; then
+    eval "$(pyenv init -)"
+  fi
 fi
 
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
