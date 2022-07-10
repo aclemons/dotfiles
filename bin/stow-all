@@ -2,6 +2,12 @@
 
 set -e
 
+macosx=false
+case "$(uname)" in
+Darwin) macosx=true;;
+esac
+
+
 for cmd in stow xstow ; do
   if command -v "$cmd" > /dev/null 2>&1 ; then
     prog="$cmd"
@@ -9,14 +15,24 @@ for cmd in stow xstow ; do
   fi
 done
 
-if [ "x$prog" = "x" ] ; then
+if [ "$prog" = "" ] ; then
   printf "stow/xstow required!\n"
   exit 1
 fi
 
 for package in aspell bash elvis emacs i3 mutt nvi readline tmux vim x ; do
-  if [ "$package" = "i3" ] || [ "$package" = "x" ] || [ "$package" = "mutt" ] ; then
+  if [ "$package" = "i3" ] || [ "$package" = "x" ] ; then
     if command -v X > /dev/null 2>&1 && [ "$(id -u)" -ne 0 ] ; then
+      printf 'Configuring %s\n' "$package"
+
+      "$prog" "$package"
+    else
+      printf 'Unconfiguring %s\n' "$package"
+
+      "$prog" -D "$package"
+    fi
+  elif [ "$package" = "mutt" ] ; then
+    if $macosx || ( command -v X > /dev/null 2>&1 && [ "$(id -u)" -ne 0 ] ) ; then
       printf 'Configuring %s\n' "$package"
 
       "$prog" "$package"
