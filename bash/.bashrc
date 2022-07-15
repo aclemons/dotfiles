@@ -498,6 +498,8 @@ if uname -s | grep Darwin > /dev/null ; then
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
   fi
+
+  export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 else
   export PATH=~/.pyenv/bin:$PATH
   if command -v pyenv > /dev/null ; then
