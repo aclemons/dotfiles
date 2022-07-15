@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(typescript
+   '(
      docker
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -58,6 +58,7 @@ This function should only modify configuration layer settings."
      lsp
      markdown
      multiple-cursors
+     (node :variables node-add-modules-path t)
      ;; org
      (python :variables
        python-backend 'lsp
@@ -79,8 +80,10 @@ This function should only modify configuration layer settings."
      syntax-checking
      terraform
      treemacs
+     typescript
      version-control
      vimscript
+     (vue :variables vue-backend 'lsp)
      xclipboard
      yaml
      )
@@ -615,7 +618,9 @@ before packages are loaded."
   (setq magit-revision-show-gravatars nil)
 
   (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
   (setq web-mode-comment-style 2)
   (setq web-mode-enable-current-element-highlight t)
 
