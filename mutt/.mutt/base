@@ -31,7 +31,7 @@ set pager_context=3             # page to page line context
 
 set ispell="aspell -l en_GB-ise-w_accents -e -c"
 
-my_hdr X-Operating-System: `cat /etc/slackware-version` `uname -srmo`
+my_hdr X-Operating-System: `if [ -e /etc/slackware-version ] ; then printf '%s %s\n' "$(cat /etc/slackware-version)" "$(uname -srmo)" ; elif [ "$(uname)" = "Darwin" ] ; then sw_vers | cut -d: -f2 | sed '$d' | sed 's/^[[:space:]]*//' | tr '\n' ' ' | sed 's/[[:space:]]*$/\n/' ; fi`
 #my_hdr X-message-flag: Please use plain text when replying--not HTML
 my_hdr X-Sender: `whoami`@`hostname`
 my_hdr X-Composed-With: vim
