@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(erlang
      docker
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -660,9 +660,15 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
+ '(package-selected-packages
+   '(counsel-gtags erlang ggtags helm-gtags helm helm-core yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify vterm volatile-highlights vimrc-mode vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide terminal-here term-cursor tagedit symon symbol-overlay string-inflection string-edit stickyfunc-enhance srefactor sql-indent sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc smex smeargle slim-mode shfmt shell-pop seeing-is-believing scss-mode sass-mode rvm rust-mode ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode ron-mode robe restart-emacs rbenv rake rainbow-delimiters quickrun pytest pylookup pyenv-mode pydoc py-isort pug-mode prettier-js popwin poetry pippel pipenv pip-requirements password-generator paradox overseer osm org-superstar open-junk-file npm-mode nose nodejs-repl nameless mvn multi-term multi-line monokai-theme mmm-mode minitest maven-test-mode markdown-toc macrostep lsp-ui lsp-python-ms lsp-pyright lsp-origami lsp-java lsp-ivy lorem-ipsum livid-mode live-py-mode link-hint json-reformat json-navigator json-mode js2-refactor js-doc ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra ivy-avy inspector insert-shebang info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make groovy-mode groovy-imports google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gitignore-templates git-timemachine git-modes git-messenger git-link git-gutter-fringe gh-md fuzzy forge font-lock+ flyspell-correct-ivy flycheck-rust flycheck-pos-tip flycheck-package flycheck-elsa flycheck-bashate flx-ido fish-mode fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emr emmet-mode elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dockerfile-mode docker dired-quick-sort diminish devdocs define-word dactyl-mode cython-mode counsel-projectile counsel-css company-web company-terraform company-shell company-go company-anaconda column-enforce-mode code-cells clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blacken bats-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile async aggressive-indent add-node-modules-path ace-link ac-ispell))
  '(safe-local-variable-values
    '((ruby-test-runner . minitest)
-     (flycheck-command-wrapper-function lambda (command) (append (quote ("bundle" "exec")) command))
+     (flycheck-command-wrapper-function lambda
+                                        (command)
+                                        (append
+                                         '("bundle" "exec")
+                                         command))
      (javascript-backend . tide)
      (javascript-backend . tern)
      (javascript-backend . lsp))))
