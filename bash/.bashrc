@@ -173,6 +173,11 @@ export PARINIT="rTbgqR B=.?_A_a Q=_s>|"
 ############
 export P4CONFIG=.p4settings
 
+#############
+# Terraform #
+#############
+export CHECKPOINT_DISABLE=1
+
 #########
 # Paths #
 #########
