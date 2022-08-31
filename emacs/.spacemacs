@@ -84,7 +84,6 @@ This function should only modify configuration layer settings."
      version-control
      vimscript
      (vue :variables vue-backend 'lsp)
-     xclipboard
      yaml
      )
 
@@ -96,7 +95,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(bats-mode osm)
+   dotspacemacs-additional-packages '(bats-mode osm xclip)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -602,6 +601,11 @@ before packages are loaded."
           gnutls-min-prime-bits 2048
           gnutl-verify-error t)
 
+  ; clipboard stuff
+  (setq select-enable-clipboard nil)
+  (fset 'evil-visual-update-x-selection 'ignore)
+  (xclip-mode 1)
+
   (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
@@ -645,7 +649,8 @@ before packages are loaded."
   (setq sh-basic-offset 2
         sh-indentation 2)
 
-  (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode)))
+  (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
