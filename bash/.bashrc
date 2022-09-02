@@ -481,9 +481,6 @@ function elvis {
 if uname -s | grep Darwin > /dev/null ; then
   export CLICOLOR=YES
 
-  export PATH="${HOMEBREW_PREFIX}/opt/openssl/bin:$PATH"
-  export PATH="/opt/homebrew/sbin:$PATH"
-
   if command -v rbenv > /dev/null ; then
     eval "$(rbenv init -)"
   fi
@@ -504,7 +501,7 @@ if uname -s | grep Darwin > /dev/null ; then
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
   fi
 
-  export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+  eval "$(brew shellenv)"
 else
   export PATH=~/.pyenv/bin:$PATH
   if command -v pyenv > /dev/null ; then
