@@ -88,3 +88,6 @@
 [submodule "vim/.vim/pack/bundles/start/vim-terraform"]
 	path = vim/.vim/pack/bundles/start/vim-terraform
 	url = https://github.com/hashivim/vim-terraform.git
+[submodule "vim/.vim/pack/bundles/start/bats.vim"]
+	path = vim/.vim/pack/bundles/start/bats.vim
+	url = https://github.com/aliou/bats.vim
