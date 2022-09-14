@@ -502,6 +502,7 @@ if uname -s | grep Darwin > /dev/null ; then
   fi
 
   eval "$(brew shellenv)"
+  export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
 else
   export PATH=~/.pyenv/bin:$PATH
   if command -v pyenv > /dev/null ; then
