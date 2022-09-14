@@ -122,10 +122,6 @@ else
   let g:ale_fixers = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
 
   let g:airline#extensions#ale#enabled = 1
-
-  let g:EclimJavaValidate = 0
-
-  autocmd FileType java let g:ale_java_javac_classpath=eclim#Execute('-command java_classpath -p ' . eclim#project#util#GetCurrentProjectName())
 endif
 
 let g:localvimrc_persistent = 1
