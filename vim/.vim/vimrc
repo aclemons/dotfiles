@@ -118,9 +118,6 @@ if v:version < '800'
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
 else
-  let g:ale_linters = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
-  let g:ale_fixers = { 'ruby': ['rubocop'], 'eruby': ['ruumba'] }
-
   let g:airline#extensions#ale#enabled = 1
 endif
 
