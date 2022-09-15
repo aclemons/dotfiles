@@ -385,7 +385,7 @@ function timeis() {
 
   search=${search/ /_}
 
-  w3m -dump "http://time.is/$search" | grep --colour never -i -P "\d\d:\d\d:\d\d|^Time in | week "
+  w3m -dump "http://time.is/$search" | sed -n '/[[:digit:]][[:digit:]]:[[:digit:]][[:digit:]]:[[:digit:]][[:digit:]]/p;/^Time in /p;/^Sun: /p' | sed 's/More info$//'
 }
 
 # translate a word
