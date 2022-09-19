@@ -40,6 +40,7 @@ This function should only modify configuration layer settings."
      ;; ----------------------------------------------------------------
      auto-completion
      ;; better-defaults
+     (colors :variables colors-enable-nyan-cat-progress-bar t)
      docker
      emacs-lisp
      erlang
