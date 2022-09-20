@@ -97,7 +97,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(bats-mode osm xclip)
+   dotspacemacs-additional-packages '(bats-mode osm xclip centered-cursor-mode)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -595,7 +595,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;; (global-centered-cursor-mode 1)
+  (global-centered-cursor-mode 1)
   (setq gnutls-algorithm-priority
           "SECURE192:+SECURE128:-VERS-ALL:+VERS-TLS1.2:%PROFILE_MEDIUM"
           gnutls-min-prime-bits 2048
