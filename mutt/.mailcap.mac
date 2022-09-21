@@ -1,0 +1,6 @@
+application/pdf; open '%s'; nametemplate=%s.pdf
+image/jpeg; open '%s'
+image/jpg; open '%s'
+image/png; open '%s'
+image/x-png; open '%s'
+text/html; w3m -T text/html -I %{charset} -o frame=0 -o meta_refresh=0 %s; copiousoutput; description=HTML Text; nametemplate=%s.html
