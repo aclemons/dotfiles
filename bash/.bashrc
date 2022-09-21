@@ -446,7 +446,7 @@ function update_vim_plugins() {
     git --git-dir="$project/.git" checkout -q master || return 1
     git --git-dir="$project/.git" pull -q --rebase || return 1
   done
-  echo "ignored" | vim -c "helptags ALL" -c 'q!' -
+  vim -u NONE -c "helptags ALL" -c q
 }
 
 # create functions for elvis which support reading from stdin
