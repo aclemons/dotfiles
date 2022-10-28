@@ -24,7 +24,16 @@ match_lhs=""
 [[ -z ${match_lhs}    ]] \
   && type -P dircolors >/dev/null \
   && match_lhs=$(dircolors --print-database)
+[[ -z ${match_lhs}    ]] \
+  && type -P gdircolors >/dev/null \
+  && match_lhs=$(gdircolors --print-database)
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+if ! ${use_color} ; then
+  if  [ "screen?256color" = "${safe_term}" ] ; then
+    safe_term=screen
+   [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+  fi
+fi
 
 if ${use_color} ; then
   # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
@@ -36,10 +45,23 @@ if ${use_color} ; then
     fi
   fi
 
+  if type -P gdircolors >/dev/null ; then
+    if [[ -f ~/.dir_colors ]] ; then
+      eval $(gdircolors -b ~/.dir_colors)
+    elif [[ -f /etc/DIR_COLORS ]] ; then
+      eval $(gdircolors -b /etc/DIR_COLORS)
+    fi
+  fi
+
   if [[ ${EUID} == 0 ]] ; then
     PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '
   else
     PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+  fi
+
+  if uname -s | grep Darwin > /dev/null ; then
+    export CLICOLOR=1
+    export LSCOLORS="gxfxcxdxbxegedabagacad"
   fi
 
   alias ls='ls --color=auto'
