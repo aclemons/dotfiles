@@ -31,7 +31,7 @@ match_lhs=""
 if ! ${use_color} ; then
   if  [ "screen?256color" = "${safe_term}" ] ; then
     safe_term=screen
-   [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
+    [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
   fi
 fi
 
@@ -286,7 +286,7 @@ alias touchpadoff="synclient TouchpadOff=1"
 
 if [[ $(id -u) == "0" ]] ; then
   function sr() {
-    if [[ $1 == install ]] || ([[ $1 == batch ]] && [[ $2 == install ]]) ; then
+    if [[ $1 == install ]] || { [[ $1 == batch ]] && [[ $2 == install ]] ; } ; then
       shift
 
       local package
@@ -426,7 +426,7 @@ function tl() {
 #  0 - found
 #  1 - no matching project found
 function find_mvn_project() {
-  if [ $# -ne 1 -a $# -ne 2 ] ; then
+  if [ $# -ne 1 ] && [ $# -ne 2 ] ; then
     echo "Usage: find_mvn_project [artefactId] | [groupId] [artefactId]"
     return 1
   fi
@@ -439,9 +439,10 @@ function find_mvn_project() {
 }
 
 function goto_mvn_project() {
-  local pom="$(find_mvn_project $*)"
+  local pom
+  pom="$(find_mvn_project "$@")"
 
-  [ ! -z "$pom" ] || (>&2 echo "Project not found" && return 1)
+  [ -n "$pom" ] || (>&2 echo "Project not found" && return 1)
 
   cd "$(dirname "$pom")"
 }
@@ -484,7 +485,7 @@ function elvis {
     LAST="${*: -1}"
   fi
 
-  if [ "x$LAST" = "x-" ] ; then
+  if [ "$LAST" = "-" ] ; then
     local TMPFILE
     TMPFILE="$(mktemp)"
 
@@ -535,9 +536,11 @@ else
 fi
 
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
+  # shellcheck disable=SC1091
   source "$HOME/.sdkman/bin/sdkman-init.sh"
 fi
 
 if [ -e "$HOME/.bashrc_local" ] ; then
+  # shellcheck disable=SC1091
   source "$HOME/.bashrc_local"
 fi
