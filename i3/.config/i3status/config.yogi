@@ -16,7 +16,6 @@ order += "run_watch DHCP"
 order += "wireless wlan0"
 order += "battery 0"
 order += "load"
-order += "ddate"
 order += "tztime local"
 
 wireless wlan0 {
@@ -49,8 +48,4 @@ load {
 
 disk "/" {
         format = "%avail"
-}
-
-ddate {
-       format = "Today is %{%A, the %e of %B%}, %Y.%N Celebrate %H"
 }
