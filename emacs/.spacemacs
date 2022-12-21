@@ -619,6 +619,8 @@ before packages are loaded."
 
   (setq-default tab-width 8)
 
+  (setq counsel-rg-base-command "rg --hidden --max-columns 240 --with-filename --no-heading --line-number --color never %s")
+
   (setq ivy-rich-switch-buffer-name-max-length 80)
   (setq ivy-rich-switch-buffer-project-max-length 20)
   (setq ivy-virtual-abbreviate 'full)
