@@ -94,3 +94,6 @@
 [submodule "tmux/.tmux"]
 	path = tmux/.tmux
 	url = https://github.com/gpakosz/.tmux.git
+[submodule "vim/.vim/pack/bundles/opt/semshi"]
+	path = vim/.vim/pack/bundles/opt/semshi
+	url = https://github.com/numirias/semshi
