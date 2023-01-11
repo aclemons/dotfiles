@@ -203,4 +203,9 @@ nnoremap <Space>gS :Git add<ENTER>
 nnoremap <Space>el :lopen<ENTER>
 nnoremap <Space>eL :lclose<ENTER>
 
+nnoremap <Space>wl <C-W>l
+nnoremap <Space>wh <C-W>h
+nnoremap <Space>wj <C-W>j
+nnoremap <Space>wk <C-W>k
+
 autocmd QuickFixCmdPost *grep* cwindow
