@@ -10,7 +10,10 @@ endif
 
 if has('nvim')
   packadd firenvim
-  packadd semshi
+
+  if has('python3')
+    packadd semshi
+  end
 end
 
 if has("unix")
