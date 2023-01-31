@@ -200,6 +200,11 @@ export P4CONFIG=.p4settings
 #############
 export CHECKPOINT_DISABLE=1
 
+#######
+# AWS #
+#######
+export SAM_CLI_TELEMETRY=0
+
 #########
 # Paths #
 #########
