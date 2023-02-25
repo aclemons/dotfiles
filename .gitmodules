@@ -84,16 +84,16 @@
 	url = https://github.com/patstockwell/vim-monokai-tasty
 [submodule "vim/.vim/pack/bundles/opt/firenvim"]
 	path = vim/.vim/pack/bundles/opt/firenvim
-	url = https://github.com/glacambre/firenvim.git
+	url = https://github.com/glacambre/firenvim
 [submodule "vim/.vim/pack/bundles/start/vim-terraform"]
 	path = vim/.vim/pack/bundles/start/vim-terraform
-	url = https://github.com/hashivim/vim-terraform.git
+	url = https://github.com/hashivim/vim-terraform
 [submodule "vim/.vim/pack/bundles/start/bats.vim"]
 	path = vim/.vim/pack/bundles/start/bats.vim
 	url = https://github.com/aliou/bats.vim
 [submodule "tmux/.tmux"]
 	path = tmux/.tmux
-	url = https://github.com/gpakosz/.tmux.git
+	url = https://github.com/gpakosz/.tmux
 [submodule "vim/.vim/pack/bundles/opt/semshi"]
 	path = vim/.vim/pack/bundles/opt/semshi
 	url = https://github.com/numirias/semshi
