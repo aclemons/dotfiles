@@ -225,10 +225,13 @@ export VISUAL=vim
 export FZF_DEFAULT_OPTS="--ansi --exact"
 export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
 
-if [[ -e /usr/share/fzf/key-bindings.bash ]] ; then
-  source /usr/share/fzf/key-bindings.bash
-  bind '"\eh": " \C-e\C-u\C-y\ey\C-u`__fzf_eternal_history__`\e\C-e\er\e^"'
-fi
+for file in "/usr/share/fzf/key-bindings.bash" "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ; do
+  if [[ -e "$file" ]] ; then
+    # shellcheck disable=SC1091
+    source "$file"
+    bind '"\eh": " \C-e\C-u\C-y\ey\C-u`__fzf_eternal_history__`\e\C-e\er\e^"'
+  fi
+done
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
