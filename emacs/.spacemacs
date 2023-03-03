@@ -47,26 +47,38 @@ This function should only modify configuration layer settings."
      git
      go
      (groovy :variables
-        groovy-backend 'lsp
-        groovy-lsp-jar-path "~/.emacs.d/.cache/lsp/groovy-language-server-all.jar")
+             groovy-backend 'lsp
+             groovy-lsp-jar-path "~/.emacs.d/.cache/lsp/groovy-language-server-all.jar")
      html
      ;; helm
+     import-js
      (ivy :variables
           ivy-enable-advanced-buffer-information t
           ivy-wrap t)
      (java :variables
            java-backend 'lsp)
-     javascript
-     lsp
+     (javascript :variables
+                 javascript-backend 'lsp
+                 javascript-fmt-tool 'prettier
+                 javascript-import-tool 'import-js
+                 javascript-lsp-linter nil
+                 js-indent-level 2
+                 js2-basic-offset 2
+                 js2-include-node-externs t
+                 js2-mode-show-parse-errors nil
+                 js2-mode-show-strict-warnings nil
+                 node-add-modules-path t)
+     (lsp :variables lsp-disabled-clients '(vls))
      markdown
      multiple-cursors
      (node :variables node-add-modules-path t)
      ;; org
+     prettier
      (python :variables
-       python-backend 'lsp
-       python-lsp-server 'pyright
-       python-test-runner 'pytest
-       python-formatter 'black)
+             python-backend 'lsp
+             python-lsp-server 'pyright
+             python-test-runner 'pytest
+             python-formatter 'black)
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rbenv
@@ -82,10 +94,16 @@ This function should only modify configuration layer settings."
      syntax-checking
      terraform
      treemacs
-     typescript
+     (typescript :variables
+                 typescript-linter 'prettier
+                 typescript-backend 'lsp
+                 typescript-lsp-linter nil)
      version-control
      vimscript
-     (vue :variables vue-backend 'lsp)
+     (vue :variables
+          vue-backend 'lsp
+          vue-ignore-lsp-diagnostics t)
+     web-beautify
      yaml
      )
 
