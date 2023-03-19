@@ -468,16 +468,14 @@ function diff_multimodule {
   git submodule foreach -q 'sh -c "git diff '"$1..$2"' -- . | filterdiff --clean --addprefix '\'' $path/'\'' -x '\''*/*Test.java'\'' -x '\''*/pom.xml'\'' -x '\''*/category.xml'\'' -x '\''*/feature.xml'\'' -x '\''*/MANIFEST.MF'\'' -x '\''*/*.product'\'' -x '\''*/readme.txt'\'' -x '\''*/src/test/*'\''"'
 }
 
-function update_vim_plugins() {
-  find "$HOME/.vim/bundle" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | while read -r project ; do
-    git --git-dir="$project/.git" checkout -q master || return 1
-    git --git-dir="$project/.git" pull -q --rebase || return 1
-  done
-  find "$HOME/.vim/pack/bundles/start" -type d -mindepth 1 -maxdepth 1 | sed 's/\.\///' | while read -r project ; do
-    git --git-dir="$project/.git" checkout -q master || return 1
-    git --git-dir="$project/.git" pull -q --rebase || return 1
-  done
-  vim -u NONE -c "helptags ALL" -c q
+function update_dotfiles() {
+  (
+    cd "$HOME/.dotfiles"
+    git remote update --prune
+    git pull --quiet
+    git submodule --quiet update --init
+    vim -u NONE -c "helptags ALL" -c q
+  )
 }
 
 # create functions for elvis which support reading from stdin
