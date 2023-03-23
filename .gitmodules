@@ -58,6 +58,7 @@
 [submodule "emacs/.emacs.d"]
 	path = emacs/.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+	branch = develop
 [submodule "vim/.vim/bundle/fzf.vim"]
 	path = vim/.vim/pack/bundles/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
