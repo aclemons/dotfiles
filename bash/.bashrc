@@ -550,3 +550,5 @@ if [ -e "$HOME/.bashrc_local" ] ; then
   # shellcheck disable=SC1091
   source "$HOME/.bashrc_local"
 fi
+
+export PYRIGHT_PYTHON_IGNORE_WARNINGS=1
