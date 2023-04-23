@@ -513,7 +513,7 @@ if uname -s | grep Darwin > /dev/null ; then
   export CLICOLOR=YES
 
   eval "$(brew shellenv)"
-  export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+  export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
   if command -v rbenv > /dev/null ; then
     eval "$(rbenv init -)"
