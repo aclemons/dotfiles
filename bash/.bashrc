@@ -468,6 +468,10 @@ function diff_multimodule {
   git submodule foreach -q 'sh -c "git diff '"$1..$2"' -- . | filterdiff --clean --addprefix '\'' $path/'\'' -x '\''*/*Test.java'\'' -x '\''*/pom.xml'\'' -x '\''*/category.xml'\'' -x '\''*/feature.xml'\'' -x '\''*/MANIFEST.MF'\'' -x '\''*/*.product'\'' -x '\''*/readme.txt'\'' -x '\''*/src/test/*'\''"'
 }
 
+function update_spacemacs_packages() {
+  emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
+}
+
 function update_dotfiles() {
   (
     cd "$HOME/.dotfiles"
