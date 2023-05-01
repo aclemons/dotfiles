@@ -333,6 +333,29 @@ alias be='bundle exec'
 alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
 alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepare db:environment:set RAILS_ENV=test'
 
+# python
+export PYRIGHT_PYTHON_IGNORE_WARNINGS=1
+
+clean_python_caches() {
+  find . -name '__pycache__' -exec rm -rf {} +
+  find . -name '*.pyc' -exec rm -rf {} +
+}
+
+update_pyright() {
+  if uname -s | grep Darwin > /dev/null ; then
+    rm -rf /private/var/folders/cn/pfncnqhx063fvz8bnh532xw40000gq/T/pyright-*
+  fi
+
+  rm -rf ~/.emacs.d/.cache/lsp/npm/pyright/
+}
+
+# mac
+if uname -s | grep Darwin > /dev/null ; then
+  update_chromium() {
+    brew reinstall chromium --no-quarantine --cask
+  }
+fi
+
 ##################
 # Misc Functions #
 ##################
@@ -523,10 +546,6 @@ if uname -s | grep Darwin > /dev/null ; then
     eval "$(rbenv init -)"
   fi
 
-  if command -v direnv > /dev/null ; then
-    eval "$(direnv hook bash)"
-  fi
-
   if command -v pyenv > /dev/null ; then
     export PYENV_ROOT="$HOME/.pyenv"
     command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -555,4 +574,3 @@ if [ -e "$HOME/.bashrc_local" ] ; then
   source "$HOME/.bashrc_local"
 fi
 
-export PYRIGHT_PYTHON_IGNORE_WARNINGS=1
