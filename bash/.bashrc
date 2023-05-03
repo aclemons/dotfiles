@@ -344,6 +344,8 @@ clean_python_caches() {
 update_pyright() {
   if uname -s | grep Darwin > /dev/null ; then
     rm -rf /private/var/folders/cn/pfncnqhx063fvz8bnh532xw40000gq/T/pyright-*
+  else
+    rm -rf /tmp/pyright-*
   fi
 
   rm -rf ~/.emacs.d/.cache/lsp/npm/pyright/
