@@ -95,9 +95,10 @@ This function should only modify configuration layer settings."
      terraform
      treemacs
      (typescript :variables
-                 typescript-linter 'prettier
+                 typescript-fmt-tool 'prettier
                  typescript-backend 'lsp
-                 typescript-lsp-linter nil)
+                 typescript-lsp-linter nil
+                 typescript-indent-level 2)
      version-control
      vimscript
      (vue :variables
@@ -632,6 +633,7 @@ before packages are loaded."
   (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
   (add-hook 'prog-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'yaml-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
 
