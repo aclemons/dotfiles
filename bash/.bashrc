@@ -78,6 +78,15 @@ fi
 # Try to keep environment pollution down, EPA loves us.
 unset use_color safe_term match_lhs
 
+if uname -s | grep Darwin > /dev/null ; then
+  export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d"
+
+  if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] ; then
+    # shellcheck disable=SC1091
+    . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+  fi
+fi
+
 ################
 # Bash Options #
 ################
@@ -232,6 +241,10 @@ for file in "/usr/share/fzf/key-bindings.bash" "/opt/homebrew/opt/fzf/shell/key-
     bind '"\eh": " \C-e\C-u\C-y\ey\C-u`__fzf_eternal_history__`\e\C-e\er\e^"'
   fi
 done
+
+if [ -e "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ]  ; then
+  . /opt/homebrew/opt/fzf/shell/completion.bash
+fi
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -575,4 +588,3 @@ if [ -e "$HOME/.bashrc_local" ] ; then
   # shellcheck disable=SC1091
   source "$HOME/.bashrc_local"
 fi
-
