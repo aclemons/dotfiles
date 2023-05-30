@@ -233,6 +233,7 @@ export VISUAL=vim
 
 export FZF_DEFAULT_OPTS="--ansi --exact"
 export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
+export SKIM_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND"
 
 for file in "/usr/share/fzf/key-bindings.bash" "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ; do
   if [[ -e "$file" ]] ; then
