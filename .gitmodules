@@ -98,3 +98,6 @@
 [submodule "vim/.vim/pack/bundles/opt/semshi"]
 	path = vim/.vim/pack/bundles/opt/semshi
 	url = https://github.com/numirias/semshi
+[submodule "vim/.vim/pack/bundles/start/json5.vim"]
+	path = vim/.vim/pack/bundles/start/json5.vim
+	url = https://github.com/gutenye/json5.vim
