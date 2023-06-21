@@ -677,7 +677,6 @@ before packages are loaded."
         sh-indentation 2)
 
   (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
-  (add-to-list 'auto-mode-alist '(".json5" . json-mode))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
