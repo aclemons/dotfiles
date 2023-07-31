@@ -584,6 +584,8 @@ else
   if command -v pyenv > /dev/null ; then
     eval "$(pyenv init -)"
   fi
+
+  export HOMEBREW_NO_ANALYTICS=1
 fi
 
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
