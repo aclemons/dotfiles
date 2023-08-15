@@ -14,8 +14,6 @@ set report=1
 set ignorecase
 " respect case if search has uppercase letters
 set iclower
-" default encoding
-set fileencoding=utf-8
 
 " char to edit the colon command-line history
 set cedit=\	
