@@ -579,11 +579,6 @@ if uname -s | grep Darwin > /dev/null ; then
   fi
 
   [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-else
-  export PATH=~/.pyenv/bin:$PATH
-  if command -v pyenv > /dev/null ; then
-    eval "$(pyenv init -)"
-  fi
 
   export HOMEBREW_NO_ANALYTICS=1
 fi
