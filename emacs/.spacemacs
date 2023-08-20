@@ -69,6 +69,7 @@ This function should only modify configuration layer settings."
                  js2-mode-show-parse-errors nil
                  js2-mode-show-strict-warnings nil
                  node-add-modules-path t)
+     lua
      (lsp :variables lsp-disabled-clients '(vls))
      markdown
      multiple-cursors
