@@ -132,6 +132,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 set spelllang=en_gb,de
 autocmd FileType mail set spell
 autocmd FileType gitcommit set spell
+autocmd FileType markdown set spell
 
 autocmd BufEnter,BufNew *.info call CheckSlackBuildInfo()
 function CheckSlackBuildInfo()
