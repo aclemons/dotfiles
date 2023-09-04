@@ -20,6 +20,10 @@ export QT_IM_MODULE=fcitx
 cat "$HOME/.config/i3/config.base" > "$HOME/.config/i3/config"
 cat "$HOME/.config/i3/config.$(hostname)" >> "$HOME/.config/i3/config"
 
+if grep ubuntu /etc/os-release > /dev/null 2>&1 ; then
+  sed -i '/^tiling_drag modifier/d' "$HOME/.config/i3/config"
+fi
+
 # Start i3
 if [ "$(gpg2 --version | sed -n 1p | cut -d' ' -f3 | cut -d. -f2)" = "0" ] ; then
   if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
