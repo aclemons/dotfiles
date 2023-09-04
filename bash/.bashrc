@@ -232,7 +232,7 @@ _first_invoke=1
 export VISUAL=vim
 
 export FZF_DEFAULT_OPTS="--ansi --exact"
-export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
+export FZF_DEFAULT_COMMAND="fd-find --type file --color=always --hidden --exclude .git"
 export SKIM_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND"
 
 for file in "/usr/share/fzf/key-bindings.bash" "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ; do
@@ -252,12 +252,12 @@ fi
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+  fd-find --hidden --follow --exclude ".git" . "$1"
 }
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
+  fd-find --type d --hidden --follow --exclude ".git" . "$1"
 }
 
 if uname -s | grep Darwin > /dev/null ; then
@@ -581,6 +581,21 @@ if uname -s | grep Darwin > /dev/null ; then
   [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
   export HOMEBREW_NO_ANALYTICS=1
+else
+  if [ -e "$HOME/.pyenv" ] ; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+  fi
+
+  if [ -e "$HOME/.tfenv" ] ; then
+    export PATH="$HOME/.tfenv/bin:$PATH"
+  fi
+
+  if [ -e "$HOME/.nvm" ] ; then
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  fi
 fi
 
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
