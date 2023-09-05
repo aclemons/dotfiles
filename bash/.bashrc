@@ -232,7 +232,11 @@ _first_invoke=1
 export VISUAL=vim
 
 export FZF_DEFAULT_OPTS="--ansi --exact"
-export FZF_DEFAULT_COMMAND="fd-find --type file --color=always --hidden --exclude .git"
+if command -v fd > /dev/null ; then
+  export FZF_DEFAULT_COMMAND="fd --type file --color=always --hidden --exclude .git"
+elif command -v fd-find > /dev/null ; then
+  export FZF_DEFAULT_COMMAND="fd-find --type file --color=always --hidden --exclude .git"
+fi
 export SKIM_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND"
 
 for file in "/usr/share/fzf/key-bindings.bash" "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ; do
@@ -251,14 +255,24 @@ fi
 # command for listing path candidates.
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd-find --hidden --follow --exclude ".git" . "$1"
-}
+if command -v fd > /dev/null ; then
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
+elif command -v fd-find > /dev/null ; then
+  _fzf_compgen_path() {
+    fd-find --hidden --follow --exclude ".git" . "$1"
+  }
+  # Use fd to generate the list for directory completion
+  _fzf_compgen_dir() {
+    fd-find --type d --hidden --follow --exclude ".git" . "$1"
+  }
+fi
 
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd-find --type d --hidden --follow --exclude ".git" . "$1"
-}
 
 if uname -s | grep Darwin > /dev/null ; then
   RUST_SRC_PATH=/usr/local/share/rust/rust_src
@@ -588,8 +602,10 @@ else
     eval "$(pyenv init -)"
   fi
 
-  if [ -e "$HOME/.tfenv" ] ; then
-    export PATH="$HOME/.tfenv/bin:$PATH"
+  if ! command -v tfenv > /dev/null ; then
+    if [ -e "$HOME/.tfenv" ] ; then
+      export PATH="$HOME/.tfenv/bin:$PATH"
+    fi
   fi
 
   if [ -e "$HOME/.nvm" ] ; then
