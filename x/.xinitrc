@@ -12,6 +12,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 
 [ -x /usr/bin/vmware-user ] && /usr/bin/vmware-user
+[ -x /usr/bin/spice-vdagent ] && /usr/bin/spice-vdagent
 
 export XMODIFIERS=@im=fcitx
 export GTK_IM_MODULE=fcitx
