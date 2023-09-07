@@ -350,7 +350,7 @@ if uname -s | grep Darwin > /dev/null ; then
   alias emacs="emacs -nw" && alias emacsclient="emacs -nw -a '' -c"
 else
   [[ -n "$DISPLAY" ]] && alias vim="gvim -v"
-  [[ -n "$DISPLAY" ]] && alias emacs="TERM=xterm-24bits emacs -nw" && alias emacsclient="TERM=xterm-24bits emacsclient -nw -a '' -c"
+  [[ -n "$DISPLAY" ]] && alias emacs="emacs -nw" && alias emacsclient="emacsclient -nw -a '' -c"
   [[ -z "$DISPLAY" ]] && [[ -e /usr/bin ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
 fi
 
