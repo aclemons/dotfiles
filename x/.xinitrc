@@ -11,6 +11,9 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $userresources ] && /usr/bin/xrdb -merge $userresources
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 
+dbus-update-activation-environment DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
+/usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11
+
 [ -x /usr/bin/vmware-user ] && /usr/bin/vmware-user
 [ -x /usr/bin/spice-vdagent ] && /usr/bin/spice-vdagent
 

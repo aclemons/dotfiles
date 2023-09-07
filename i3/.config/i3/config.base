@@ -197,4 +197,6 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 exec st &
 exec --no-startup-id fcitx -d
 
+exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11 &
+
 workspace_layout tabbed
