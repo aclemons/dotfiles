@@ -614,6 +614,10 @@ else
   fi
 fi
 
+if [ -e "$HOME/.cargo/env" ] ; then
+  source "$HOME/.cargo/env"
+fi
+
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
   # shellcheck disable=SC1091
   source "$HOME/.sdkman/bin/sdkman-init.sh"
