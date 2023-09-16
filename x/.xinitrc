@@ -28,16 +28,8 @@ if grep ubuntu /etc/os-release > /dev/null 2>&1 ; then
 fi
 
 # Start i3
-if [ "$(gpg2 --version | sed -n 1p | cut -d' ' -f3 | cut -d. -f2)" = "0" ] ; then
-  if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-    exec ssh-agent gpg-agent --daemon ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
-  else
-    exec ssh-agent gpg-agent --daemon /usr/bin/i3
-  fi
+if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+  exec ssh-agent ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
 else
-  if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
-    exec ssh-agent ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
-  else
-    exec ssh-agent dbus-launch --exit-with-session /usr/bin/i3
-  fi
+  exec ssh-agent dbus-launch --exit-with-session /usr/bin/i3
 fi
