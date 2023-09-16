@@ -16,9 +16,9 @@ dbus-update-activation-environment DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 [ -x /usr/bin/vmware-user ] && /usr/bin/vmware-user
 [ -x /usr/bin/spice-vdagent ] && /usr/bin/spice-vdagent
 
-export XMODIFIERS=@im=fcitx
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx5
+export GTK_IM_MODULE=fcitx5
+export QT_IM_MODULE=fcitx5
 
 cat "$HOME/.config/i3/config.base" > "$HOME/.config/i3/config"
 cat "$HOME/.config/i3/config.$(hostname)" >> "$HOME/.config/i3/config"
