@@ -7,7 +7,7 @@
     ":separateMultipleMajorReleases",
     ":separatePatchReleases",
     "regexManagers:dockerfileVersions",
-    "regexManagers:githubActionsVersions",
+    "regexManagers:githubActionsVersions"
   ],
   "git-submodules": {
     "enabled": true
@@ -17,7 +17,7 @@
     "enabled": true
   },
   "rangeStrategy": "pin",
-  "timezone": "Asia/Tokyo"
+  "timezone": "Asia/Tokyo",
   "schedule": [
     "before 4am"
   ]
