@@ -616,6 +616,11 @@ else
   fi
 fi
 
+if command -v thefuck > /dev/null ; then
+  # shellcheck disable=SC2046
+  eval $(thefuck --alias)
+fi
+
 if [ -s "$HOME/.gvm/scripts/gvm" ] ; then
  source "$HOME/.gvm/scripts/gvm"
 fi
