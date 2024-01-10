@@ -568,6 +568,7 @@ function elvis {
 }
 
 if uname -s | grep Darwin > /dev/null ; then
+  export BASH_SILENCE_DEPRECATION_WARNING=1
   export CLICOLOR=YES
 
   eval "$(brew shellenv)"
