@@ -590,11 +590,11 @@ if uname -s | grep Darwin > /dev/null ; then
 
   if [ -e "$HOME/.nvm" ] ; then
     export NVM_DIR="$HOME/.nvm"
+    # shellcheck disable=SC1091
     [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+    # shellcheck disable=SC1091
     [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
   fi
-
-  [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
   export HOMEBREW_NO_ANALYTICS=1
 else
@@ -612,7 +612,9 @@ else
 
   if [ -e "$HOME/.nvm" ] ; then
     export NVM_DIR="$HOME/.nvm"
+    # shellcheck disable=SC1091
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    # shellcheck disable=SC1091
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
   fi
 fi
@@ -622,11 +624,13 @@ if command -v thefuck > /dev/null ; then
   eval $(thefuck --alias)
 fi
 
-if [ -s "$HOME/.gvm/scripts/gvm" ] ; then
- source "$HOME/.gvm/scripts/gvm"
-fi
+# if [ -s "$HOME/.gvm/scripts/gvm" ] ; then
+#   # shellcheck disable=SC1091
+#   source "$HOME/.gvm/scripts/gvm"
+# fi
 
 if [ -e "$HOME/.cargo/env" ] ; then
+  # shellcheck disable=SC1091
   source "$HOME/.cargo/env"
 fi
 
