@@ -28,8 +28,10 @@ if grep ubuntu /etc/os-release > /dev/null 2>&1 ; then
 fi
 
 # Start i3
-if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+if [ -z "$DESKTOP_SESSION" ] && [ -x /usr/bin/ck-launch-session ]; then
   exec ssh-agent ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
-else
+elif [ -x /usr/bin/dbug-launch ]; then
   exec ssh-agent dbus-launch --exit-with-session /usr/bin/i3
+else
+  exec ssh-agent /usr/bin/i3
 fi
