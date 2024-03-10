@@ -229,7 +229,11 @@ export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 # bool to track first invocation for history
 _first_invoke=1
 
-export VISUAL=vim
+if [[ -n "$DISPLAY" ]] ; then
+  export VISUAL="gvim -v"
+else
+  export VISUAL=vim
+fi
 
 export FZF_DEFAULT_OPTS="--ansi --exact"
 if command -v fd > /dev/null ; then
