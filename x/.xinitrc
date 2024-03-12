@@ -30,7 +30,7 @@ fi
 # Start i3
 if [ -z "$DESKTOP_SESSION" ] && [ -x /usr/bin/ck-launch-session ]; then
   exec ssh-agent ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
-elif [ -x /usr/bin/dbug-launch ]; then
+elif [ -x /usr/bin/dbus-launch ]; then
   exec ssh-agent dbus-launch --exit-with-session /usr/bin/i3
 else
   exec ssh-agent /usr/bin/i3
