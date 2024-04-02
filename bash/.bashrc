@@ -184,7 +184,8 @@ else
   alias gpg2=gpg
 fi
 
-export GPG_TTY="$(tty)"
+GPG_TTY="$(tty)"
+export GPG_TTY
 
 if pgrep gpg-agent > /dev/null 2>&1 ; then
   echo UPDATESTARTUPTTY | gpg-connect-agent > /dev/null 2>&1
@@ -245,13 +246,14 @@ export SKIM_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND"
 
 for file in "/usr/share/fzf/key-bindings.bash" "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ; do
   if [[ -e "$file" ]] ; then
-    # shellcheck disable=SC1091
+  # shellcheck disable=SC1090,SC1091
     source "$file"
     bind '"\eh": " \C-e\C-u\C-y\ey\C-u`__fzf_eternal_history__`\e\C-e\er\e^"'
   fi
 done
 
 if [ -e "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ]  ; then
+  # shellcheck disable=SC1090,SC1091
   . /opt/homebrew/opt/fzf/shell/completion.bash
 fi
 
@@ -634,16 +636,21 @@ fi
 # fi
 
 if [ -e "$HOME/.cargo/env" ] ; then
-  # shellcheck disable=SC1091
+  # shellcheck disable=SC1090,SC1091
   source "$HOME/.cargo/env"
 fi
 
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
-  # shellcheck disable=SC1091
+  # shellcheck disable=SC1090,SC1091
   source "$HOME/.sdkman/bin/sdkman-init.sh"
 fi
 
 if [ -e "$HOME/.bashrc_local" ] ; then
-  # shellcheck disable=SC1091
+  # shellcheck disable=SC1090,SC1091
   source "$HOME/.bashrc_local"
+fi
+
+if [ -e "$HOME/.cargo/bin" ] ; then
+  PATH="$HOME/.cargo/bin:$PATH"
+  export PATH
 fi
