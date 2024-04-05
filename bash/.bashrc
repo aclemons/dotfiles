@@ -300,6 +300,8 @@ if [ -e ~/.emacs.d/bin ] ; then
   export PATH
 fi
 
+export COLORTERM=truecolor
+
 ###########
 # Aliases #
 ###########
