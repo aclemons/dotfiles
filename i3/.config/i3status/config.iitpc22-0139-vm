@@ -14,14 +14,13 @@ general {
 
 order += "disk /"
 order += "run_watch DHCP"
-order += "wireless wlan0"
-order += "battery 0"
+order += "ethernet eth0"
 order += "load"
 order += "tztime local"
 
-wireless wlan0 {
-        format_up = "W: (%quality at %essid, %bitrate) %ip"
-        format_down = "W: down"
+ethernet eth0 {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
 }
 
 battery 0 {
@@ -35,7 +34,7 @@ battery 0 {
 }
 
 run_watch DHCP {
-        pidfile = "/run/wlan0-*.pid"
+        pidfile = "/run/eth0-*.pid"
         format = "%title"
 }
 
