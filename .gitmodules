@@ -101,3 +101,6 @@
 [submodule "vim/.vim/pack/bundles/start/json5.vim"]
 	path = vim/.vim/pack/bundles/start/json5.vim
 	url = https://github.com/gutenye/json5.vim
+[submodule "bash/.oh-my-bash"]
+	path = bash/.oh-my-bash
+	url = https://github.com/ohmybash/oh-my-bash.git
