@@ -34,7 +34,7 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -84,9 +84,6 @@ OMB_USE_SUDO=false
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
 completions=(
-  git
-  composer
-  ssh
 )
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
@@ -94,7 +91,6 @@ completions=(
 # Example format: aliases=(vagrant composer git-avh)
 # Add wisely, as too many aliases slow down shell startup.
 aliases=(
-  general
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -102,10 +98,7 @@ aliases=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  bashmarks
   nvm
-  pyenv
 )
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
@@ -145,6 +138,8 @@ source "$OSH"/oh-my-bash.sh
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
 
+OMB_PLUGIN_NVM_AUTO_USE=true
+
 if uname -s | grep Darwin > /dev/null ; then
   export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d"
 
@@ -164,9 +159,6 @@ shopt -s checkwinsize
 # match filenames in a case-insensitive fashion when performing filename expansion
 shopt -s nocaseglob
 
-# history list is appended to the history file when the shell exits
-shopt -s histappend
-
 # do not attempt to search the PATH for possible completions when completion is attempted on an empty line
 shopt -s no_empty_cmd_completion
 
@@ -180,10 +172,6 @@ if [ ! -e $_bashrc_eternal_history_file ] ; then
     touch $_bashrc_eternal_history_file
     chmod 0600 $_bashrc_eternal_history_file
 fi
-
-unset HISTFILESIZE
-
-HISTCONTROL=ignorespace:ignoredups
 
 function _add_to_history() {
     # prevent historizing last command of last session on new shells
@@ -230,7 +218,7 @@ function _simple_prompt_command() {
   _add_to_history
 }
 
-#PROMPT_COMMAND=_simple_prompt_command
+_omb_util_add_prompt_command '_simple_prompt_command'
 
 #######
 # GPG #
