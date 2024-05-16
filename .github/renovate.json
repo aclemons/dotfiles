@@ -6,8 +6,8 @@
     ":separateMajorReleases",
     ":separateMultipleMajorReleases",
     ":separatePatchReleases",
-    "regexManagers:dockerfileVersions",
-    "regexManagers:githubActionsVersions"
+    "customManagers:dockerfileVersions",
+    "customManagers:githubActionsVersions"
   ],
   "git-submodules": {
     "enabled": true
