@@ -182,13 +182,10 @@ function _add_to_history() {
         return
     fi
 
-    # remove history position (by splitting)
     local history
-    history=$(history 1)
+    history=$(HISTTIMEFORMAT='' builtin history 1 | sed '1 s/^ *[0-9][0-9]*[* ] //')
 
     [ "$_last_history" = "$history" ] && return;
-
-    read -r pos cmd <<< "$history"
 
     local quoted_pwd=${PWD//\"/\\\"}
 
@@ -197,8 +194,8 @@ function _add_to_history() {
     line="$line $(date +'%F %T')"
     line="$line $BASHPID"
     line="$line \"$quoted_pwd\""
-    line="$line $cmd"
-    echo "$line" >> $_bashrc_eternal_history_file
+    line="$line $history"
+    printf "%s\n" "$line" >> "$_bashrc_eternal_history_file"
 
     _last_history=$history
 
@@ -208,8 +205,7 @@ function _add_to_history() {
 function __fzf_eternal_history__() {
   local line
   shopt -u nocaseglob nocasematch
-  cat $_bashrc_eternal_history_file |
-      FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac --sync -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m" $(__fzfcmd) | cut -d' ' -f6-
+  < "$_bashrc_eternal_history_file" FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac --sync -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m" $(__fzfcmd) | cut -d' ' -f6-
 }
 
 ##########
