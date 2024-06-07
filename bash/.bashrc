@@ -7,9 +7,13 @@ esac
 # Path to your oh-my-bash installation.
 export OSH=~/.oh-my-bash
 
+POWERLINE_PROMPT=${POWERLINE_PROMPT:="user_info cwd"}
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="demula"
+# OSH_THEME="demula"
+OSH_THEME="powerline"
+#OSH_THEME="random"
 
 # If you set OSH_THEME to "random", you can ignore themes you don't like.
 # OMB_THEME_RANDOM_IGNORED=("powerbash10k" "wanelo")
@@ -557,7 +561,7 @@ function goto_mvn_project() {
 
   [ -n "$pom" ] || (>&2 echo "Project not found" && return 1)
 
-  cd "$(dirname "$pom")"
+  cd "$(dirname "$pom")" || return $?
 }
 
 function countdown {
@@ -579,7 +583,7 @@ function update_spacemacs_packages() {
 
 function update_dotfiles() {
   (
-    cd "$HOME/.dotfiles"
+    cd "$HOME/.dotfiles" || return $?
     git remote update --prune
     git pull --quiet
     git submodule --quiet update --init
@@ -682,11 +686,6 @@ fi
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
   # shellcheck disable=SC1090,SC1091
   source "$HOME/.sdkman/bin/sdkman-init.sh"
-fi
-
-if [ -e "$HOME/.bashrc_local" ] ; then
-  # shellcheck disable=SC1090,SC1091
-  source "$HOME/.bashrc_local"
 fi
 
 if [ -e "$HOME/.cargo/env" ] ; then
