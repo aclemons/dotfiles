@@ -212,4 +212,6 @@ nnoremap <Space>wk <C-W>k
 nnoremap ,gg :ALEGoToDefinition<ENTER>
 nnoremap ,gG :vs<ENTER>:ALEGoToDefinition<ENTER>
 
+nnoremap ,tb :Dispatch<ENTER>
+
 autocmd QuickFixCmdPost *grep* cwindow

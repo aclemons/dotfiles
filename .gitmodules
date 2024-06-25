@@ -104,3 +104,6 @@
 [submodule "bash/.oh-my-bash"]
 	path = bash/.oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash.git
+[submodule "vim/.vim/pack/bundles/start/vim-dispatch"]
+	path = vim/.vim/pack/bundles/start/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch.git
