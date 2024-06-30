@@ -27,6 +27,10 @@ if grep ubuntu /etc/os-release > /dev/null 2>&1 ; then
   sed -i '/^tiling_drag modifier/d' "$HOME/.config/i3/config"
 fi
 
+if [ "$(hostname)" = "iitpc22-0139-vm" ] ; then
+  xmodmap -e "keycode 100 = ISO_Level3_Shift"
+fi
+
 # Start i3
 if [ -z "$DESKTOP_SESSION" ] && [ -x /usr/bin/ck-launch-session ]; then
   exec ssh-agent ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
