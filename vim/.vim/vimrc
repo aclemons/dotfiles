@@ -77,6 +77,10 @@ set wildmode=full
 set wildmenu
 set complete-=i
 
+if v:version >= '900'
+  set wildoptions=pum
+endif
+
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set foldlevelstart=2
