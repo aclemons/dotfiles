@@ -93,6 +93,7 @@ This function should only modify configuration layer settings."
      semantic
      spell-checking
      sql
+     (svelte :variables svelte-backend 'lsp)
      syntax-checking
      terraform
      treemacs

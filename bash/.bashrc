@@ -417,6 +417,15 @@ alias be='bundle exec'
 alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
 alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepare db:environment:set RAILS_ENV=test'
 
+# node
+
+install_node_dev() {
+  npm install -g typescript-language-server typescript
+  npm install -g import-js
+  npm install -g svelte-language-server
+  npm install -g vue-language-server
+}
+
 # python
 export PYRIGHT_PYTHON_IGNORE_WARNINGS=1
 
@@ -686,8 +695,4 @@ fi
 if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
   # shellcheck disable=SC1090,SC1091
   source "$HOME/.sdkman/bin/sdkman-init.sh"
-fi
-
-if [ -e "$HOME/.cargo/env" ] ; then
-  source "$HOME/.cargo/env"
 fi
