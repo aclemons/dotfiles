@@ -13,6 +13,7 @@ set pgp_default_key="0xFACBDA2B"
 
 set spoolfile = "+Inbox"
 
+source ~/.mutt/account
 source ~/.mutt/base
 source ~/.mutt/colours
 source ~/.mutt/crypto
