@@ -420,10 +420,7 @@ alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepar
 # node
 
 install_node_dev() {
-  npm install -g typescript-language-server typescript
   npm install -g import-js
-  npm install -g svelte-language-server
-  npm install -g vue-language-server
 }
 
 # python
