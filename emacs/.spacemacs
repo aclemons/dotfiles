@@ -101,6 +101,7 @@ This function should only modify configuration layer settings."
                  typescript-fmt-tool 'prettier
                  typescript-backend 'lsp
                  typescript-lsp-linter nil
+                 typescript-linter 'eslint
                  typescript-indent-level 2)
      version-control
      vimscript
