@@ -107,3 +107,6 @@
 [submodule "vim/.vim/pack/bundles/start/vim-dispatch"]
 	path = vim/.vim/pack/bundles/start/vim-dispatch
 	url = https://github.com/tpope/vim-dispatch.git
+[submodule "vim/.vim/pack/bundles/start/vim-rhubarb"]
+	path = vim/.vim/pack/bundles/start/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
