@@ -161,11 +161,11 @@ fi
 # Bash Options #
 ################
 
-# check the window size after each command and, if necessary, update the values of LINES and COLUMNS
-shopt -s checkwinsize
+# allow clobber, which omb had disabled.
+set +o noclobber
 
-# match filenames in a case-insensitive fashion when performing filename expansion
-shopt -s nocaseglob
+# turn off spelling correction in arguments to cd, which omb enabled.
+shopt -u cdspell 2> /dev/null
 
 # do not attempt to search the PATH for possible completions when completion is attempted on an empty line
 shopt -s no_empty_cmd_completion
