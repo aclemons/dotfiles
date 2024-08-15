@@ -11,8 +11,8 @@ POWERLINE_PROMPT=${POWERLINE_PROMPT:="user_info cwd"}
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="gallifrey"
-# OSH_THEME="powerline"
+# OSH_THEME="gallifrey"
+OSH_THEME="powerline-plain"
 # OSH_THEME="demula"
 # OSH_THEME="clean"
 # OSH_THEME="random"
