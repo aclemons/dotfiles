@@ -646,6 +646,7 @@ before packages are loaded."
   (add-hook 'yaml-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 
   (setq spacemacs-large-file-modes-list '(archive-mode tar-mode jka-compr git-commit-mode image-mode doc-view-mode doc-view-mode-maybe ebrowse-tree-mode pdf-view-mode tags-table-mode))
+  (setq spacemacs-keep-legacy-current-buffer-delete-bindings nil)
 
   (setq-default tab-width 8)
 
