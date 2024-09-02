@@ -9,8 +9,6 @@ set strict_threads
 set sort_aux = 'last-date'
 set move = no
 set copy = yes
-set imap_keepalive = 900
-set imap_check_subscribed = yes
 
 set date_format="%Y-%m-%d %H:%M:%S %z"
 
@@ -55,9 +53,6 @@ set pager_index_lines= 10 # how large is the index window?
 set status_format="%r %v [%?M?%M/?%m] %?n?%n new, ?%?p?%p postponed, ?%?t?%t +tagged, ?%?d?%d deleted, ?(%h:%f) %?b?%b more to go.?%> %r"
 
 macro index,pager s "<save-message>?"
-
-# Mutt will scan for new mail in all of your mailboxes every mail_check seconds
-set mail_check = 60
 
 set beep_new = yes
 
