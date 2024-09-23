@@ -441,6 +441,7 @@ update_pyright() {
   fi
 
   rm -rf ~/.emacs.d/.cache/lsp/npm/pyright/
+  rm -rf ~/.cache/pyright-python
 }
 
 # mac
