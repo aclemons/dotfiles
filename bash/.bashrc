@@ -340,7 +340,7 @@ export RUST_SRC_PATH
 export GTAGSLABEL=pygments
 
 if command -v bat > /dev/null ; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+  export MANPAGER="sh -c 'sed -r \"s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g\" | col -bx | bat --language man --plain'"
   export MANROFFOPT="-c"
 fi
 
