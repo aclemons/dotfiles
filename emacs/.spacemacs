@@ -41,6 +41,7 @@ This function should only modify configuration layer settings."
      ansible
      auto-completion
      ;; better-defaults
+     c-c++
      (colors :variables colors-enable-nyan-cat-progress-bar t)
      docker
      emacs-lisp
