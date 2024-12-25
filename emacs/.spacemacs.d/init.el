@@ -47,7 +47,7 @@ This function should only modify configuration layer settings."
      emacs-lisp
      erlang
      git
-     go
+     (go :variables go-use-golangci-lint t)
      (groovy :variables
              groovy-backend 'lsp
              groovy-lsp-jar-path "~/.emacs.d/.cache/lsp/groovy-language-server-all.jar")
@@ -709,6 +709,8 @@ before packages are loaded."
 
   (setq sh-basic-offset 2
         sh-indentation 2)
+
+  (setq lsp-go-use-gofumpt t)
 
   (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
   )
