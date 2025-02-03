@@ -6,6 +6,8 @@ set autoindent
 set showmode
 " show matching ),],}
 set showmatch
+" show filename
+set show=file,spell/tag,region
 " show line and column numbers at bottom of screen
 set ruler
 " so line numbers at the beginning of the line
