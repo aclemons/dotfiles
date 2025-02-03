@@ -625,9 +625,9 @@ function elvis {
 
     ARGS+=("$TMPFILE")
 
-    cat > "$TMPFILE" && </dev/tty LANG=de_DE@euro TERM=xterm "$BINARY" "${ARGS[@]}" ; rm "$TMPFILE"
+    cat > "$TMPFILE" && </dev/tty LANG=de_DE@euro TERM=xterm "$BINARY" -c "source ~/.elvisrc" "${ARGS[@]}" ; rm "$TMPFILE"
   else
-    LANG=de_DE@euro TERM=xterm "$BINARY" "$@"
+    LANG=de_DE@euro TERM=xterm "$BINARY" -c "source ~/.elvisrc" "$@"
   fi
 }
 
