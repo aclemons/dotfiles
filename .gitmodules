@@ -110,3 +110,6 @@
 [submodule "vim/.vim/pack/bundles/start/vim-rhubarb"]
 	path = vim/.vim/pack/bundles/start/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
+[submodule "vim/.vim/pack/bundles/opt/vim-highlightedyank"]
+	path = vim/.vim/pack/bundles/opt/vim-highlightedyank
+	url = git@github.com:machakann/vim-highlightedyank.git
