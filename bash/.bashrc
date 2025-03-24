@@ -150,15 +150,6 @@ source "$OSH"/oh-my-bash.sh
 
 OMB_PLUGIN_NVM_AUTO_USE=true
 
-if uname -s | grep Darwin > /dev/null ; then
-  export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d"
-
-  if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] ; then
-    # shellcheck disable=SC1091
-    . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-  fi
-fi
-
 ################
 # Bash Options #
 ################
