@@ -87,6 +87,8 @@ OMB_USE_SUDO=false
 # OMB_PROMPT_SHOW_SPACK_ENV=true  # enable
 # OMB_PROMPT_SHOW_SPACK_ENV=false # disable
 
+OMB_PLUGIN_NVM_AUTO_USE=true
+
 # Which completions would you like to load? (completions can be found in ~/.oh-my-bash/completions/*)
 # Custom completions may be added to ~/.oh-my-bash/custom/completions/
 # Example format: completions=(ssh git bundler gem pip pip3)
@@ -147,8 +149,6 @@ source "$OSH"/oh-my-bash.sh
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
-
-OMB_PLUGIN_NVM_AUTO_USE=true
 
 ################
 # Bash Options #
