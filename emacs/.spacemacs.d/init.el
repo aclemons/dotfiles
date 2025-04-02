@@ -652,7 +652,7 @@ before packages are loaded."
 
   (setq-default tab-width 8)
 
-  (setq ispell-dictionary "en_GB-ise-w_accents") 
+  (setq ispell-dictionary "en_GB-ise-w_accents")
 
   (setq counsel-rg-base-command "rg --hidden --max-columns 240 --with-filename --no-heading --line-number --color never %s")
 
