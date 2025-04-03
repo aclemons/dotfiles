@@ -20,6 +20,9 @@ if [ "$prog" = "" ] ; then
   exit 1
 fi
 
+mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.local/share"
+
 for package in aspell bash elvis emacs i3 mutt node nvi readline tmux vim x ; do
   if [ "$package" = "i3" ] || [ "$package" = "x" ] ; then
     if command -v X > /dev/null 2>&1 && [ "$(id -u)" -ne 0 ] ; then
