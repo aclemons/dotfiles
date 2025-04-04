@@ -654,6 +654,7 @@ if uname -s | grep Darwin > /dev/null ; then
   fi
 
   export HOMEBREW_NO_ANALYTICS=1
+  export HOMEBREW_NO_AUTO_UPDATE=1
 else
   if ! command -v tfenv > /dev/null ; then
     if [ -e "$HOME/.tfenv" ] ; then
