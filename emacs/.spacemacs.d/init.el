@@ -691,6 +691,12 @@ before packages are loaded."
 
   (setq lsp-go-use-gofumpt t)
 
+  (setq lsp-file-watch-threshold 5000)
+
+  (with-eval-after-load 'lsp-mode
+    (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.ruff_cache\\'")
+  )
+
   (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
   )
 
