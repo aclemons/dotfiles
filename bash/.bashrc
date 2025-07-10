@@ -631,6 +631,8 @@ if uname -s | grep Darwin > /dev/null ; then
   eval "$(brew shellenv)"
   if [ -e "/opt/homebrew/opt/openjdk/bin" ] ; then
     export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+  elif [ -e "/opt/homebrew/opt/openjdk@21/bin" ] ; then
+    export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
   elif [ -e "/opt/homebrew/opt/openjdk@17/bin" ] ; then
     export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
   fi
