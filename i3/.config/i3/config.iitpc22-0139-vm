@@ -1,1 +1,1 @@
-exec "setxkbmap 'de(jis)'"
+exec setxkbmap de &
