@@ -43,6 +43,8 @@ This function should only modify configuration layer settings."
      ;; better-defaults
      c-c++
      (colors :variables colors-enable-nyan-cat-progress-bar t)
+     (dash :variables
+           dash-docs-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
      docker
      emacs-lisp
      erlang
