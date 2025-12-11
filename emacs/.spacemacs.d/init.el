@@ -80,6 +80,7 @@ This function should only modify configuration layer settings."
      (lsp :variables lsp-disabled-clients '(vls))
      markdown
      multiple-cursors
+     neotree
      (node :variables node-add-modules-path t)
      ;; org
      prettier
@@ -103,7 +104,6 @@ This function should only modify configuration layer settings."
      (svelte :variables svelte-backend 'lsp)
      syntax-checking
      terraform
-     treemacs
      (typescript :variables
                  typescript-fmt-tool 'prettier
                  typescript-backend 'lsp
