@@ -686,9 +686,6 @@ before packages are loaded."
   (setq-default flycheck-disabled-checkers '(ruby-rubylint ruby-reek javascript-jshint eruby-erubis))
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
-  (with-eval-after-load 'flycheck
-    (flycheck-add-mode 'eruby-ruumba 'web-mode))
-
   (with-eval-after-load 'feature-mode
     (define-key evil-normal-state-map (kbd "[ C-d") #'feature-goto-step-definition)
     (define-key evil-normal-state-map (kbd "] C-d") #'feature-goto-step-definition))
