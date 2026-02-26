@@ -49,6 +49,8 @@ This function should only modify configuration layer settings."
      emacs-lisp
      erlang
      git
+     (github-copilot :variables
+                     github-copilot-enable-commit-messages nil)
      (go :variables go-use-golangci-lint t)
      (groovy :variables
              groovy-backend 'lsp
@@ -703,6 +705,8 @@ before packages are loaded."
     )
 
   (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
+
+  (setq copilot-chat-frontend 'markdown)
   )
 
 
