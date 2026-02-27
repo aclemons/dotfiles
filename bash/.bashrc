@@ -202,9 +202,19 @@ function _add_to_history() {
 }
 
 function __fzf_eternal_history__() {
-  local line
   shopt -u nocaseglob nocasematch
   < "$_bashrc_eternal_history_file" FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} $FZF_DEFAULT_OPTS --tac --sync -n2..,.. --tiebreak=index --bind=ctrl-r:toggle-sort $FZF_CTRL_R_OPTS +m" $(__fzfcmd) | cut -d' ' -f6-
+}
+
+__fzf_eternal_history_widget() {
+  local selected
+  selected="$(__fzf_eternal_history__)"
+
+  if [[ -n "$selected" ]]; then
+    # Safely insert the selected command into the command line
+    READLINE_LINE="$selected"
+    READLINE_POINT=${#READLINE_LINE}
+  fi
 }
 
 ##########
@@ -288,9 +298,9 @@ export SKIM_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND"
 
 for file in "/usr/share/fzf/key-bindings.bash" "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ; do
   if [[ -e "$file" ]] ; then
-  # shellcheck disable=SC1090,SC1091
+    # shellcheck disable=SC1090,SC1091
     source "$file"
-    bind '"\eh": " \C-e\C-u\C-y\ey\C-u`__fzf_eternal_history__`\e\C-e\er\e^"'
+    bind -x '"\eh": __fzf_eternal_history_widget'
   fi
 done
 
