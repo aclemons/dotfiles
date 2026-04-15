@@ -5,7 +5,7 @@ case $- in
 esac
 
 # Path to your oh-my-bash installation.
-export OSH=~/.oh-my-bash
+export OSH="$HOME/.oh-my-bash"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
@@ -120,6 +120,7 @@ plugins=(
 #      plugins+=(tmux-autoattach)
 #  fi
 
+# shellcheck disable=SC1090,SC1091
 source "$OSH"/oh-my-bash.sh
 
 # User configuration
@@ -271,8 +272,8 @@ export SAM_CLI_TELEMETRY=0
 # Paths #
 #########
 
-export PATH=~/bin:~/.local/bin:~/node_modules/bin:~/go/bin:$PATH
-export SQLPATH=~/.sqlplus
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/node_modules/bin:$HOME/go/bin:$PATH"
+export SQLPATH="$HOME/.sqlplus"
 export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 
 #############
@@ -332,7 +333,7 @@ elif command -v fd-find > /dev/null ; then
 fi
 
 
-if uname -s | grep Darwin > /dev/null ; then
+if [[ $(uname -s) == Darwin ]] ; then
   RUST_SRC_PATH=/usr/local/share/rust/rust_src
 else
   RUST_SRC_PATH="/usr/lib$(case "$(uname -m)" in x86_64) echo "64" ;; *) echo "" ;; esac; )/rustlib/src/rust/src"
@@ -347,7 +348,7 @@ if command -v bat > /dev/null ; then
   export MANROFFOPT="-c"
 fi
 
-if [ -e ~/.emacs.d/bin ] ; then
+if [ -e "$HOME/.emacs.d/bin" ] ; then
   PATH="$HOME/.emacs.d/bin:$PATH"
   export PATH
 fi
@@ -407,12 +408,17 @@ if [[ $(id -u) == "0" ]] ; then
   }
 fi
 
-if uname -s | grep Darwin > /dev/null ; then
-  alias emacs="emacs -nw" && alias emacsclient="emacs -nw -a '' -c"
+if [[ $(uname -s) == Darwin ]] ; then
+  alias emacs="emacs -nw"
+  alias emacsclient="emacs -nw -a '' -c"
 else
-  [[ -n "$DISPLAY" ]] && alias vim="gvim -v"
-  [[ -n "$DISPLAY" ]] && alias emacs="emacs -nw" && alias emacsclient="emacsclient -nw -a '' -c"
-  [[ -z "$DISPLAY" ]] && [[ -e /usr/bin ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
+  if [[ -n "$DISPLAY" ]]; then
+    alias vim="gvim -v"
+    alias emacs="emacs -nw"
+    alias emacsclient="emacsclient -nw -a '' -c"
+  else
+    [[ -e /usr/bin ]] && alias emacs="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw" && alias emacsclient="$(basename "$(find /usr/bin/ -name 'emacs*-no-x11')") -nw -a '' -c"
+  fi
 fi
 
 alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \$_ while <>;'"
@@ -437,18 +443,18 @@ clean_python_caches() {
 }
 
 update_pyright() {
-  if uname -s | grep Darwin > /dev/null ; then
+  if [[ $(uname -s) == Darwin ]] ; then
     rm -rf /private/var/folders/cn/pfncnqhx063fvz8bnh532xw40000gq/T/pyright-*
   else
     rm -rf /tmp/pyright-*
   fi
 
-  rm -rf ~/.emacs.d/.cache/lsp/npm/pyright/
-  rm -rf ~/.cache/pyright-python
+  rm -rf "$HOME/.emacs.d/.cache/lsp/npm/pyright/"
+  rm -rf "$HOME/.cache/pyright-python"
 }
 
 # mac
-if uname -s | grep Darwin > /dev/null ; then
+if [[ $(uname -s) == Darwin ]] ; then
   update_chromium() {
     brew reinstall chromium --no-quarantine --cask
   }
@@ -466,7 +472,7 @@ function rubpdf() {
 
   local tex="$1"
   echo "Rubbing $tex"
-  for i in {1..3}; do
+  for _ in {1..3}; do
     rubber --inplace --maxerr -1 --short --force --warn all --pdf "$tex"
   done
 
@@ -481,7 +487,7 @@ function rubhtml() {
 
   local tex="$1"
   echo "Rubbing $tex"
-  for i in {1..3}; do
+  for _ in {1..3}; do
     rubber --inplace --maxerr -1 --short --force --warn all --html "$tex"
   done
 
@@ -590,7 +596,7 @@ function diff_multimodule {
 }
 
 function update_spacemacs_packages() {
-  emacs --batch -l ~/.emacs.d/init.el --eval="(configuration-layer/update-packages t)"
+  emacs --batch -l "$HOME/.emacs.d/init.el" --eval="(configuration-layer/update-packages t)"
 }
 
 function update_dotfiles() {
@@ -610,31 +616,26 @@ function update_dotfiles() {
 function elvis {
   local BINARY_NAME="elvis"
   local BINARY="/usr/bin/$BINARY_NAME"
-  local LAST=""
 
-  if [ $# -gt 0 ] ; then
-    LAST="${*: -1}"
-  fi
-
-  if [ "$LAST" = "-" ] ; then
+  if [[ $# -gt 0 && "${!#}" == "-" ]]; then
     local TMPFILE
     TMPFILE="$(mktemp)"
 
-    local ARGS=()
-    if [ $# -gt 1 ] ; then
-      local LENGTH=$(($#-1))
-      ARGS="${*:1:$LENGTH}"
-    fi
-
+    # All arguments except the last
+    local ARGS=("${@:1:$(($#-1))}")
     ARGS+=("$TMPFILE")
 
-    cat > "$TMPFILE" && </dev/tty LANG=de_DE@euro TERM=xterm "$BINARY" -c "source ~/.elvisrc" "${ARGS[@]}" ; rm "$TMPFILE"
+    cat > "$TMPFILE" && </dev/tty LANG=de_DE@euro TERM=xterm "$BINARY" -c "source $HOME/.elvisrc" "${ARGS[@]}"
+
+    local status=$?
+    rm -f "$TMPFILE"
+    return $status
   else
-    LANG=de_DE@euro TERM=xterm "$BINARY" -c "source ~/.elvisrc" "$@"
+    LANG=de_DE@euro TERM=xterm "$BINARY" -c "source $HOME/.elvisrc" "$@"
   fi
 }
 
-if uname -s | grep Darwin > /dev/null ; then
+if [[ $(uname -s) == Darwin ]] ; then
   export BASH_SILENCE_DEPRECATION_WARNING=1
   export CLICOLOR=YES
 
