@@ -74,6 +74,11 @@ This function should only modify configuration layer settings."
                  js2-mode-show-parse-errors nil
                  js2-mode-show-strict-warnings nil
                  node-add-modules-path t)
+
+     (json :variables
+           json-backend 'lsp)
+     (llm-client :variables
+                 llm-client-enable-gptel t)
      (lua :variables
           lua-backend 'lsp
           lua-lsp-server 'lua-language-server
@@ -639,15 +644,16 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (global-centered-cursor-mode 1)
-  (setq gnutls-algorithm-priority
-          "SECURE192:+SECURE128:-VERS-ALL:+VERS-TLS1.2:%PROFILE_MEDIUM"
-          gnutls-min-prime-bits 2048
-          gnutl-verify-error t)
 
-  ; clipboard stuff
+  ;; clipboard stuff
   (setq select-enable-clipboard nil)
   (fset 'evil-visual-update-x-selection 'ignore)
   (xclip-mode 1)
+
+  (setq gptel-log-level 'debug)
+
+  (with-eval-after-load 'gptel
+    (setq gptel-backend (gptel-make-gh-copilot "Copilot" :stream t)))
 
   (define-key evil-normal-state-map (kbd "C-i") #'evil-jump-forward)
   (define-key evil-insert-state-map (kbd "C-h") 'delete-backward-char)
@@ -703,9 +709,10 @@ before packages are loaded."
 
   (add-to-list 'auto-mode-alist '("Jenkinsfile" . groovy-mode))
 
+  (add-to-list 'auto-mode-alist '("renovate\\.json5?\\'" . js-mode))
+
   (setq copilot-chat-frontend 'markdown)
   )
-
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
