@@ -423,19 +423,22 @@ fi
 
 alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \$_ while <>;'"
 
-# ruby / rails
-alias be='bundle exec'
-alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
-alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepare db:environment:set RAILS_ENV=test'
-
-# node
-
-install_node_dev() {
+install_local_dev() {
   (
     cd "$HOME/.node-tools" || return 1
     npm ci
   )
+
+  # renovate: datasource=pypi depName=mcp-server-git
+  MCP_GIT_VERSION="2026.1.14"
+
+  uv tool install "mcp-server-git==$MCP_GIT_VERSION" --force
 }
+
+# ruby / rails
+alias be='bundle exec'
+alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
+alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepare db:environment:set RAILS_ENV=test'
 
 # python
 export PYRIGHT_PYTHON_IGNORE_WARNINGS=1
