@@ -272,7 +272,7 @@ export SAM_CLI_TELEMETRY=0
 # Paths #
 #########
 
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/node_modules/bin:$HOME/go/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.node-tools/node_modules/.bin:$HOME/go/bin:$PATH"
 export SQLPATH="$HOME/.sqlplus"
 export NLS_LANG="ENGLISH_NEW ZEALAND.AL32UTF8"
 
@@ -431,7 +431,10 @@ alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepar
 # node
 
 install_node_dev() {
-  npm install -g import-js
+  (
+    cd "$HOME/.node-tools" || return 1
+    npm ci
+  )
 }
 
 # python

@@ -1,8 +1,9 @@
+bash/.node-tools/node_modules/
 emacs/.spacemacs.d/.spacemacs.env
 i3/.config/i3/config
+mutt/.mutt/account
 mutt/.mutt/cache/
 mutt/.mutt/lists
-mutt/.mutt/account
 vim/.config/
 vim/.local/
 vim/.vim/.netrwhist
