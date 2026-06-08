@@ -112,6 +112,7 @@ This function should only modify configuration layer settings."
      (svelte :variables svelte-backend 'lsp)
      syntax-checking
      terraform
+     toml
      (typescript :variables
                  typescript-fmt-tool 'prettier
                  typescript-backend 'lsp
