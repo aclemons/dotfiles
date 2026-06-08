@@ -95,7 +95,8 @@ This function should only modify configuration layer settings."
              python-backend 'lsp
              python-lsp-server 'pyright
              python-test-runner 'pytest
-             python-formatter 'black)
+             python-formatter 'ruff
+             python-enable-tools '(uv))
      (ruby :variables
            ruby-test-runner 'rspec
            ruby-version-manager 'rbenv
