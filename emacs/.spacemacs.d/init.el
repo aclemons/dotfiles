@@ -57,7 +57,6 @@ This function should only modify configuration layer settings."
              groovy-lsp-jar-path "~/.emacs.d/.cache/lsp/groovy-language-server-all.jar")
      html
      ;; helm
-     import-js
      (ivy :variables
           ivy-enable-advanced-buffer-information t
           ivy-wrap t)
@@ -116,7 +115,6 @@ This function should only modify configuration layer settings."
      (typescript :variables
                  typescript-fmt-tool 'prettier
                  typescript-backend 'lsp
-                 typescript-lsp-linter nil
                  typescript-linter 'eslint
                  typescript-indent-level 2)
      version-control
