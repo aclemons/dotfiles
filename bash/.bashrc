@@ -426,7 +426,7 @@ alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \
 install_local_dev() {
   (
     cd "$HOME/.node-tools" || return 1
-    npm ci
+    pnpm ci
   )
 
   # renovate: datasource=pypi depName=mcp-server-git
