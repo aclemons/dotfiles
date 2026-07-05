@@ -6,3 +6,6 @@ minimumReleaseAgeExclude:
   - '@vue/language-service@3.3.6'
   - '@vue/typescript-plugin@3.3.6'
   - vue-component-meta@3.3.6
+overrides:
+  minimatch@>=10.0.0 <10.2.1: ^10.2.1
+  minimatch@>=10.0.0 <10.2.3: ^10.2.3
