@@ -13,8 +13,8 @@ importers:
   .:
     devDependencies:
       '@modelcontextprotocol/server-filesystem':
-        specifier: 2026.1.14
-        version: 2026.1.14(zod@3.24.2)
+        specifier: 2026.7.4
+        version: 2026.7.4(zod@3.24.2)
       '@vue/language-server':
         specifier: 3.3.7
         version: 3.3.7(typescript@6.0.3)
@@ -91,8 +91,8 @@ packages:
       '@cfworker/json-schema':
         optional: true
 
-  '@modelcontextprotocol/server-filesystem@2026.1.14':
-    resolution: {integrity: sha512-bGAfu3fWRVeF10NxvPhFBDlRen6ExSx6YkKJzoVgQMNrbdVVV4okfGGQ3KBRu9ygXYfw5/N9ermHAJXA0uys+g==}
+  '@modelcontextprotocol/server-filesystem@2026.7.4':
+    resolution: {integrity: sha512-JwEaH4dRRzwcNMwX8WJVCJyXfFxXjFKdgwHxjQhFLhi02kszgyyj611LV9puBLDO1IiDQSCjfKFSPaemegnvwg==}
     hasBin: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -295,8 +295,8 @@ packages:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
 
-  diff@5.2.2:
-    resolution: {integrity: sha512-vtcDfH3TOjP8UekytvnHH1o1P4FcUdt4eQ1Y+Abap1tk/OB2MWQvcwS2ClCd1zuIhc3JKOx6p3kod8Vfys3E+A==}
+  diff@8.0.4:
+    resolution: {integrity: sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==}
     engines: {node: '>=0.3.1'}
 
   dunder-proto@1.0.1:
@@ -1011,13 +1011,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@modelcontextprotocol/server-filesystem@2026.1.14(zod@3.24.2)':
+  '@modelcontextprotocol/server-filesystem@2026.7.4(zod@3.24.2)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(zod@3.24.2)
-      diff: 5.2.2
+      diff: 8.0.4
       glob: 10.5.0
       minimatch: 10.2.5
-      zod-to-json-schema: 3.25.2(zod@3.24.2)
     transitivePeerDependencies:
       - '@cfworker/json-schema'
       - supports-color
@@ -1274,7 +1273,7 @@ snapshots:
 
   depd@2.0.0: {}
 
-  diff@5.2.2: {}
+  diff@8.0.4: {}
 
   dunder-proto@1.0.1:
     dependencies:
