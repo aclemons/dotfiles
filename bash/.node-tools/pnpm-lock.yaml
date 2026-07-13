@@ -13,8 +13,8 @@ importers:
   .:
     devDependencies:
       '@modelcontextprotocol/server-filesystem':
-        specifier: 2026.7.4
-        version: 2026.7.4(zod@3.24.2)
+        specifier: 2026.7.10
+        version: 2026.7.10(zod@3.24.2)
       '@vue/language-server':
         specifier: 3.3.7
         version: 3.3.7(typescript@6.0.3)
@@ -94,8 +94,8 @@ packages:
       '@cfworker/json-schema':
         optional: true
 
-  '@modelcontextprotocol/server-filesystem@2026.7.4':
-    resolution: {integrity: sha512-JwEaH4dRRzwcNMwX8WJVCJyXfFxXjFKdgwHxjQhFLhi02kszgyyj611LV9puBLDO1IiDQSCjfKFSPaemegnvwg==}
+  '@modelcontextprotocol/server-filesystem@2026.7.10':
+    resolution: {integrity: sha512-Mmjg4anFBD5OzbPnGJOA0jPPN8645ERhQk38HQLpSenx1ox9bfdPkmAzUnNjeQtqQGFLtKe13J20RtLBmUKMZA==}
     hasBin: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -1024,7 +1024,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@modelcontextprotocol/server-filesystem@2026.7.4(zod@3.24.2)':
+  '@modelcontextprotocol/server-filesystem@2026.7.10(zod@3.24.2)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.29.0(zod@3.24.2)
       diff: 8.0.4
