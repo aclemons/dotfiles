@@ -429,6 +429,7 @@ install_local_dev() {
     pnpm ci
   )
 
+  local MCP_GIT_VERSION
   # renovate: datasource=pypi depName=mcp-server-git
   MCP_GIT_VERSION="2026.1.14"
 

@@ -704,8 +704,8 @@ before packages are loaded."
   (setq lsp-file-watch-threshold 5000)
 
   (with-eval-after-load 'lsp-mode
-                        (add-to-list 'lsp-language-id-configuration '(python-mode . "typos"))
-(lsp-register-client
+    (add-to-list 'lsp-language-id-configuration '(python-mode . "typos"))
+    (lsp-register-client
      (make-lsp-client
       :new-connection (lsp-stdio-connection '("typos-lsp"))
       :major-modes '(prog-mode text-mode)
