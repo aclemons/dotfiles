@@ -449,17 +449,6 @@ clean_python_caches() {
   find . -name '*.pyc' -exec rm -rf {} +
 }
 
-update_pyright() {
-  if [[ $(uname -s) == Darwin ]] ; then
-    rm -rf /private/var/folders/cn/pfncnqhx063fvz8bnh532xw40000gq/T/pyright-*
-  else
-    rm -rf /tmp/pyright-*
-  fi
-
-  rm -rf "$HOME/.emacs.d/.cache/lsp/npm/pyright/"
-  rm -rf "$HOME/.cache/pyright-python"
-}
-
 # mac
 if [[ $(uname -s) == Darwin ]] ; then
   update_chromium() {
