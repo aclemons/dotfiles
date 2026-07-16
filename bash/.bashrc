@@ -441,6 +441,13 @@ alias be='bundle exec'
 alias bi='NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install'
 alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepare db:environment:set RAILS_ENV=test'
 
+# gh, copilot
+
+export COPILOT_AUTO_UPDATE=false
+
+# node
+export PNPM_CONFIG_UPDATE_NOTIFIER=false
+
 # python
 export PYRIGHT_PYTHON_IGNORE_WARNINGS=1
 
