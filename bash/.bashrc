@@ -445,6 +445,9 @@ alias rtdb='bundle exec rake db:environment:set db:drop db:create db:test:prepar
 
 export COPILOT_AUTO_UPDATE=false
 
+# glab
+export GLAB_CHECK_UPDATE=false
+
 # node
 export PNPM_CONFIG_UPDATE_NOTIFIER=false
 
