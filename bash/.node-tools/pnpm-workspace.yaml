@@ -1,11 +1,11 @@
 minimumReleaseAge: 10080 # 7 days
 minimumReleaseAgeExclude:
   - minimatch@10.2.1 || 10.2.3
-  - '@vue/language-core@3.3.6 || 3.3.7'
-  - '@vue/language-server@3.3.6 || 3.3.7'
-  - '@vue/language-service@3.3.6 || 3.3.7'
-  - '@vue/typescript-plugin@3.3.6 || 3.3.7'
-  - vue-component-meta@3.3.6 || 3.3.7
+  - '@vue/language-core@3.3.6 || 3.3.7 || 3.3.9'
+  - '@vue/language-server@3.3.6 || 3.3.7 || 3.3.9'
+  - '@vue/language-service@3.3.6 || 3.3.7 || 3.3.9'
+  - '@vue/typescript-plugin@3.3.6 || 3.3.7 || 3.3.9'
+  - vue-component-meta@3.3.6 || 3.3.7 || 3.3.9
   - '@modelcontextprotocol/server-filesystem@2026.7.4 || 2026.7.10'
 overrides:
   minimatch@>=10.0.0 <10.2.1: ^10.2.1
