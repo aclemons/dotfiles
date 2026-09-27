@@ -5,10 +5,10 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  minimatch@>=10.0.0 <10.2.1: ^10.2.1
-  minimatch@>=10.0.0 <10.2.3: ^10.2.3
-  zod: ^3.25.0
-  typescript: <7
+  minimatch@>=10.0.0 <10.2.1: 10.2.6
+  minimatch@>=10.0.0 <10.2.3: 10.2.6
+  zod: 3.25.76
+  typescript: 6.0.3
 
 importers:
 
@@ -84,7 +84,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@cfworker/json-schema': ^4.1.1
-      zod: ^3.25.0
+      zod: 3.25.76
     peerDependenciesMeta:
       '@cfworker/json-schema':
         optional: true
@@ -114,7 +114,7 @@ packages:
   '@volar/language-server@2.4.28':
     resolution: {integrity: sha512-NqcLnE5gERKuS4PUFwlhMxf6vqYo7hXtbMFbViXcbVkbZ905AIVWhnSo0ZNBC2V127H1/2zP7RvVOVnyITFfBw==}
     peerDependencies:
-      typescript: <7
+      typescript: 6.0.3
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -122,7 +122,7 @@ packages:
   '@volar/language-service@2.4.28':
     resolution: {integrity: sha512-Rh/wYCZJrI5vCwMk9xyw/Z+MsWxlJY1rmMZPsxUoJKfzIRjS/NF1NmnuEcrMbEVGja00aVpCsInJfixQTMdvLw==}
     peerDependencies:
-      typescript: <7
+      typescript: 6.0.3
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -133,7 +133,7 @@ packages:
   '@volar/typescript@2.4.28':
     resolution: {integrity: sha512-Ja6yvWrbis2QtN4ClAKreeUZPVYMARDYZl9LMEv1iQ1QdepB6wn0jTRxA9MftYmYa4DQ4k/DaSZpFPUfxl8giw==}
     peerDependencies:
-      typescript: <7
+      typescript: 6.0.3
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -160,7 +160,7 @@ packages:
     resolution: {integrity: sha512-5QvJ3bkUTyuRE7R4l0R+6Xl7Cq7INd95Hxm6bz3J0k9v+TjwKJKlnVeaW9X0fxTVrkcVBpSIKLQpAMlIOXeI9w==}
     hasBin: true
     peerDependencies:
-      typescript: <7
+      typescript: 6.0.3
 
   '@vue/language-service@3.3.11':
     resolution: {integrity: sha512-Y1PXr3nY315T5Eb05bBuxpf+IoPAe0JiGuUX2quFgRflnNViue4Z+wQo+yY6g4VrvEQhPhPT0dr/jKmGNtzIxQ==}
@@ -751,7 +751,7 @@ packages:
     resolution: {integrity: sha512-yTtM/BVT6hoyEYnDtaCyAtNhdNeS/mhTTABlBOdw3NNiRBUin3IznFJpgfjer4c6RYopiPjjQjc9VFhxVl1mLw==}
     peerDependencies:
       '@volar/language-service': ~2.4.0
-      typescript: <7
+      typescript: 6.0.3
     peerDependenciesMeta:
       '@volar/language-service':
         optional: true
@@ -811,7 +811,7 @@ packages:
   vue-component-meta@3.3.11:
     resolution: {integrity: sha512-fskQZaIFOifwB4x+/J24795yvezOJ1TKaqn97/4PHybyvXpDNdcKn3oTcPrw6HnNoZWe343A+TiCFOcFv1/SuQ==}
     peerDependencies:
-      typescript: <7
+      typescript: 6.0.3
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -830,7 +830,7 @@ packages:
   zod-to-json-schema@3.25.2:
     resolution: {integrity: sha512-O/PgfnpT1xKSDeQYSCfRI5Gy3hPf91mKVDuYLUHZJMiDFptvP41MSnWofm8dnCm0256ZNfZIM7DSzuSMAFnjHA==}
     peerDependencies:
-      zod: ^3.25.0
+      zod: 3.25.76
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
