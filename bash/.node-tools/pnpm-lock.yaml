@@ -24,8 +24,8 @@ importers:
         specifier: 5.8.1
         version: 5.8.1
       typescript-language-server:
-        specifier: 6.0.2
-        version: 6.0.2
+        specifier: 6.0.3
+        version: 6.0.3
 
 packages:
 
@@ -697,8 +697,8 @@ packages:
   typescript-auto-import-cache@0.3.6:
     resolution: {integrity: sha512-RpuHXrknHdVdK7wv/8ug3Fr0WNsNi5l5aB8MYYuXhq2UH5lnEB1htJ1smhtD5VeCsGr2p8mUDtd83LCQDFVgjQ==}
 
-  typescript-language-server@6.0.2:
-    resolution: {integrity: sha512-Ph7Ql+xkUJvMamnkh1h+aKP6HxLR7lrWIYkPn9/LZBkJdJZgtIj7OoVhkDYtQ7zFPTPmqZHOVXaUKGyz9M2q1Q==}
+  typescript-language-server@6.0.3:
+    resolution: {integrity: sha512-iAxKyLXRNbnxGfCGZ/j4ilAb0PSNommvTvcghF8B8sq5JFGDKEQwzNEFZ0KTYEwzcA7rtRa+2OPeouiFR8L5KA==}
     engines: {node: '>=22.22.2'}
     hasBin: true
 
@@ -762,11 +762,8 @@ packages:
     resolution: {integrity: sha512-yTtM/BVT6hoyEYnDtaCyAtNhdNeS/mhTTABlBOdw3NNiRBUin3IznFJpgfjer4c6RYopiPjjQjc9VFhxVl1mLw==}
     peerDependencies:
       '@volar/language-service': ~2.4.0
-      typescript: 6.0.3
     peerDependenciesMeta:
       '@volar/language-service':
-        optional: true
-      typescript:
         optional: true
 
   vscode-css-languageservice@6.3.10:
@@ -911,7 +908,7 @@ snapshots:
     dependencies:
       '@hono/node-server': 2.1.5(hono@4.13.14)
       ajv: 8.20.0
-      ajv-formats: 3.0.1
+      ajv-formats: 3.0.1(ajv@8.20.0)
       content-type: 1.0.5
       cors: 2.8.6
       cross-spawn: 7.0.6
@@ -1056,7 +1053,7 @@ snapshots:
       volar-service-json: 0.0.71(@volar/language-service@2.4.30(typescript@6.0.3))
       volar-service-pug: 0.0.71(typescript@6.0.3)
       volar-service-pug-beautify: 0.0.71(@volar/language-service@2.4.30(typescript@6.0.3))
-      volar-service-typescript: 0.0.71(@volar/language-service@2.4.30(typescript@6.0.3))(typescript@6.0.3)
+      volar-service-typescript: 0.0.71(@volar/language-service@2.4.30(typescript@6.0.3))
       vscode-html-languageservice: 5.6.2
       vscode-uri: 3.2.0
     transitivePeerDependencies:
@@ -1081,8 +1078,8 @@ snapshots:
 
   acorn@7.4.1: {}
 
-  ajv-formats@3.0.1:
-    dependencies:
+  ajv-formats@3.0.1(ajv@8.20.0):
+    optionalDependencies:
       ajv: 8.20.0
 
   ajv@8.20.0:
@@ -1610,7 +1607,7 @@ snapshots:
     dependencies:
       semver: 7.8.5
 
-  typescript-language-server@6.0.2:
+  typescript-language-server@6.0.3:
     dependencies:
       vscode-jsonrpc: 5.0.1
       vscode-languageserver-protocol: 3.18.5
@@ -1669,7 +1666,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  volar-service-typescript@0.0.71(@volar/language-service@2.4.30(typescript@6.0.3))(typescript@6.0.3):
+  volar-service-typescript@0.0.71(@volar/language-service@2.4.30(typescript@6.0.3)):
     dependencies:
       path-browserify: 1.0.1
       semver: 7.8.5
@@ -1679,7 +1676,6 @@ snapshots:
       vscode-uri: 3.2.0
     optionalDependencies:
       '@volar/language-service': 2.4.30(typescript@6.0.3)
-      typescript: 6.0.3
 
   vscode-css-languageservice@6.3.10:
     dependencies:
