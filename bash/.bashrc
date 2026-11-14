@@ -427,7 +427,7 @@ alias ansistrip="perl -e 'use Term::ANSIColor qw(colorstrip); print colorstrip \
 install_local_dev() {
   (
     cd "$HOME/.node-tools" || return 1
-    pnpm ci
+    pnpm install --no-frozen-lockfile --ignore-scripts
   )
 
   local MCP_GIT_VERSION
