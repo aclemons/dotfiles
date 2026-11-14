@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -11,7 +13,14 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f $userresources ] && /usr/bin/xrdb -merge $userresources
 [ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
 
-dbus-update-activation-environment DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
+if [ -z "$DEBUG_SESSION_BUS_ADDRESS" ] && [ -x /usr/bin/dbus-launch ] ; then
+  eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
+dbus-update-activation-environment --all
+
+eval "$(gnome-keyring-daemon --start --components=pkcs11,secrets)"
+export GNOME_KEYRING_CONTROL
 
 [ -x /usr/bin/vmware-user ] && /usr/bin/vmware-user
 [ -x /usr/bin/spice-vdagent ] && /usr/bin/spice-vdagent
@@ -30,8 +39,6 @@ fi
 # Start i3
 if [ -z "$DESKTOP_SESSION" ] && [ -x /usr/bin/ck-launch-session ]; then
   exec ssh-agent ck-launch-session dbus-launch --exit-with-session /usr/bin/i3
-elif [ -x /usr/bin/dbus-launch ]; then
-  exec ssh-agent dbus-launch --exit-with-session /usr/bin/i3
 else
   exec ssh-agent /usr/bin/i3
 fi

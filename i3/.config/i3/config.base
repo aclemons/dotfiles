@@ -198,6 +198,4 @@ exec dunst &
 exec st &
 exec --no-startup-id fcitx5 -d
 
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11 &
-
 workspace_layout tabbed
