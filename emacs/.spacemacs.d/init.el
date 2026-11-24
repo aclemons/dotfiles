@@ -719,6 +719,8 @@ before packages are loaded."
 
   (add-to-list 'auto-mode-alist '("renovate\\.json5?\\'" . js-mode))
 
+  (add-to-list 'auto-mode-alist '("\\.mts\\'" . typescript-mode))
+
   (setq copilot-chat-frontend 'markdown)
   )
 
