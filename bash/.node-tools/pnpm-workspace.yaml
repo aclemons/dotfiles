@@ -1,6 +1,1 @@
 minimumReleaseAge: 10080 # 7 days
-overrides:
-  minimatch@>=10.0.0 <10.2.1: 11.0.4
-  minimatch@>=10.0.0 <10.2.3: 11.0.4
-  zod: "3.25.76"
-  typescript: "6.0.3"
