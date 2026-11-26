@@ -12,7 +12,9 @@
   "devDependencies": {
     "@modelcontextprotocol/server-filesystem": "2.4.0",
     "@vue/language-server": "3.3.14",
+    "@vue/typescript-plugin": "3.3.14",
     "bash-language-server": "5.8.1",
+    "typescript": "^6.0.3",
     "typescript-language-server": "6.1.0"
   }
 }
