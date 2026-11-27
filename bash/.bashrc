@@ -710,3 +710,7 @@ if [ -e "$HOME/.sdkman/bin/sdkman-init.sh" ] ; then
   # shellcheck disable=SC1090,SC1091
   source "$HOME/.sdkman/bin/sdkman-init.sh"
 fi
+
+# Completion overrides
+_completion_loader pnpm 2>/dev/null
+complete -o default -o bashdefault -F _pnpm_completion pnpm
